@@ -1,7 +1,6 @@
 class SessionController < ApplicationController
   
-  def signup
-    
+  def signup 
   end
   
   def new
@@ -9,7 +8,7 @@ class SessionController < ApplicationController
     redirect_to home_url
   end
   
-  def create
+  def login
     user = User.find_by_username(params[:username])
     if user
       if user.authenticate(params[:password])
@@ -22,8 +21,7 @@ class SessionController < ApplicationController
     else
       flash[:notice] = "Username does not exist!"
       redirect_to root_url
-    end
-      
+    end  
   end
   
 end
