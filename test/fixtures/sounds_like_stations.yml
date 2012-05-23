@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sounds_like_id: 1
+  station_id: 1
+
+two:
+  sounds_like_id: 1
+  station_id: 1

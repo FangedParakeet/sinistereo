@@ -11,10 +11,47 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518032740) do
+ActiveRecord::Schema.define(:version => 20120523064710) do
+
+  create_table "album_genres", :force => true do |t|
+    t.integer  "album_id"
+    t.integer  "genre_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "album_stations", :force => true do |t|
+    t.integer  "album_id"
+    t.integer  "station_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "albums", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.datetime "date"
+    t.integer  "user_id"
+  end
+
+  create_table "artist_genres", :force => true do |t|
+    t.integer  "genre_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
+  create_table "genre_songs", :force => true do |t|
+    t.integer  "song_id"
+    t.integer  "genre_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "genre_stations", :force => true do |t|
+    t.integer  "genre_id"
+    t.integer  "station_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -25,10 +62,26 @@ ActiveRecord::Schema.define(:version => 20120518032740) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "show_stations", :force => true do |t|
+    t.integer  "show_id"
+    t.integer  "station_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "shows", :force => true do |t|
     t.string   "city"
     t.string   "country"
     t.string   "venue"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.datetime "date"
+    t.integer  "user_id"
+  end
+
+  create_table "song_stations", :force => true do |t|
+    t.integer  "song_id"
+    t.integer  "station_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -38,10 +91,26 @@ ActiveRecord::Schema.define(:version => 20120518032740) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "favourites"
+    t.integer  "user_id"
+    t.integer  "album_id"
+  end
+
+  create_table "sounds_like_stations", :force => true do |t|
+    t.integer  "sounds_like_id"
+    t.integer  "station_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "sounds_likes", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "station_users", :force => true do |t|
+    t.integer  "station_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -53,6 +122,13 @@ ActiveRecord::Schema.define(:version => 20120518032740) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "play"
+  end
+
+  create_table "user_sounds_likes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "sounds_like_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|

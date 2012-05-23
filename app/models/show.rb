@@ -1,5 +1,8 @@
 class Show < ActiveRecord::Base
-  attr_accessible :city, :country, :venue, :station_id
+  attr_accessible :city, :country, :venue, :date, :user_id
   
-  belongs_to :station
+  has_many :show_stations
+  has_many :stations, :through => :show_stations
+  
+  belongs_to :user
 end
