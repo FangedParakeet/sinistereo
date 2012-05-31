@@ -4,8 +4,17 @@ class SessionController < ApplicationController
   end
   
   def new
-    User.create(params)
-    redirect_to home_url
+    if User.find_by_username(params[:username])
+      flash[:notice] = "Sorry, username already exists!"
+      redirect_to signup_url
+    else
+      user = User.create(params)
+      if params[:artist][:is_artist] == "Yes"
+        Artist.create(params, user)
+      end
+      session[:user_id] = user.id
+      redirect_to home_url
+    end
   end
   
   def login
@@ -15,11 +24,11 @@ class SessionController < ApplicationController
         session[:user_id] = user.id
         redirect_to home_url
       else
-        flash[:notice] = "Wrong password!"
+        flash[:notice] = "Username or password is incorrect!"
         redirect_to root_url
       end
     else
-      flash[:notice] = "Username does not exist!"
+      flash[:notice] = "Username or password is incorrect!"
       redirect_to root_url
     end  
   end

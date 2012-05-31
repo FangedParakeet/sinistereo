@@ -15,10 +15,10 @@
   <% end %>
 </ul>
 <p><%= link_to "Create New Station", new_station_url %></p>
-<% if @is_artist %>
-  Welcome <%= @user.artist_name %>!
+<% if @artist %>
+  Welcome <%= @artist.name %>!
   <ul>
-    <% @user.albums.each do |album| %>
+    <% @artist.albums.each do |album| %>
       <li><%= album.name %></li>
         <ul>
           <% album.songs.each do |song| %>

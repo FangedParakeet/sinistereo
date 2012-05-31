@@ -8,7 +8,7 @@ class PageController < ApplicationController
   
   def home
     @stations = @user.stations
-    @is_artist = @user.is_artist
+    @artist = @user.artists.first
   end
   
   def show
