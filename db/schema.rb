@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523064710) do
+ActiveRecord::Schema.define(:version => 20120531015910) do
 
   create_table "album_genres", :force => true do |t|
     t.integer  "album_id"
@@ -32,14 +32,31 @@ ActiveRecord::Schema.define(:version => 20120523064710) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "date"
-    t.integer  "user_id"
+    t.integer  "artist_id"
   end
 
   create_table "artist_genres", :force => true do |t|
     t.integer  "genre_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "artist_id"
+  end
+
+  create_table "artist_sounds_likes", :force => true do |t|
+    t.integer  "artist_id"
+    t.integer  "sounds_like_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "artists", :force => true do |t|
+    t.string   "artist_name"
+    t.text     "bio"
+    t.string   "city"
+    t.string   "country"
     t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "genre_songs", :force => true do |t|
@@ -76,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20120523064710) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "date"
-    t.integer  "user_id"
+    t.integer  "artist_id"
   end
 
   create_table "song_stations", :force => true do |t|
@@ -91,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20120523064710) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "favourites"
-    t.integer  "user_id"
+    t.integer  "artist_id"
     t.integer  "album_id"
   end
 
@@ -124,23 +141,14 @@ ActiveRecord::Schema.define(:version => 20120523064710) do
     t.boolean  "play"
   end
 
-  create_table "user_sounds_likes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "sounds_like_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.string   "artist_name"
     t.text     "bio"
     t.string   "city"
     t.string   "country"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.boolean  "is_artist"
   end
 
 end

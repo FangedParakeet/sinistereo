@@ -1,0 +1,38 @@
+<h2>Stations</h2>
+<ul>
+  <% @stations.each do |station| %>
+    <li><%= station.name %>
+      <ul><%= form_tag select_station_url(station.id) do %>
+        <li><%= label_tag "Play?" %> (Currently <%= station.play %>)
+            <%= select "select#{station.id}", :play, ["On", "Off"] %></li>
+        <ul>
+          <li><%= submit_tag "Update Play"%></li>
+          <% end %>
+        </ul>
+        <li><%= link_to "Edit Station", edit_station_url(station.id) %></li>
+        <li><%= link_to "Delete Station", destroy_station_url(station.id), :method => :delete %></li>
+      </ul>
+  <% end %>
+</ul>
+<p><%= link_to "Create New Station", new_station_url %></p>
+<% if @is_artist %>
+  Welcome <%= @user.artist_name %>!
+  <ul>
+    <% @user.albums.each do |album| %>
+      <li><%= album.name %></li>
+        <ul>
+          <% album.songs.each do |song| %>
+            <li><%= song.name%></li>
+          <% end %>
+        </ul>
+    <% end %>
+  </ul>
+<% end %>
+<p><%= link_to "Add Song", new_song_url %></p>
+<p><%= link_to "Add Album", new_album_url %></p>
+<br>
+<br>
+<%= link_to "Listen", listen_url%>
+        
+    
+    

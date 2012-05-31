@@ -55,5 +55,12 @@ module SinistereoApp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    AWS::S3::Base.establish_connection!(
+      :access_key_id => 'AKIAJYZGIL7XQDK6MUUQ',
+      :secret_access_key => 'LhOKnUU/+oC+MUhv/+S2N0obSVdkWFKQ9thqa+0z'
+      )
+      
+    BUCKET = 'SinistereoApp'
   end
 end
