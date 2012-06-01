@@ -1,11 +1,7 @@
-<br><%= link_to "Start Listening", "..." %>
-<h2>Login</h2>
-<%= form_tag login_url do %>
-  <%= label_tag "Username:" %>
-  <%= text_field_tag "username" %>
-  <%= label_tag "Password:" %>
-  <%= password_field_tag "password" %>
-  <%= submit_tag "Enter" %>
-<% end %>
-<p>
-<%= link_to "Sign Up", signup_url %></p>
+<div class="main">
+<ul>
+<li><%= image_tag "sinistereo_new.png", size: "250x200" %></li>
+<li><%= link_to "Sign Up", signup_url %></li>
+<li>or</li>
+<li><label for="username"><strong>Sign In</strong></label></li>
+</ul>

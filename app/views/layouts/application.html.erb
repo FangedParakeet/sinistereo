@@ -5,15 +5,35 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-<div>
-  <h1>SINISTEREO</h1>
-  <%= flash[:notice] %>
-  <% if session[:user_id]%>
-    Welcome <%= @user.username %>! <%= link_to "Sign Out", logout_url, :method => :delete %>
-  <% end %>
-</div>
 </head>
+  
+<div class="container">
+<header>
+  <h1><%= image_tag "sinistereo_logo.png", size: "150x50" %></h1>
+  <ul>
+    <% if session[:user_id].nil?%>
+      <%= form_tag login_url do %>
+        <li><%= label_tag "username", "Username:" %>
+        <%= text_field_tag "username" %></li>
+        <li><%= label_tag "password", "Password:" %>
+        <%= password_field_tag "password" %></li>
+        <li><%= submit_tag "Enter" %></li>
+      <% end %>
+    <% else %> 
+    <li>Welcome <%= @user.username %>! </li>
+    <li><%= link_to "Sign Out", logout_url, :method => :delete %></li>
+  <% end %>
+  </ul>
+  
+  <div class="notice">
+  <%= flash[:notice] %>
+  </div>
+  <div class="clear"></div>
+</div>
+</header>
+
 <body>
+  
 
 <%= yield %>
 
