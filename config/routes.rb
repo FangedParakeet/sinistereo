@@ -1,13 +1,13 @@
 SinistereoApp::Application.routes.draw do
   
-  resources :users
+  resources :users 
 
   root :to => "pages#index"
   get "home" => "pages#home", :as => :home
   get "listen" => "pages#show", :as => :listen
   get "home/data" => "pages#data", :as => :data
   
-  post "home" => "sessions#login", :as => :login
+  get "signin" => "sessions#login", :as => :signin
   get "signup" => "sessions#signup", :as => :signup
   post "signup" => "sessions#new", :as => :new_user
   delete "logout" => "sessions#destroy", :as => :logout
