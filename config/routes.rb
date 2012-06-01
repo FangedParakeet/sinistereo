@@ -1,5 +1,7 @@
 SinistereoApp::Application.routes.draw do
   
+  resources :users
+
   root :to => "pages#index"
   get "home" => "pages#home", :as => :home
   get "listen" => "pages#show", :as => :listen
