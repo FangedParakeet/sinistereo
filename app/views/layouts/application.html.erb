@@ -5,17 +5,37 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-<div>
-  <h1>SINISTEREO</h1>
-  <%= flash[:notice] %>
-  <% if session[:user_id]%>
-    Welcome <%= @user.username %>! <%= link_to "Sign Out", logout_url, :method => :delete %>
-  <% end %>
-</div>
 </head>
 <body>
 
-<%= yield %>
+  <div id="container">
+    <header>
+    <h1><%= link_to "SINISTEREO", root_url %> </h1>
+    <nav>
+      <ul>
+        <% if session[:uid].present? %>
+          <li><%= link_to "View Profile", user_url(User.find_by_id(session[:iud])) %></li>
+          <li><%= link_to "Sign Out", sign_out_url %></li>
+        <% else %>
+          <li><%= link_to "Sing In", new_session_url %></li>
+          <li><%= link_to "Sign Up", new_user_url %></li>
+        <% end %>
+      </ul>
+    </nav>
+    <% if session[:uid].present? %>
+      <% user = User.find(session[:uid]) %>
+      <p> display_user(user) </p>
+    <% end %>
 
+    <div id="content">
+
+      <% if flash[:notice].present? %>
+        <p id="notice"><%= notice %></p>
+       <% end %>
+  
+      <%= yield %>
+     
+    </div>
+  </div>
 </body>
 </html>
