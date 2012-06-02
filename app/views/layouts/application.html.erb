@@ -22,10 +22,6 @@
         <% end %>
       </ul>
     </nav>
-    <% if session[:uid].present? %>
-      <% user = User.find(session[:uid]) %>
-      <p> display_user(user) </p>
-    <% end %>
 
     <div id="content">
 
