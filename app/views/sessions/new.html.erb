@@ -1,8 +1,8 @@
 <h1>Sign in</h2>
 
-<%= form_tag login_url do %>
-  <%= label_tag "Name:" %>
-  <%= text_field_tag "name" %>
+<%= form_tag signin_url do %>
+  <%= label_tag "Email:" %>
+  <%= text_field_tag "email" %>
   <%= label_tag "Password:" %>
   <%= password_field_tag "password" %>
   <%= submit_tag "Enter" %>

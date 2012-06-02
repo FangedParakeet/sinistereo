@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "Try again"
        render 'new'
     end
+  end
 
   def destroy
     reset_session
