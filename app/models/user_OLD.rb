@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   
   has_many :artists
   
+  
   has_many :station_users
   has_many :stations, :through => :station_users
   

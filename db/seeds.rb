@@ -11,6 +11,7 @@ if Rails.env.development?
   User.create!(:name => "Adam Admin",
                :email => "admin@admin.com",
                :password => "password",
+               :password_confirmation => "password",
                :user_type => "admin")
 
   10.times do |n|
@@ -20,6 +21,7 @@ if Rails.env.development?
     User.create!(:name => name,
                  :email => email,
                  :password => password,
+                 :password_confirmation => password,
                  :user_type => "band")
   end
   
@@ -30,6 +32,7 @@ if Rails.env.development?
     User.create!(:name => name,
                  :email => email,
                  :password => password,
+                 :password_confirmation => password,
                  :user_type => "listener")
   end
 

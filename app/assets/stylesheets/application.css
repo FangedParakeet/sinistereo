@@ -103,11 +103,11 @@ header h1 {
 	float: left;
 }
 
-header ul {
+nav ul {
 	float: right;
 }
 
-header li {
+nav li {
 	float: left;
 	font-size: 15px;
 	margin: 0px 5px;
