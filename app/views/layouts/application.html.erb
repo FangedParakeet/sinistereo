@@ -15,8 +15,11 @@
     </header>
     <nav>
       <ul>
-        <% if session[:uid].present? %>
-          <li><%= link_to "View Profile", users_url(User.find_by_id(session[:iud])) %></li>
+        <% if @user %>
+          <% if @user.user_type == "Band" %>
+            <li><%= link_to "Dashboard", artists_url(4) %></li>
+          <% end %>
+          <li><%= link_to "Account", users_url(@user.id) %></li>
           <li><%= link_to "Sign Out", signout_url %></li>
         <% else %>
           <li><%= link_to "Sign In", signin_url %></li>

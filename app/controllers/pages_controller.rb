@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
 
+  before_filter :require_login, :only => [:home, :data]
+
   def index
     if @user
       redirect_to home_url
@@ -7,8 +9,7 @@ class PagesController < ApplicationController
   end
   
   def home
-    @stations = @user.stations
-    @artist = @user.artists.first
+    @artist = @user.bands.first
   end
   
   def show
