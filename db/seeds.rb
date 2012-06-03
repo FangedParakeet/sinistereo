@@ -5,3 +5,33 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+if Rails.env.development?
+  User.destroy_all
+
+  User.create!(:name => "Adam Admin",
+               :email => "admin@admin.com",
+               :password => "password",
+               :user_type => "admin")
+
+  10.times do |n|
+    name = Faker::Name.name
+    email = "example-#{n+1}@myband.net"
+    password = "password"
+    User.create!(:name => name,
+                 :email => email,
+                 :password => password,
+                 :user_type => "band")
+  end
+  
+  20.times do |n|
+    name = Faker::Name.name
+    email = "example-#{n+1}@myband.net"
+    password = "password"
+    User.create!(:name => name,
+                 :email => email,
+                 :password => password,
+                 :user_type => "listener")
+  end
+
+  puts "Dev environment ready for use."
+end
