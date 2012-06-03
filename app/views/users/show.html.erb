@@ -1,16 +1,23 @@
-<p id="notice"><%= notice %></p>
-
+<div class="container">
 <table>
   <tr>
     <th>Name</th>
-    <th>User Type</th>
+    <% if @user.user_type == "Band" %>
+    <th>Band</th>
+    <% end %>
     <th></th>
   </tr>
 
   <tr>
-    <td><%= @user.name  %></td>
-    <td><%= @user.user_type  %></td>
-    <td><%= link_to 'Edit', edit_user_path(@user) %></td>
+    <td><%= @user.email  %></td>
+    <% if @user.user_type == "Band" %>
+      <% if @user.bands.first.name.nil? %>
+      <td><%= link_to "Unnamed!", artist_url(@user.bands.first.id) %></td>
+      <% else %>
+      <td><%= link_to "#{@user.bands.first.name}", artist_url(@user.bands.first.id) %></td>
+      <% end %>
+    <% end %>
+    <td><%= link_to 'Edit User Info', edit_user_path(@user) %></td>
   </tr>
 </table>
-
+</div>
