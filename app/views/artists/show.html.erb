@@ -1,0 +1,19 @@
+<div class="container">
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+
+  <tr>
+    <% if @artist.name.nil? %>
+    <td>Unnamed!</td>
+    <% end %>
+    <td><%= @artist.name  %></td>
+    <td><%= link_to 'Edit Artist Info', edit_artist_path(@artist) %></td>
+  </tr>
+</table>
+</div>
+
+<%= link_to 'Edit', edit_artist_path(@artist) %> |
+<%= link_to 'Back', artists_path %>
