@@ -11,3 +11,108 @@
  *= require_self
  *= require_tree .
 */
+
+/*** RESET ***/
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, hr, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+}
+a {
+  text-decoration: none;
+}
+*:focus {
+  outline: 1;
+}
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+input, select {
+  vertical-align: middle;
+}
+
+/***GLOBAL***/ 
+
+body {
+	background: #2BF5FF;
+}
+
+.container {
+	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding: 10px;
+	margin: 10px auto;
+	background: #ccc;
+	 -moz-border-radius: 5px;
+       -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+	width: 960px;
+    
+}
+
+.main {
+	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding: 20px;
+	margin: 10px auto;
+	background: #ccc;
+	 -moz-border-radius: 5px;
+       -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+	width: 960px;
+	
+}
+
+.main li {
+	margin: 10px auto;
+	width: 200px;
+}
+
+/***HEADER***/
+
+header h1 {
+	float: left;
+}
+
+nav ul {
+	float: right;
+}
+
+nav li {
+	float: left;
+	font-size: 15px;
+	margin: 0px 5px;
+}
+
+.clear {
+	clear: both;
+}

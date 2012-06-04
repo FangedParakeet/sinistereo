@@ -1,25 +1,4 @@
-<h2>Stations</h2>
-<ul>
-  <% @stations.each do |station| %>
-    <li><%= station.name %>
-      <ul><%= form_tag select_station_url(station.id) do %>
-        <li><%= label_tag "Play?" %> (Currently <%= station.play %>)
-            <%= select "select#{station.id}", :play, ["On", "Off"] %></li>
-        <ul>
-          <li><%= submit_tag "Update Play"%></li>
-          <% end %>
-        </ul>
-        <li><%= link_to "Edit Station", edit_station_url(station.id) %></li>
-        <li><%= link_to "Delete Station", destroy_station_url(station.id), :method => :delete %></li>
-      </ul>
-  <% end %>
-</ul>
-<br>
-<%= form_tag create_station_url do %>
-  <%= label_tag :station_type, "Create station:" %>
-  <%= text_field_tag :station_type, nil, :placeholder => "Enter an artist, genre, whatever...", data: {autocomplete_source: data_url} %>
-  <%= submit_tag "Enter" %>
-<% end %>
+<div class="main">
 <% if @artist %>
   Welcome <%= @artist.name %>!
   <ul>
@@ -33,11 +12,4 @@
     <% end %>
   </ul>
 <% end %>
-<p><%= link_to "Add Song", new_song_url %></p>
-<p><%= link_to "Add Album", new_album_url %></p>
-<br>
-<br>
-<%= link_to "Listen", listen_url%>
-        
-    
-    
+</div>

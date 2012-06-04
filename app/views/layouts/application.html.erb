@@ -7,21 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
 
   <div id="container">
     <header>
     <h1><%= link_to "SINISTEREO", root_url %> </h1>
+    </header>
     <nav>
       <ul>
-        <% if session[:uid].present? %>
-          <li><%= link_to "View Profile", users_url(User.find_by_id(session[:iud])) %></li>
+        <% if session[:uid] %>
+          <% if @user.user_type == "Band" %>
+            <li><%= link_to "Dashboard", artist_url(@user.bands.first) %></li>
+          <% end %>
+          <li><%= link_to "Account", user_url(@user.id) %></li>
           <li><%= link_to "Sign Out", signout_url %></li>
         <% else %>
           <li><%= link_to "Sign In", signin_url %></li>
-          <li><%= link_to "Sign Up", signup_url %></li>
+          <li><%= link_to "Sign Up", new_user_url %></li>
         <% end %>
       </ul>
     </nav>
+    </div>
+    <div class="clear"></div>
+    
 
     <div id="content">
 
@@ -30,8 +38,7 @@
        <% end %>
   
       <%= yield %>
-     
-    </div>
   </div>
 </body>
+
 </html>

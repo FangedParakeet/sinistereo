@@ -1,0 +1,30 @@
+<div class="main">
+<h2>Create Account</h2>
+<%= form_tag new_user_url do %>
+  <%= label_tag "Username:" %>
+  <%= text_field_tag "username" %>
+  <br>
+  <%= label_tag "Password:" %>
+  <%= password_field_tag "password1" %>
+  <br>
+  <%= label_tag "Confirm Password:" %>
+  <%= password_field_tag "password2" %>
+  <br>
+  <%= label_tag "City:" %>
+  <%= text_field_tag "city" %>
+  <br>
+  <%= label_tag "Country:" %>
+  <%= text_field_tag "country" %>
+  <br>
+  <%= label_tag "Artist?" %>
+  <%= select :artist, :is_artist, ["Yes", "No"] %>
+  <br>
+  <h3>If yes</h3>
+  <br>
+  <%= label_tag "Artist name:" %>
+  <%= text_field_tag "artist_name" %>
+  <br>
+  <br>
+  <%= submit_tag "Enter" %>
+<% end %>
+</div>

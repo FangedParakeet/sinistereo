@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class OldUser < ActiveRecord::Base
   attr_accessible :bio, :city, :country, :password, :password_confirmation, :username
   
   has_secure_password

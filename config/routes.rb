@@ -2,7 +2,10 @@ SinistereoApp::Application.routes.draw do
   
   resources :playlists, :songs, :users
 
+  resources :albums
+
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :artists
 
   get "signin" => "sessions#new", :as => :signin
   post "signin" => "sessions#create" 
@@ -10,7 +13,7 @@ SinistereoApp::Application.routes.draw do
   post "signup" => "users#new"
   get "logout" => "sessions#destroy", :as => :signout
   
-  #get "home" => "pages#home", :as => :home
+  get "home" => "pages#home", :as => :home
   #get "listen" => "pages#show", :as => :listen
   #get "home/data" => "pages#data", :as => :data
   

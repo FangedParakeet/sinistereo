@@ -1,5 +1,5 @@
 class Artist < ActiveRecord::Base
-  attr_accessible :name, :bio, :city, :country, :user_id
+  attr_accessible :name, :bio, :city, :country, :user_id, :state, :website
   
   has_many :songs
   has_many :albums
@@ -14,7 +14,7 @@ class Artist < ActiveRecord::Base
   has_many :artist_stations
   has_many :stations, :through => :artist_stations
   
-  belongs_to :user
+  belongs_to :linked_user, :class_name => 'User', :foreign_key => :user_id
   
   def self.create(params, user)
     create! do |artist|

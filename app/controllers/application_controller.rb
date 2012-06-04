@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_user
   
   def find_user
-    @user = User.find_by_id(session[:user_id])    
+    @user = User.find_by_id(session[:uid])    
   end
   
   def require_login

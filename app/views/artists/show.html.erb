@@ -1,0 +1,41 @@
+<div class="container">
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tr>
+    <% if @artist.name.nil? %>
+    <td>Unnamed!</td>
+    <% end %>
+    <td><%= @artist.name  %></td>
+    <td><%= link_to 'Edit Artist Info', edit_artist_path(@artist) %></td>
+  </tr>
+</table>
+<table>
+  <thead>
+  <tr>
+    <th>Albums</th>
+    <th></th>
+  </tr>
+  </thead>
+  <% @artist.albums.each do |album| %>
+    <tr>
+      <td> <%= album.name %></td>
+      <td><%= link_to 'Edit Album', edit_album_path(album) %></td>
+    </tr>
+      <% album.songs.each do |song, i| %>
+        <tr>
+          <td><%= i %></td>
+          <td><%= song.name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+</table>
+<%= link_to 'Add New Album', new_album_path %>
+</div>
+
+<%= link_to 'Back', root_url %>
