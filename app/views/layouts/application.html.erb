@@ -34,7 +34,7 @@
     <div id="content">
 
       <% if flash[:notice].present? %>
-        <p id="notice"><%= notice %></p>
+        <p id="notice"><%= flash[:notice] %></p>
        <% end %>
   
       <%= yield %>

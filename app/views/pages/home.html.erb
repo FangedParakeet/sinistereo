@@ -1,15 +1,7 @@
 <div class="main">
-<% if @artist %>
-  Welcome <%= @artist.name %>!
-  <ul>
-    <% @artist.albums.each do |album| %>
-      <li><%= album.name %></li>
-        <ul>
-          <% album.songs.each do |song| %>
-            <li><%= song.name%></li>
-          <% end %>
-        </ul>
-    <% end %>
-  </ul>
-<% end %>
+  Welcome<% if @user.name == nil %>
+  ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
+    <% else %> 
+     <%= @user.name %>
+    <% end %> 
 </div>

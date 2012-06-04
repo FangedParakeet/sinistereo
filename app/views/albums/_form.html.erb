@@ -10,6 +10,15 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :year %>
+    <%= f.select :year, (1980..2012).to_a.reverse! %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

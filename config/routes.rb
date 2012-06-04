@@ -1,5 +1,9 @@
 SinistereoApp::Application.routes.draw do
   
+  resources :shows
+
+  resources :songs
+
   resources :playlists, :songs, :users
 
   resources :albums

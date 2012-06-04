@@ -9,7 +9,6 @@ class PagesController < ApplicationController
   end
   
   def home
-    @artist = @user.bands.first
   end
   
   def show

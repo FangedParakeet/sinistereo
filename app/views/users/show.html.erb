@@ -1,14 +1,22 @@
 <div class="container">
 <table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <% if @user.user_type == "Band" %>
+      <th>Band</th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
   <tr>
-    <th>Name</th>
-    <% if @user.user_type == "Band" %>
-    <th>Band</th>
-    <% end %>
-    <th></th>
-  </tr>
-
-  <tr>
+    <td><% if @user.name.nil? %> 
+          Unnamed!
+        <% else %>
+          <%= @user.name %>
+        <% end %>
+    </td>
     <td><%= @user.email  %></td>
     <% if @user.user_type == "Band" %>
       <% if @user.bands.first.name.nil? %>
