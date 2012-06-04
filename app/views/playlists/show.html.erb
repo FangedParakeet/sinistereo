@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<%= @playlist.name %>
+<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<%= link_to 'Back', playlists_path %>
+
+<table>
+  <tr>
+    <th>Songs</th>
+    <th></th>
+  </tr>
+
+  <% @songs.each do |song| %>
+    <tr>
+     <td><%= song.name %></td>
+     <td><%= link_to 'Edit', edit_song_path(song) %></td>
+    </tr>
+  <% end %>
+</table>
+

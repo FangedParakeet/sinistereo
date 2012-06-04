@@ -1,6 +1,7 @@
 SinistereoApp::Application.routes.draw do
   
-  resources :users
+  resources :playlists, :songs, :users
+
   resources :sessions, :only => [:new, :create, :destroy]
 
   get "signin" => "sessions#new", :as => :signin

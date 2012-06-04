@@ -1,12 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 if Rails.env.development?
+
   User.destroy_all
+  Playlist.destroy_all
+  Song.destroy_all
+  PlaylistSong.destroy_all
 
   User.create!(:name => "Adam Admin",
                :email => "admin@admin.com",
@@ -33,5 +30,17 @@ if Rails.env.development?
                  :user_type => "listener")
   end
 
-  puts "Dev environment ready for use."
+  #make fake playlists
+  test_user = User.create!(:name => "Ted Tester", :email  => "tester@test.com", :password  => "password", :user_type => "listener")
+  3.times do |n|
+    my_playlist = Playlist.create!(:name => "My Test Playlist #{n+1}",
+                    :user_id => test_user.id)
+    #my_playlist = Playlist.create!(:name => "my_playlist", :user_id => test_user.id)
+    10.times do |n|
+      my_playlist.songs.create!(:name => "song #{n+1}")
+    end
+  end
+
+
+ puts "Dev environment ready for use."
 end
