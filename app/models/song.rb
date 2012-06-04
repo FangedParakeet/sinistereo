@@ -13,4 +13,13 @@ class Song < ActiveRecord::Base
   #added by BND for Playlist CRUD.
   has_many :playlist_songs
   has_many :playlists, :through => :playlist_songs
+  attr_accessible :votes
+
+  def self.billboard
+    Song.limit(50).order("votes desc")
+  end
+
+
+
+
 end

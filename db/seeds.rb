@@ -35,12 +35,15 @@ if Rails.env.development?
   3.times do |n|
     my_playlist = Playlist.create!(:name => "My Test Playlist #{n+1}",
                     :user_id => test_user.id)
-    #my_playlist = Playlist.create!(:name => "my_playlist", :user_id => test_user.id)
     10.times do |n|
       my_playlist.songs.create!(:name => "song #{n+1}")
     end
   end
 
+  #these songs are generated so we can simulare the playlist for the fake top rated songs
+    50.times do |n|
+      Song.create!(:name => "song #{n+1}", :votes  => 60) 
+    end
 
  puts "Dev environment ready for use."
 end

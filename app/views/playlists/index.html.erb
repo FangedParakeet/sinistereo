@@ -1,5 +1,5 @@
 <h1>Playlists</h1>
-
+d
 <table>
   <tr>
     <th>Name</th>
@@ -11,7 +11,7 @@
 <% @playlists.each do |playlist| %>
   <tr>
     <td><%= link_to playlist.name, playlist %></td>
-    <td><%= link_to playlist.user.name, user_path(playlist.user_id) %></td><!--change list to go to user's profile? -->
+    <td><%= link_to playlist.user.name, user_path(playlist.user_id) %></td>
     <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
     <td><%= link_to 'Delete', playlist, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

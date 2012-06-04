@@ -1,6 +1,6 @@
 class PlaylistsController < ApplicationController
 
-  def index
+  def index #should only be used by admins
     @playlists = Playlist.all
     respond_to do |format|
       format.html # index.html.erb
