@@ -1,5 +1,7 @@
 SinistereoApp::Application.routes.draw do
   
+  resources :albums
+
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :artists

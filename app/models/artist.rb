@@ -1,5 +1,5 @@
 class Artist < ActiveRecord::Base
-  attr_accessible :name, :bio, :city, :country, :user_id
+  attr_accessible :name, :bio, :city, :country, :user_id, :state, :website
   
   has_many :songs
   has_many :albums

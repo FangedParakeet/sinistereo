@@ -26,6 +26,7 @@ class UsersController < ApplicationController
       format.json { render json: @user }
     end
   end
+  
   def edit
     @user = User.find(params[:id])
   end
@@ -69,8 +70,6 @@ class UsersController < ApplicationController
 
   def update
     if @user.user_type == "Band"
-      @user = User.find(params[:id])
-
       respond_to do |format|
         if @user.update_attributes(params[:user])
           if @user.user_type == "Listener"
@@ -84,8 +83,6 @@ class UsersController < ApplicationController
         end
       end
     else
-      @user = User.find(params[:id])
-
       respond_to do |format|
         if @user.update_attributes(params[:user])
           if @user.user_type == "Band"
