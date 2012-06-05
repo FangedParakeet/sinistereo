@@ -63,7 +63,7 @@
   </thead>
   <% @artist.shows.each do |show| %>
     <tr>
-      <td> <%= show.date %></td>
+      <td> <%= show.date.strftime("%e/%m/%y %l:%M%p") %></td>
       <td><%= show.venue %></td>
       <td><%= show.city %></td>
       <td><%= show.country %></td>
