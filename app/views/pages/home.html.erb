@@ -3,8 +3,8 @@
   <ul>
   <% @playlists.each do |playlist| %>
     <li><%= playlist.name %> | 
-    <%= link_to "Edit Playlist", edit_playlist_path(playlist.id) %> | 
-    <%= link_to "Delete Playlist", playlist_path(playlist.id), :method => :delete %></li>
+    <%= link_to "Edit", edit_playlist_path(playlist.id) %> | 
+    <%= link_to "Delete", playlist_path(playlist.id), :method => :delete %></li>
   <% end %>
   </ul>
   <%= link_to "Add New Playlist", new_playlist_path %>
