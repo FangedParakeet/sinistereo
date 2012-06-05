@@ -35,12 +35,6 @@
       <td><%= link_to 'Delete Album', album_path(album.id), :method => :delete %></td>
       <td></td>
     </tr>
-    <% if album.songs.empty? %>
-      <td><%= link_to "Add Songs To Album", new_song_path %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    <% else %>
       <% album.songs.each do |song, i| %>
         <tr>
           <td><%= i %></td>
@@ -49,7 +43,12 @@
           <td><%= link_to "Delete Song", song_path(song.id), :method => :delete %></td>
         </tr>
       <% end %>
-    <% end %>
+      <tr>
+        <td></td>
+        <td><%= link_to "Add Song To Album", new_song_path %></td>
+        <td></td>
+        <td></td>
+      </tr>
   <% end %>
 </table>
 <%= link_to 'Add New Album', new_album_path %>
