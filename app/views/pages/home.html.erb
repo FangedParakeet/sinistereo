@@ -1,3 +1,15 @@
+<div class="sidebar">
+  <h2>Playlists</h2>
+  <ul>
+  <% @playlists.each do |playlist| %>
+    <li><%= playlist.name %> | 
+    <%= link_to "Edit Playlist", edit_playlist_path(playlist.id) %> | 
+    <%= link_to "Delete Playlist", playlist_path(playlist.id), :method => :delete %></li>
+  <% end %>
+  </ul>
+  <%= link_to "Add New Playlist", new_playlist_path %>
+</div>
+
 <div class="main">
   Welcome<% if @user.name == nil %>
   ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>

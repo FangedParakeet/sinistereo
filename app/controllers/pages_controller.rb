@@ -9,6 +9,7 @@ class PagesController < ApplicationController
   end
   
   def home
+    @playlists = @user.playlists
   end
   
   def show

@@ -10,7 +10,7 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist = Playlist.find(params[:id])
-    @songs = @playlist.songs.all
+    @songs = @playlist.songs
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @playlist }
@@ -32,9 +32,10 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = Playlist.new(params[:playlist])
+    @playlist.user_id = @user.id
     respond_to do |format|
       if @playlist.save
-        format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Playlist was successfully created.' }
         format.json { render json: @playlist, status: :created, location: @playlist }
       else
         format.html { render action: "new" }
@@ -45,10 +46,10 @@ class PlaylistsController < ApplicationController
 
   def update
     @playlist = Playlist.find(params[:id])
-    @songs = @playlist.songs.all
+    @songs = @playlist.songs
     respond_to do |format|
       if @playlist.update_attributes(params[:playlist])
-        format.html { redirect_to @playlist, notice: 'Playlist was successfully updated.' }
+        format.html { redirect_to root_url, notice: 'Playlist was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -62,7 +63,7 @@ class PlaylistsController < ApplicationController
     @playlist.destroy
 
     respond_to do |format|
-      format.html { redirect_to playlists_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

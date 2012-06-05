@@ -1,4 +1,14 @@
 class AlbumsController < ApplicationController
+  
+  before_filter :require_login
+  before_filter :correct_user, :only => [:show, :edit, :update, :destroy]
+  
+  def correct_user
+    if !@band.albums.include?(Album.find(params[:id]))
+      redirect_to root_url, notice: "You shouldn't be here!"
+    end
+  end
+  
   # GET /albums
   # GET /albums.json
   def index

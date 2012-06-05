@@ -78,17 +78,34 @@ body {
     
 }
 
-.main {
+.sidebar {
 	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding: 20px;
-	margin: 10px auto;
+	margin: 10px 10px 10px 60px;
+	float: left;
 	background: #ccc;
 	 -moz-border-radius: 5px;
        -o-border-radius: 5px;
   -webkit-border-radius: 5px;
           border-radius: 5px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-	width: 960px;
+	width: 160px;
+
+	
+}
+
+.main {
+	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding: 20px;
+	margin: 10px 60px 10px 10px;
+	float: right;
+	background: #ccc;
+	 -moz-border-radius: 5px;
+       -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+	width: 800px;
 	
 }
 
