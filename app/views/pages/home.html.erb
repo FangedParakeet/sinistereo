@@ -4,7 +4,13 @@
   <% @playlists.each do |playlist| %>
     <li><%= playlist.name %> | 
     <%= link_to "Edit", edit_playlist_path(playlist.id) %> | 
-    <%= link_to "Delete", playlist_path(playlist.id), :method => :delete %></li>
+    <%= link_to "Delete", playlist_path(playlist.id), :method => :delete %>
+      <ul>
+        <% playlist.songs.each do |song| %>
+          <li><%= song.name %></li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
   </ul>
   <%= link_to "Add New Playlist", new_playlist_path %>
@@ -15,5 +21,14 @@
   ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
     <% else %> 
      <%= @user.name %>
-    <% end %> 
+    <% end %>
+  <h2>Listen</h2>
+   <section id="audio">
+   </section>
+  <h2>Songs</h2>
+  <ul>
+    <% @songs.each do |song| %>
+      <li><%= link_to "#{song.name}", song.audio_url.to_s, :class => "html5" %></li>
+    <% end %>
+  </ul>
 </div>

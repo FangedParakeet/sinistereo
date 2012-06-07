@@ -1,5 +1,7 @@
 class Song < ActiveRecord::Base
-  attr_accessible :name, :favourites, :artist_id, :album_id
+  attr_accessible :name, :favourites, :artist_id, :album_id, :audio
+  
+  mount_uploader :audio, AudioUploader
   
   has_many :genre_songs
   has_many :genres, :through => :genre_songs
@@ -14,9 +16,9 @@ class Song < ActiveRecord::Base
   has_many :playlist_songs
   has_many :playlists, :through => :playlist_songs
   attr_accessible :votes
-
+  
   def self.billboard
-    Song.limit(50).order("votes desc")
+    self.limit(50).order("votes desc")
   end
 
 

@@ -10,6 +10,7 @@ class PagesController < ApplicationController
   
   def home
     @playlists = @user.playlists
+    @songs = Song.billboard
   end
   
   def show

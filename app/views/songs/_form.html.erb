@@ -1,4 +1,4 @@
-<%= form_for(@song) do |f| %>
+<%= form_for(@song, :html => {:multipart => true}) do |f| %>
   <% if @song.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
@@ -17,6 +17,10 @@
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :audio, "Upload a track" %>
+    <%= f.file_field :audio %>
   </div>
 
   <div class="actions">
