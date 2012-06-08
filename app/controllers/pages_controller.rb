@@ -60,7 +60,7 @@ class PagesController < ApplicationController
   end
 
   def destroy
-    @playlist_song = PlaylistSong.find(params[:id])
+    @playlist_song = PlaylistSong.find_by_id(params[:id])
     @playlist_song.destroy
     respond_to do |format|
       format.js

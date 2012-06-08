@@ -1,19 +1,19 @@
 <div class="sidebar">
   <h2>Playlists</h2>
-  <ul>
     <% @playlists.each do |playlist| %>
-      <li>
-        <%= playlist.name %> | 
-        <%= link_to "Edit", edit_playlist_path(playlist.id) %> | 
-        <%= link_to "Delete", playlist_path(playlist.id), :method => :delete %>
-        <ul class="playlist<%= playlist.id %>">
-          <% playlist.songs.each do |song| %>
-            <%= render 'songname', :song => song %>
-          <% end %>
-        </ul>
-      </li>
+    <table>
+      <thead>
+      <tr>
+        <th><%= playlist.name %></th>
+        <th><%= link_to "Edit", edit_playlist_path(playlist.id) %></th>
+        <th><%= link_to "Delete", playlist_path(playlist.id), :method => :delete %></th>
+      </tr>
+      </thead>
+      <% playlist.songs.each do |song| %>
+        <%= render 'songname', :song => song, :playlist => playlist %>
+      <% end %>
+    </table>
     <% end %>
-  </ul>
   <%= link_to "Add New Playlist", new_playlist_path %>
 </div>
 
