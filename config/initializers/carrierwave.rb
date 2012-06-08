@@ -1,4 +1,4 @@
-CarrierWave.configure do |config|
+CarrierWave.configure do |config|  
   config.fog_credentials = {
     :provider               => 'AWS',       # required
     :aws_access_key_id      => 'AKIAJYZGIL7XQDK6MUUQ',       # required

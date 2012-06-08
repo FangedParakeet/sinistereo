@@ -5,6 +5,8 @@ SinistereoApp::Application.routes.draw do
   resources :songs
 
   resources :playlists, :songs, :users
+  
+  resources :playlist_songs, :only => [:create, :update, :destroy]
 
   resources :albums
 
@@ -18,6 +20,8 @@ SinistereoApp::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => :signout
   
   get "home" => "pages#home", :as => :home
+  
+  resources :pages
   #get "listen" => "pages#show", :as => :listen
   #get "home/data" => "pages#data", :as => :data
   
