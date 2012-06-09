@@ -14,8 +14,10 @@ class ApplicationController < ActionController::Base
   end
 
   def setup_playlists
-    @main_playlist = Playlist.first  
-    @main_songs = @main_playlist.songs.all
+    #@main_playlist = Song.premium_blend #Playlist.first
+    #@premium_songs = @main_playlist.songs.all
+    @premium_songs = Song.premium_blend 
+
 
     if @user.present?
       @playlists = Playlist.find_all_by_user_id(@user.id)

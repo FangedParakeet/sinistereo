@@ -15,7 +15,7 @@ class Song < ActiveRecord::Base
   has_many :playlists, :through => :playlist_songs
   attr_accessible :votes
 
-  def self.billboard
+  def self.premium_blend
     Song.limit(50).order("votes desc")
   end
 
