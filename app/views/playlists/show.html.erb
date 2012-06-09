@@ -10,7 +10,7 @@
     <th></th>
   </tr>
 
-  <% @songs.each do |song| %>
+<% @songs.each do |song| %>
     <tr>
      <td><%= song.name %></td>
      <td><%= link_to 'Edit', edit_song_path(song) %></td>
@@ -18,3 +18,17 @@
   <% end %>
 </table>
 
+<div id='playlist'></div>
+#_playlist.html.erb
+<%= form_for @playlist, :remote => true  %>
+
+<li id="playlist_<%= playlist.id"%>
+
+<%= @playlist.name %>
+
+<% @songs.each do |song| %>
+    <ul>
+     <li><%= song.name %></td>
+    </ul>
+  <% end %>
+<%= text_field

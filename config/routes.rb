@@ -14,6 +14,9 @@ SinistereoApp::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => :signout
   
   get "home" => "pages#home", :as => :home
+  
+  ##Testing stuff. kill this get "/update_playlist" => 'pages#update_playlist'
+  
   #get "listen" => "pages#show", :as => :listen
   #get "home/data" => "pages#data", :as => :data
   

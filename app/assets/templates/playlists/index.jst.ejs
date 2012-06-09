@@ -1,0 +1,21 @@
+<h2> Here are your Playlists </h2>
+
+<form id="new-playlist">
+  <p>
+    <label for="new-playlist-name">Name</label>
+    <input name="new-playlist-name" id="new-playlist-name" type="text">
+  </p>
+<textarea name="new-playlist-content" id="new-playlist-content"></textarea>
+<input type="submit">
+</form><!-- #new-playlist -->
+
+<hr>
+
+<% for (var i = 0, len = playlists.models.length; i < len; i++) { %>
+  <div class="playlist">
+    <h3><%= playlists.models[i].get('name') %></h3>
+    <p><%= playlists.models[i].get('user_id') %></p>
+    <p><a href="#" class="remove-playlist" id=playlist.models[i].get('id') %>">Remove Playlist</a></p>
+  </div><!-- .post -->
+  <hr>
+<% } %>

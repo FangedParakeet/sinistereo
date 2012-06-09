@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
   has_many :bands, :class_name => 'Artist', :foreign_key => :user_id
   has_secure_password
   has_many :playlists
+
 end
