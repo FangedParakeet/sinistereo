@@ -3,18 +3,6 @@ class PagesController < ApplicationController
   before_filter :require_login, :only => [:home, :data]
 
   def index
-    @main_playlist = Playlist.first  
-    @main_songs = @main_playlist.songs.all
-
-    if @user.present?
-      #redirect_to home_url BND commented this out 
-      @playlists = Playlist.find_all_by_user_id(@user.id)
-    end
-    #@playlist = Playlist.all  
-    #@songs = Song.all
-    @playlist = Playlist.find(params[:id])
-    @songs = @playlist.songs.all
-
   end
   
   def home

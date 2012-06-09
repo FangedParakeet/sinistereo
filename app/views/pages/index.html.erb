@@ -19,24 +19,4 @@ $(document).ready(function(){
 
 </script>
 
-<div id='main_playlist'>
-<%= @main_playlist.name %>
-<% @main_songs.each do |m_s| %>
-  <ul>
-  <li><%= m_s.name %></td>
-  </ul>
-<% end %>
-</div>
-<div id='playlists'>
-  <% if @user.present? %>
-    <% @playlists.each do |playlist| %>
-        <li><%= link_to playlist.name, playlist_path(playlist.id)  %></li>
-        <% playlist.songs.each do |song| %>
-        <li><%= song.name %></li>
-    <% end %>
-      </ul>
-    <% end %>
-
-  <% end %>
-</div>
 
