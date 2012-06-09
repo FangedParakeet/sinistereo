@@ -12,14 +12,14 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, notice: "You must be logged in!"
     end
   end
+
   def setup_playlists
     @main_playlist = Playlist.first  
     @main_songs = @main_playlist.songs.all
 
     if @user.present?
-      #redirect_to home_url BND commented this out 
       @playlists = Playlist.find_all_by_user_id(@user.id)
     end
-
   end
+
 end
