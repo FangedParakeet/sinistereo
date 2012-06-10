@@ -21,6 +21,7 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.new
 
     respond_to do |format|
+      format.js
       format.html # new.html.erb
       format.json { render json: @playlist }
     end
@@ -35,6 +36,7 @@ class PlaylistsController < ApplicationController
     @playlist.user_id = @user.id
     respond_to do |format|
       if @playlist.save
+        format.js
         format.html { redirect_to root_url, notice: 'Playlist was successfully created.' }
         format.json { render json: @playlist, status: :created, location: @playlist }
       else
@@ -63,6 +65,7 @@ class PlaylistsController < ApplicationController
     @playlist.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to root_url }
       format.json { head :no_content }
     end

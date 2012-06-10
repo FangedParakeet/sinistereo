@@ -11,24 +11,13 @@ class PagesController < ApplicationController
   def home
     @playlists = @user.playlists
     @songs = Song.billboard
+    @playlist = Playlist.new
   end
   
   def show
     
   end
-  
-  def data
-    artists = Artist.order(:name).where("name like ?", "%#{params[:term]}%")
-    albums = Album.order(:name).where("name like ?", "%#{params[:term]}%")
-    genres = Genre.order(:name).where("name like ?", "%#{params[:term]}%")
-    @data = []
-    @data << artists
-    @data << albums
-    @data << genres
-    @data.flatten!
-    render json: @data.map(&:name)
-  end
-  
+    
   def create
     @playlist_song = PlaylistSong.new(params[:playlist_song])
     @playlist = Playlist.find_by_id(params[:playlist_song][:playlist_id])
@@ -61,6 +50,8 @@ class PagesController < ApplicationController
 
   def destroy
     @playlist_song = PlaylistSong.find_by_id(params[:id])
+    @playlist = @playlist_song.playlist
+    @song = @playlist_song.song
     @playlist_song.destroy
     respond_to do |format|
       format.js

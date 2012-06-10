@@ -1,0 +1,2 @@
+$(".song<%= j(@song.id.to_s) %>_in_list<%= j(@playlist.id.to_s) %>").hide();
+$(".song_dis<%= j(@song.id.to_s) %>").append("<%= j(render 'add_playlist_to_song', :song => @song, :playlist => @playlist) %>");
