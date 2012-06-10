@@ -8,10 +8,7 @@ class PagesController < ApplicationController
   def home
     @playlists = @user.playlists
     @songs = Song.billboard
-  end
-  
-  def show
-    
+    @playlist = Playlist.new
   end
   
   def data
@@ -26,10 +23,6 @@ class PagesController < ApplicationController
     render json: @data.map(&:name)
   end
   
-  def update_playlist
-    
-  end
-
   def create
     @playlist_song = PlaylistSong.new(params[:playlist_song])
     @playlist = Playlist.find_by_id(params[:playlist_song][:playlist_id])
@@ -62,6 +55,8 @@ class PagesController < ApplicationController
 
   def destroy
     @playlist_song = PlaylistSong.find_by_id(params[:id])
+    @playlist = @playlist_song.playlist
+    @song = @playlist_song.song
     @playlist_song.destroy
     respond_to do |format|
       format.js

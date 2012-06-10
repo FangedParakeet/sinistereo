@@ -1,0 +1,10 @@
+<%= form_for(@playlist) do |playlist| %>
+  <div class="field">
+      <%= playlist.label :name %><br />
+      <%= playlist.text_field :name %>
+  </div>
+
+   <div class="actions">
+    <%= playlist.submit %>
+  </div>
+<% end %>
