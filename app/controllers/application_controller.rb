@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_user, :setup_playlists 
 
   def find_user
-    @user = User.find_by_id(session[:uid])    
+    @user = User.find_by_id(session[:user_id]) if session[:user_id]
   end
   
   def require_login
@@ -14,11 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def setup_playlists
-    #@main_playlist = Song.premium_blend #Playlist.first
-    #@premium_songs = @main_playlist.songs.all
     @premium_songs = Song.premium_blend 
-
-
     if @user.present?
       @playlists = Playlist.find_all_by_user_id(@user.id)
     end
