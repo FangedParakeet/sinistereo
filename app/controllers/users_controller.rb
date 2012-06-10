@@ -69,42 +69,42 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.user_type == "Band"
-      respond_to do |format|
-        if @user.update_attributes(params[:user])
-          if @user.user_type == "Listener"
-            @user.bands.first.destroy
+      if @user.user_type == "Band"
+        respond_to do |format|
+          if @user.update_attributes(params[:user])
+            if @user.user_type == "Listener"
+              @user.bands.first.destroy
+            end
+            format.html { redirect_to @user, notice: 'User was successfully updated.' }
+            format.json { head :no_content }
+          else
+            format.html { render action: "edit" }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
           end
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      else
+        respond_to do |format|
+          if @user.update_attributes(params[:user])
+            if @user.user_type == "Band"
+              @artist = Artist.new
+              @artist.user_id = @user.id
+              if @artist.save
+                session[:uid] = @user.id
+                format.html { redirect_to @user, notice: 'User was successfully created.' }
+                format.json { render json: @user, status: :created, location: @user }
+              else
+                format.html { render action: "new" }
+                format.json { render json: @artist.errors, status: :unprocessable_entity }
+              end 
+            end
+            format.html { redirect_to @user, notice: 'User was successfully updated.' }
+            format.json { head :no_content }
+          else
+            format.html { render action: "edit" }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
         end
       end
-    else
-      respond_to do |format|
-        if @user.update_attributes(params[:user])
-          if @user.user_type == "Band"
-            @artist = Artist.new
-            @artist.user_id = @user.id
-            if @artist.save
-              session[:uid] = @user.id
-              format.html { redirect_to @user, notice: 'User was successfully created.' }
-              format.json { render json: @user, status: :created, location: @user }
-            else
-              format.html { render action: "new" }
-              format.json { render json: @artist.errors, status: :unprocessable_entity }
-            end 
-          end
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
-    end
   end
 
   def destroy

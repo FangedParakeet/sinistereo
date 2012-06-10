@@ -4,6 +4,8 @@
   <tr>
     <th>Name</th>
     <th></th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
 
@@ -13,6 +15,8 @@
     <% end %>
     <td><%= @artist.name  %></td>
     <td><%= link_to 'Edit Artist Info', edit_artist_path(@artist) %></td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 <table>
@@ -20,22 +24,57 @@
   <tr>
     <th>Albums</th>
     <th></th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
   <% @artist.albums.each do |album| %>
     <tr>
       <td> <%= album.name %></td>
-      <td><%= link_to 'Edit Album', edit_album_path(album) %></td>
+      <td><%= link_to 'Edit Album', edit_album_path(album.id) %></td>
+      <td><%= link_to 'Delete Album', album_path(album.id), :method => :delete %></td>
+      <td></td>
     </tr>
       <% album.songs.each do |song, i| %>
         <tr>
           <td><%= i %></td>
           <td><%= song.name %></td>
+          <td><%= link_to "Edit Song", edit_song_path(song.id) %></td>
+          <td><%= link_to "Delete Song", song_path(song.id), :method => :delete %></td>
         </tr>
       <% end %>
-    <% end %>
+      <tr>
+        <td></td>
+        <td><%= link_to "Add Song To Album", new_song_path %></td>
+        <td></td>
+        <td></td>
+      </tr>
+  <% end %>
 </table>
 <%= link_to 'Add New Album', new_album_path %>
+<table>
+  <thead>
+  <tr>
+    <th>Shows</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <% @artist.shows.each do |show| %>
+    <tr>
+      <td> <%= show.date.strftime("%e/%m/%y %l:%M%p") %></td>
+      <td><%= show.venue %></td>
+      <td><%= show.city %></td>
+      <td><%= show.country %></td>
+    </tr>
+    <tr>
+      <td><%= link_to "Edit Show", edit_show_path(show.id) %></td>
+      <td><%= link_to "Delete Show", show_path(show.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to 'Add New Show', new_show_path %>
 </div>
 
 <%= link_to 'Back', root_url %>

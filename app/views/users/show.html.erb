@@ -1,14 +1,22 @@
 <div class="container">
 <table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <% if @user.user_type == "Band" %>
+      <th>Band</th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
   <tr>
-    <th>Name</th>
-    <% if @user.user_type == "Band" %>
-    <th>Band</th>
-    <% end %>
-    <th></th>
-  </tr>
-
-  <tr>
+    <td><% if @user.name.nil? %> 
+          Unnamed!
+        <% else %>
+          <%= @user.name %>
+        <% end %>
+    </td>
     <td><%= @user.email  %></td>
     <% if @user.user_type == "Band" %>
       <% if @user.bands.first.name.nil? %>
@@ -26,14 +34,17 @@
   <tr>
     <th>Playlists</th>
     <th></th>
+    <th></th>
   </tr>
 
   <% @playlists.each do |playlist| %>
     <tr>
      <td><%= link_to playlist.name, playlist_path(playlist.id)  %></td>
      <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
+     <td><%= link_to 'Delete', playlist_path(playlist.id), :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
 </div>
+<%= link_to 'Back', root_url %>

@@ -1,5 +1,5 @@
 class Album < ActiveRecord::Base
-  attr_accessible :name, :date, :artist_id
+  attr_accessible :name, :year, :artist_id
   
   has_many :songs
   

@@ -10,6 +10,9 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20120607040424) do
+
   create_table "album_genres", :force => true do |t|
     t.integer  "album_id"
     t.integer  "genre_id"
@@ -28,7 +31,7 @@
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.datetime "date"
+    t.datetime "year"
     t.integer  "artist_id"
   end
 
@@ -85,6 +88,16 @@
     t.datetime "updated_at", :null => false
   end
 
+  create_table "old_users", :force => true do |t|
+    t.string   "username"
+    t.string   "password_digest"
+    t.text     "bio"
+    t.string   "city"
+    t.string   "country"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "playlist_songs", :force => true do |t|
     t.integer  "song_id"
     t.integer  "playlist_id"
@@ -98,15 +111,6 @@
     t.integer  "song_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-
-  create_table "old_users", :force => true do |t|
-    t.string   "username"
-    t.string   "password_digest"
-    t.text     "bio"
-    t.string   "city"
-    t.string   "country"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
   end
 
   create_table "show_stations", :force => true do |t|
@@ -141,6 +145,7 @@
     t.integer  "artist_id"
     t.integer  "album_id"
     t.integer  "votes",      :default => 0
+    t.string   "audio"
   end
 
   create_table "sounds_like_stations", :force => true do |t|

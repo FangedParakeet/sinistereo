@@ -1,15 +1,48 @@
+<div class="sidebar">
+  <h2>Playlists</h2>
+    <% @playlists.each do |playlist| %>
+    <table>
+      <thead>
+      <tr>
+        <th><%= playlist.name %></th>
+        <th><%= link_to "Edit", edit_playlist_path(playlist.id) %></th>
+        <th><%= link_to "Delete", playlist_path(playlist.id), :method => :delete %></th>
+      </tr>
+      </thead>
+      <% playlist.songs.each do |song| %>
+        <%= render 'songname', :song => song, :playlist => playlist %>
+      <% end %>
+    </table>
+    <% end %>
+  <%= link_to "Add New Playlist", new_playlist_path %>
+</div>
+
 <div class="main">
-<% if @artist %>
-  Welcome <%= @artist.name %>!
+  Welcome
+  <% if @user.name.nil? || @user.name.empty? %>
+    ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
+  <% else %> 
+     <%= @user.name %>
+  <% end %>
+  <h2>Listen</h2>
+   <section id="audio">
+   </section>
+  <h2>Songs</h2>
   <ul>
-    <% @artist.albums.each do |album| %>
-      <li><%= album.name %></li>
-        <ul>
-          <% album.songs.each do |song| %>
-            <li><%= song.name%></li>
+    <% @songs.each do |song| %>
+      <li><%= link_to "#{song.name}", song.audio_url.to_s, :class => "html5" %></li>
+        <ul> 
+          <% @playlists.each do |playlist| %>
+            <% if !playlist.songs.include?(song) %>
+            <li class="add_song<%= song.id %>_playlist<%= playlist.id %>">
+              <%= link_to "Add to #{playlist.name}", 
+              pages_url(playlist_song: {song_id: song.id, playlist_id:playlist.id}), 
+              :method => :post,
+              :remote => true %>
+            </li>
+            <% end %>
           <% end %>
         </ul>
     <% end %>
   </ul>
-<% end %>
 </div>

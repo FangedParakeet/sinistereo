@@ -1,6 +1,12 @@
 SinistereoApp::Application.routes.draw do
   
+  resources :shows
+
+  resources :songs
+
   resources :playlists, :songs, :users
+  
+  resources :playlist_songs, :only => [:create, :update, :destroy]
 
   resources :albums
 
@@ -15,8 +21,12 @@ SinistereoApp::Application.routes.draw do
   
   get "home" => "pages#home", :as => :home
   
+<<<<<<< HEAD
   ##Testing stuff. kill this get "/update_playlist" => 'pages#update_playlist'
   
+=======
+  resources :pages
+>>>>>>> 8d36d34d21503c9e8c23d67516560340ed6bfb9b
   #get "listen" => "pages#show", :as => :listen
   #get "home/data" => "pages#data", :as => :data
   

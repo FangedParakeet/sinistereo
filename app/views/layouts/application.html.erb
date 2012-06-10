@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
   <head>
     <title>Sinistereo</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -18,6 +19,16 @@
       });
     </script>
   </head>
+=======
+<head>
+  <title>Sinistereo</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" %>  
+  <%= javascript_include_tag "application.js" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+>>>>>>> 8d36d34d21503c9e8c23d67516560340ed6bfb9b
   
   <body>
 
@@ -46,6 +57,7 @@
     <div id="content">
 
       <% if flash[:notice].present? %>
+<<<<<<< HEAD
         <p id="notice"><%= notice %></p>
       <% end %>
 
@@ -98,5 +110,13 @@
         </main>
       </div>
     </body>
+=======
+        <p id="notice"><%= flash[:notice] %></p>
+       <% end %>
+  
+      <%= yield %>
+  </div>
+</body>
+>>>>>>> 8d36d34d21503c9e8c23d67516560340ed6bfb9b
 
   </html>

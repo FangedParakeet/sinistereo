@@ -1,4 +1,14 @@
 class AlbumsController < ApplicationController
+  
+  before_filter :require_login
+  before_filter :correct_user, :only => [:show, :edit, :update, :destroy]
+  
+  def correct_user
+    if !@band.albums.include?(Album.find(params[:id]))
+      redirect_to root_url, notice: "You shouldn't be here!"
+    end
+  end
+  
   # GET /albums
   # GET /albums.json
   def index
@@ -41,10 +51,11 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
     @album = Album.new(params[:album])
+    @album.artist_id = @band.id
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
+        format.html { redirect_to artist_path(@band.id), notice: 'Album was successfully created.' }
         format.json { render json: @album, status: :created, location: @album }
       else
         format.html { render action: "new" }
@@ -60,7 +71,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.update_attributes(params[:album])
-        format.html { redirect_to @album, notice: 'Album was successfully updated.' }
+        format.html { redirect_to artist_path(@band.id), notice: 'Album was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,10 +84,13 @@ class AlbumsController < ApplicationController
   # DELETE /albums/1.json
   def destroy
     @album = Album.find(params[:id])
+    @album.songs.each do |song|
+      song.destroy
+    end
     @album.destroy
 
     respond_to do |format|
-      format.html { redirect_to albums_url }
+      format.html { redirect_to artist_path(@band.id) }
       format.json { head :no_content }
     end
   end
