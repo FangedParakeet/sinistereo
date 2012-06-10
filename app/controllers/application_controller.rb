@@ -1,11 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :find_user
-  before_filter :find_band
+  before_filter :find_user, :setup_playlists,  :find_band
   
   def find_user
-    @user = User.find_by_id(session[:uid])    
+    @user = User.find_by_id(session[:user_id]) if session[:user_id]
   end
   
   def find_band
@@ -19,5 +18,12 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, notice: "You must be logged in!"
     end
   end
-  
+
+  def setup_playlists
+    @premium_songs = Song.premium_blend 
+    if @user.present?
+      @playlists = Playlist.find_all_by_user_id(@user.id)
+    end
+  end
+
 end

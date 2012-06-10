@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Sinistereo</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" %>  
-  <%= javascript_include_tag "application.js" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  
+  <head>
+    <title>Sinistereo</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <%= csrf_meta_tags %>
+    <script>
+      $(function() {
+        $( "#premium_blend" ).accordion();
+      });
+    </script>
+    <script>
+      $(function() {
+        $("#accordian").accordion();
+      });
+    </script>
+  </head>
+  <body>
 
-  <div id="container">
-    <header>
-    <h1><%= link_to "SINISTEREO", root_url %> </h1>
-    </header>
-    <nav>
+    <div id="container">
+      <header>
+      <h1><%= link_to "SINISTEREO", root_url %> </h1>
+      </header>
+      <nav>
       <ul>
         <% if session[:uid] %>
           <% if @user.user_type == "Band" %>
@@ -27,19 +37,62 @@
           <li><%= link_to "Sign Up", new_user_url %></li>
         <% end %>
       </ul>
-    </nav>
+      </nav>
     </div>
     <div class="clear"></div>
-    
 
     <div id="content">
 
       <% if flash[:notice].present? %>
-        <p id="notice"><%= flash[:notice] %></p>
-       <% end %>
-  
-      <%= yield %>
-  </div>
-</body>
+        <p id="notice"><%= notice %></p>
+      <% end %>
+
+      <aside>
+      <section>
+      <div id='premium_blend'>
+        <div>
+          <h3> Premium Blend </p>
+          </div>
+          <% @premium_songs.each do |song| %>
+            <ul>
+              <div>
+                <li><%= song.name %></li>
+              </div>
+            </ul>
+          <% end %>
+        </div>
+        </section>
+
+        <% if @user && @user.playlists.any? %>
+          <section>
+          <div id='accordian'>
+            <h2> My Playlists </h2>
+            <% @playlists.each do |playlist| %>
+              <ul>
+                <li><h3><%= link_to playlist.name, '#' %></h3></li>
+                <% playlist.songs.each do |song| %>
+                  <div>
+                    <ul>
+                      <li><%= song.name %></li>
+                    </ul>
+                  </div>
+                <% end %>
+              </ul>
+            <% end %>
+
+          <% end %>
+          </section>
+        </div>
+        </aside>
+
+        <div id='player'>
+          <%= link_to "Start Listening", "#", :id => 'start' %>
+          <br />
+          <%= link_to "Add Song to Favorites", '#' %>
+        </div>
+
+        <%= yield %>
+      </div>
+    </body>
 
 </html>

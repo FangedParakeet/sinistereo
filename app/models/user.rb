@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   has_many :bands, :class_name => 'Artist', :foreign_key => :user_id
   
   has_many :playlists
+
 end
