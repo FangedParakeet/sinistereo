@@ -169,3 +169,10 @@ playlists {
 playlists h2 {
   float: right;
 }
+/***acticle***/
+
+article { 
+ float: left;
+  margin: 20px 0 0 20px;
+  width: 300px;
+}
