@@ -1,12 +1,12 @@
-<table>
+<table class="playlist_dis<%= playlist.id %>">
   <thead>
-  <tr class="playlist_dis<%= playlist.id %>">
+  <tr>
     <th><%= playlist.name %></th>
     <th><%= link_to "Edit", edit_playlist_path(playlist.id) %></th>
     <th><%= link_to "Delete", playlist_path(playlist.id), :method => :delete, remote: true %></th>
   </tr>
   </thead>
-  <tbody>
+  <tbody class="playlist_<%= playlist.id %>">
   <% playlist.songs.each do |song| %>
     <%= render 'songname', :song => song, :playlist => playlist %>
   <% end %>

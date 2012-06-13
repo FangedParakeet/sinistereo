@@ -19,7 +19,6 @@ SinistereoApp::Application.routes.draw do
   post "signup" => "users#new"
   get "logout" => "sessions#destroy", :as => :signout
   
-  get "home" => "pages#home", :as => :home
   
   resources :pages
   #get "listen" => "pages#show", :as => :listen
@@ -45,7 +44,7 @@ SinistereoApp::Application.routes.draw do
   # delete "home/album/:id" => "albums#destroy", :as => :destroy_album
   # 
   
-  root :to => "pages#index"
+  root :to => "pages#home"
   
   match ':controller(/:action(/:id(.:format)))'
 end

@@ -5,13 +5,22 @@
   <div class="account"></div>
 </div>
 
-<div class="sidebar">
+<div class='sidebar'>
+  <h3> Premium Blend </h3>
+  <ul>          
+  <% @premium_songs.each do |song| %>
+    <li><%= song.name %></li>
+  <% end %>
+  </ul>
   <%= link_to "Add New Playlist", new_playlist_path, remote: true %>
-  <% unless @playlists.empty? %>
-    <h2>Playlists</h2>
-      <% @playlists.each do |playlist| %>
-      <%= render 'playlist_bar', playlist: playlist %>
-      <% end %>
+    
+  <% if @user && @user.playlists.any? %>
+    <% unless @playlists.empty? %>
+      <h2>Playlists</h2>
+        <% @playlists.each do |playlist| %>
+        <%= render 'playlist_bar', playlist: playlist %>
+        <% end %>
+    <% end %>
   <% end %>
 </div>
 
@@ -24,13 +33,23 @@
   <% end %>
   <h2>Listen</h2>
    <section id="audio">
+     <script type="text/javascript">
+        var tracks = <%= @songs.map {|song| song.audio.url } %>;
+        var n = tracks.length;
+        var i = 0;
+        var audioPlayer = document.
+        while(i<n) {
+          
+        }
+     </script>
    </section>
+  <section id="songs">
   <h2>Songs</h2>
   <ul>
     <% @songs.each do |song| %>
-      <li><%= link_to "#{song.name}", song.audio_url.to_s, :class => "html5" %></li>
+      <li><%= link_to "#{song.name}", song.audio.url.to_s, :class => "html5" %></li>
       <li>
-        <ul class="song_dis<%= song.id %>"> 
+        <ul class="song_dis<%= song.id %>" id="playlist">
           <% @playlists.each do |playlist| %>
             <% if !playlist.songs.include?(song) %>
             <%= render 'add_playlist_to_song', :song => song, :playlist => playlist %>
@@ -40,4 +59,5 @@
       </li>
     <% end %>
   </ul>
+  </section>
 </div>
