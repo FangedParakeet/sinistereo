@@ -1,39 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Sinistereo</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= stylesheet_link_tag    "player" %>
-    <%= javascript_include_tag "application" %>
-    <!--BND added 6/13, trying to do Zen player -->
-    <link rel="stylesheet" href="zen/style.css">
-	<link rel="stylesheet" href="zen/css/zen.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>   
-    <script type="text/javascript" src="zen/js/jquery.rotate.js"></script>
-    <script type="text/javascript" src="zen/js/jquery.grab.js"></script> 
-    <script type="text/javascript" src="zen/js/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="zen/js/zen.js"></script>	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/audio.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Chico's Vibe</title>
+<!-- InstanceEndEditable -->
+<link href="css /cv_main.css" rel="stylesheet" type="text/css" />
 
-    <!--Bold scripts-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-    <%= csrf_meta_tags %>
-    <script>
-      $(function() {
-        $( "#premium_blend" ).accordion();
-      });
-    </script>
-    <script>
-      $(function() {
-        $("#accordian").accordion();
-      });
-    </script>
-
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
-
-
+<!-- InstanceBeginEditable name="head" -->
+<link href="skin/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>-->
+<script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function(){
@@ -162,6 +140,7 @@ $(document).ready(function(){
 	var mediaPlaylist = new Playlist("1", [
 		{
 			name:"All Summer Long",
+			//free:true,
 			mp3:"audio/CV Originals/01 All Summer Long.mp3",
 			poster:"audio/CV Originals/CV_All-Summer-Long-cover.jpg"
 		},
@@ -191,101 +170,109 @@ $(document).ready(function(){
 });
 //]]>
 </script>
+<!-- InstanceEndEditable -->
+
+<!-- InstanceParam name="pagename" type="text" value="audioOriginals" -->
 
 
+</head>
 
-
-  </head>
-
-
-  <body>
-
-    <div id="container">
-      <header>
-      <h1><%= link_to "SINISTEREO", root_url %> </h1>
-      </header>
-      <nav>
-      <ul>
-        <% if @user.present? %>
-          <% if @user.user_type == "Band" %>
-            <li><%= link_to "Dashboard", artist_url(@user.bands.first) %></li>
-          <% end %>
-          <li><%= link_to "Account", user_url(@user.id) %></li>
-          <li><%= link_to "Sign Out", signout_url %></li>
-        <% else %>
-          <li><%= link_to "Sign In", signin_url %></li>
-          <li><%= link_to "Sign Up", new_user_url %></li>
-        <% end %>
-      </ul>
-      </nav>
+<body id="audioOriginals">
+<div id="container">
+<!--start header-->
+<div id="header">
+	<div id="logo"><a href="index.html"><img src="images/cv_logo.png" width="192" height="155" /></a></div>
+	<div id="cv_nav">
+    <ul style="padding-left:258px; margin:0px">
+      <li id="Home"><a href="index.html">Home</a></li>
+      <li id="About"><a href="About.html">About</a></li>
+      <li id="Audio"><a href="Audio.html">Audio</a></li>
+      <li id="Schedule"><a href="Schedule.html">Schedule</a></li>
+      <li id="Links"><a href="Links.html">Links</a></li>
+      <li id="Merchandise"><a href="Merchandise.html">Merhcandise</a></li>
+      <li id="MailingList"><a href="MailingList.html">Mailing List</a></li>
+    </ul>
     </div>
-    <div class="clear"></div>
+</div>
+<!--end header-->
 
-    <div id="content">
 
-      <% if flash[:notice].present? %>
-        <p id="notice"><%= notice %></p>
-      <% end %>
 
-      <aside>
-      <section>
-      <div id='premium_blend'>
-        <div>
-          <h3> Premium Blend </p>
-          </div>
-          <% @premium_songs.each do |song| %>
-            <ul>
-              <div>
-                <li><%= song.name %></li>
-              </div>
-            </ul>
-          <% end %>
-        </div>
-        </section>
 
-        <% if @user && @user.playlists.any? %>
-          <section>
-          <div id='accordian'>
-            <h2> My Playlists </h2>
-            <% @playlists.each do |playlist| %>
-              <ul>
-                <li><h3><%= link_to playlist.name, '#' %></h3></li>
-                <% playlist.songs.each do |song| %>
-                  <div>
-                    <ul>
-                      <li><%= song.name %></li>
-                    </ul>
-                  </div>
-                <% end %>
-              </ul>
-            <% end %>
+<div id="topContent">
 
-          <% end %>
-          </section>
-        </div>
-        </aside>
+</div>
 
-     <article>
+<!--start left column-->
+<div id="leftContent">
+	<div id="leftAudio">
+	  <h3>Albums</h3>
+		<blockquote>
+	    <a href="Audio_demos.html">Official Demos</a><br />
+	    <!--<a href="Audio_liveclips.html">Live Clips</a><br />-->
+	    <a href="Audio_originals.html">Original Recordings</a><br />
+	    </blockquote>
 
-	<div id="zen">
-		<span class="player"></span>
-		<span class="circle"></span>
-		<span class="progress"></span>
-		<span class="buffer"></span>
-		<span class="drag"></span>
-		<div class="button">
-			<span class="icon play"></span>
-			<span class="icon pause"></span>
-		</div>
+      <h3>Song List</h3>
+	  <blockquote>
+	    <a href="Audio_songlist.html">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="audio/CVSongList.pdf" target="_blank">Download</a><br />  
+      </blockquote><br /><br />
+      <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+    </div>
+    <br /><br />
+    <div id="contact"></div>
+</div>
+<!--end left column-->
+<!-- InstanceBeginEditable name="Audio_rightContent" -->
+
+<!--start right column-->
+<div id="rightContent">
+
+<div class="jp-video jp-video-270p">
+			<div class="jp-type-playlist">
+			  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+				<div id="jp_interface_1" class="jp-interface">
+					<!--<div class="jp-video-play"></div>-->
+					<ul class="jp-controls">
+						<li><a href="#" class="jp-play" tabindex="1">play</a></li>
+						<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>
+						<li><a href="#" class="jp-stop" tabindex="1">stop</a></li>
+						<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>
+						<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>
+						<li><a href="#" class="jp-previous" tabindex="1">previous</a></li>
+						<li><a href="#" class="jp-next" tabindex="1">next</a></li>
+					</ul>
+					<div class="jp-progress">
+						<div class="jp-seek-bar">
+							<div class="jp-play-bar"></div>
+						</div>
+					</div>
+					<div class="jp-volume-bar">
+						<div class="jp-volume-bar-value"></div>
+					</div>
+					<div class="jp-current-time"></div>
+					<div class="jp-duration"></div>
+				</div>
+                <div id="playlist-header"><div id="playlist-header-name">Name</div></div>
+				<div id="jp_playlist_1" class="jp-playlist">
+					<ul>
+						<!-- The method Playlist.displayPlaylist() uses this unordered list -->
+						<li></li>
+				  </ul>
+			  </div>
+			</div>
 	</div>
 
+</div>
+<!--end right column-->
+<!-- InstanceEndEditable -->
 
 
-      </article>
 
-        </div>
-        <%= yield %>
-      </div>
-    </body>
+<div id="footer"><br /><br />
+&copy;2011 Chico's Vibe LLC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow us <a href="http://www.facebook.com/pages/Chicos-Vibe-LLC/131996656849548?ref=ts" target="_blank"><img src="images/FB6.png" width="19" height="19" /></a>&nbsp;<a href="http://twitter.com/chicosvibe" target="_blank"><img src="images/twitter_box.png" width="19" height="19" /></a><br /><br /></div>
+<!--<div style="clear: both;"></div>-->
+</div>
 
-  </html>
+</body>
+<!-- InstanceEnd --></html>
