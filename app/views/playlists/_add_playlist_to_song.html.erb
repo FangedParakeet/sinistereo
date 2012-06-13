@@ -1,0 +1,6 @@
+<li class="add_song<%= song.id %>_playlist<%= playlist.id %>">
+  <%= link_to "Add to #{playlist.name}", 
+  pages_url(playlist_song: {song_id: song.id, playlist_id:playlist.id}), 
+  :method => :post,
+  :remote => true %>
+</li>

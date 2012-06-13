@@ -1,2 +1,2 @@
-$("tbody").append("<%= j(render 'songname', :song => @song, :playlist => @playlist) %>");
+$(".playlist_<%= j(@playlist.id.to_s) %>").append("<%= j(render 'songname', :song => @song, :playlist => @playlist) %>");
 $(".add_song<%= j(@song.id.to_s) %>_playlist<%= j(@playlist.id.to_s) %>").hide();

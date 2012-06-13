@@ -168,8 +168,19 @@ aside {
 }
 
 
-section {
+#audio {
   border: 1px solid #ccc;
+     -moz-border-radius: 5px;
+       -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  float: left;
+  margin: 20px 20px 0 0;
+  width: 260px;
+}
+
+#songs {
+	border: 1px solid #ccc;
      -moz-border-radius: 5px;
        -o-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -177,6 +188,7 @@ section {
   float: right;
   margin: 20px 20px 0 0;
   width: 260px;
+  
 }
 
 premium_blend {
@@ -196,6 +208,4 @@ article {
  float: left;
   margin: 20px 0 0 20px;
   width: 300px;
-}
-player {
 }

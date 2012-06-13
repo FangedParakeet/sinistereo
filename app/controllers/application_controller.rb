@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_user, :setup_playlists,  :find_band
   
   def find_user
-    @user = User.find_by_id(session[:user_id]) if session[:user_id]
+    @user = User.find_by_id(session[:uid]) if session[:uid]
   end
   
   def find_band
@@ -25,5 +25,5 @@ class ApplicationController < ActionController::Base
       @playlists = Playlist.find_all_by_user_id(@user.id)
     end
   end
-
+  
 end

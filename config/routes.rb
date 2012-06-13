@@ -19,7 +19,6 @@ SinistereoApp::Application.routes.draw do
   post "signup" => "users#new"
   get "logout" => "sessions#destroy", :as => :signout
   
-  get "home" => "pages#home", :as => :home
   
   resources :pages
   #get "listen" => "pages#show", :as => :listen

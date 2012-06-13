@@ -1,7 +1,7 @@
 class Song < ActiveRecord::Base
   attr_accessible :name, :favourites, :artist_id, :album_id, :audio
   
-  #mount_uploader :audio, AudioUploader
+  mount_uploader :audio, AudioUploader
   
   has_many :genre_songs
   has_many :genres, :through => :genre_songs

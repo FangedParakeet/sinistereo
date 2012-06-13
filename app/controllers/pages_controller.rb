@@ -3,11 +3,12 @@ class PagesController < ApplicationController
   before_filter :require_login, :only => [:home, :data]
 
   def index
+    @songs = Song.premium_blend
   end
   
   def home
     @playlists = @user.playlists
-    @songs = Song.billboard
+    @songs = Song.premium_blend
     @playlist = Playlist.new
   end
   
