@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @playlists = Playlist.find_all_by_user_id(params[:id])
     respond_to do |format|
+      format.js
       format.html # show.html.erb
       format.json { render json: @user }
     end
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
     @artist = Artist.new
 
     respond_to do |format|
+      format.js
       format.html # new.html.erb
       format.json { render json: @user }
     end

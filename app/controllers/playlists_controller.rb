@@ -63,7 +63,6 @@ class PlaylistsController < ApplicationController
   def destroy
     @playlist = Playlist.find(params[:id])
     @playlist.destroy
-
     respond_to do |format|
       format.js
       format.html { redirect_to root_url }

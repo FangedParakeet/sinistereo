@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Sinistereo</title>
+    <%= csrf_meta_tag %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <!--BND added 6/13, trying to do Zen player -->
@@ -26,13 +27,13 @@
       <ul>
         <% if @user %>
           <% if @user.user_type == "Band" %>
-            <li><%= link_to "Dashboard", artist_url(@user.bands.first) %></li>
+            <li><%= link_to "Dashboard", artist_url(@user.bands.first), remote: true %></li>
           <% end %>
-          <li><%= link_to "Account", user_url(@user.id) %></li>
+          <li><%= link_to "Account", user_url(@user.id), remote: true %></li>
           <li><%= link_to "Sign Out", signout_url %></li>
         <% else %>
-          <li><%= link_to "Sign In", signin_url %></li>
-          <li><%= link_to "Sign Up", new_user_url %></li>
+          <li><%= link_to "Sign In", signin_url, remote: true %></li>
+          <li><%= link_to "Sign Up", new_user_url, remote: true %></li>
         <% end %>
       </ul>
       </nav>
@@ -43,6 +44,15 @@
       
 
     <div id="content">
+      <div class="window">
+        <div class="new_playlist"></div>
+        <div class="edit_playlist"></div>
+        <div class="dashboard"></div>
+        <div class="account"></div>
+        <div class="signin"></div>
+        <div class="signup"></div>
+      </div>
+      
 
       <% if flash[:notice].present? %>
         <p id="notice"><%= notice %></p>
@@ -64,26 +74,22 @@
         </div>
         </section>
 
-        <% if @user && @user.playlists.any? %>
           <section>
-          <div id='accordian'>
-            <h2> My Playlists </h2>
-            <% @playlists.each do |playlist| %>
-              <ul>
-                <li><h3><%= link_to playlist.name, '#' %></h3></li>
-                <% playlist.songs.each do |song| %>
-                  <div>
-                    <ul>
-                      <li><%= song.name %></li>
-                    </ul>
-                  </div>
+            <% if @user %>
+            <%= link_to "Add New Playlist", new_playlist_path, remote: true %>
+              <div class="playlists">
+              <% if @user.playlists.any? %>
+                <% unless @playlists.empty? %>
+                  <h2>Playlists</h2>
+                    <% @playlists.each do |playlist| %>
+                    <%= render 'playlist_bar', playlist: playlist %>
+                    <% end %>
+                    </div>
                 <% end %>
-              </ul>
+              <% end %>
             <% end %>
-
-          <% end %>
+            
           </section>
-        </div>
         </aside>
 
      <article>

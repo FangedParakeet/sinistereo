@@ -9,7 +9,6 @@
 
 #zen .player {
 	/* With display: none; it doesn't work on iOS, below an alternative */
-	position: absolute;
 	width: 0;
 	height: 0;
 }
@@ -17,8 +16,6 @@
 
 #zen:before {
 	content: "";
-	position: absolute;
-	display: inline-block;
 	z-index: -1;
 	border-radius: 100px;
 	width: 150px;
@@ -34,8 +31,6 @@
 	background: 	    radial-gradient(50% 0 180deg, circle farthest-side, hsla(0,0%,50%,.05), hsla(0,0%,100%,.4) );
 }
 #zen {
-	display: inline-block;
-	position: relative;
 	padding: 2px;
 	border-radius: 100px;
 	width: 100px;
@@ -66,8 +61,6 @@
 /* button */
 
 #zen .button {	
-	position: absolute;
-	display: inline-block;
 	border: none;
 	border-radius: 50px;
 	width: 100px;
@@ -146,8 +139,6 @@
 /* icon */
 
 #zen .button .icon {
-	position: absolute;
-	display: inline-block;
 	top: 0;
 	width: 100px;
 	height: 100px;
@@ -188,8 +179,6 @@
 /* drag */
 
 #zen .drag {
-	display: block;
-	position: absolute;
 	width: 100px;
 	height: 100px;
 }
@@ -199,8 +188,6 @@
 /* buffer */
 
 #zen .buffer {
-	display: block;
-	position: absolute;
 	width: 100px;
 	height: 100px;
 	background: url(../img/buffer.png) no-repeat;
@@ -217,8 +204,6 @@
 /* progress */
 
 #zen .progress {
-	display: block;
-	position: absolute;
 	width: 100px;
 	height: 100px;
 	background: url(../img/progress.png) no-repeat;
@@ -233,8 +218,6 @@
 /* circle */
 
 #zen .circle {
-	display: block;
-	position: absolute;
 	width: 98px;
 	height: 98px;
 	margin: 1px;

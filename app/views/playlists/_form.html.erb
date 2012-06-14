@@ -1,3 +1,4 @@
+<div class="new_playlist">
 <%= form_for(@playlist, remote: true) do |playlist| %>
   <div class="field">
       <%= playlist.label :name %><br />
@@ -8,3 +9,4 @@
     <%= playlist.submit %>
   </div>
 <% end %>
+</div>

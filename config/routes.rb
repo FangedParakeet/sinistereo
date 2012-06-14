@@ -45,6 +45,7 @@ SinistereoApp::Application.routes.draw do
   # 
   
   root :to => "pages#index"
+
   
   match ':controller(/:action(/:id(.:format)))'
 end

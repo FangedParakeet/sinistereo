@@ -1,0 +1,48 @@
+<div class="account">
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <% if @user.user_type == "Band" %>
+      <th>Band</th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tr>
+    <td><% if @user.name.nil? %> 
+          Unnamed!
+        <% else %>
+          <%= @user.name %>
+        <% end %>
+    </td>
+    <td><%= @user.email  %></td>
+    <% if @user.user_type == "Band" %>
+      <% if @user.bands.first.name.nil? %>
+      <td><%= link_to "Unnamed!", artist_url(@user.bands.first.id) %></td>
+      <% else %>
+      <td><%= link_to "#{@user.bands.first.name}", artist_url(@user.bands.first.id) %></td>
+      <% end %>
+    <% end %>
+    <td><%= link_to 'Edit User Info', edit_user_path(@user) %></td>
+  </tr>
+</table>
+
+<br /> 
+<table>
+  <tr>
+    <th>Playlists</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @playlists.each do |playlist| %>
+    <tr>
+     <td><%= link_to playlist.name, playlist_path(playlist.id)  %></td>
+     <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
+     <td><%= link_to 'Delete', playlist_path(playlist.id), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
