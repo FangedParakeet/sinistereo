@@ -9,17 +9,27 @@ $(document).ready(function(){
 	
 	var player = $("#zen .player");
 		
-	player.jPlayer({
+	// player.jPlayer({
+	// 		ready: function () {
+	//       		$(this).jPlayer("setMedia", {
+	// 			mp3: "https://sinistereo.s3.amazonaws.com/uploads/song/audio/328/No_Time_For_Revenge_12.4.mp3" //#"audio/song.mp3",
+	//       		});
+	//     	},
+	//   	});  
+
+	function playSong(songUrl) {
+		player.jPlayer({
 			ready: function () {
-      		$(this).jPlayer("setMedia", {
-				mp3: "http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3" //#"audio/song.mp3",
-      		});
-    	},
-    	swfPath: "",
-		supplied: "mp3"         
-  	});  
-
-
+				$(this).jPlayer("setMedia", {
+					mp3: "" + songUrl
+				});
+			},
+			
+		});
+	};
+	
+	playSong("https://sinistereo.s3.amazonaws.com/uploads/song/audio/325/All_The_Voices_12.4.mp3");
+	
 
 
 	

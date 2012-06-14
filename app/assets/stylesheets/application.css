@@ -99,6 +99,19 @@ body {
 	display: none;
 }
 
+.field {
+	float: right;
+	clear: right;
+	margin: 10px 50px;
+}
+
+.actions {
+	float: right;
+	clear: right;
+	margin: 10px 50px;
+}
+
+
 .signin {
 	display: none;
 }
@@ -169,6 +182,7 @@ aside {
   margin: 20px 0 0 20px;
   background: -webkit-linear-gradient(top, #f4f4f4, #ddd);
   width: 300px;
+	overflow-y: scroll;
 }
 
 

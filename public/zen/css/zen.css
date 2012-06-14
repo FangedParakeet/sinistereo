@@ -10,6 +10,7 @@
 #zen .player {
 	/* With display: none; it doesn't work on iOS, below an alternative */
 	position: absolute;
+	margin: 10px 10px 10px 10px auto;
 	width: 0;
 	height: 0;
 }

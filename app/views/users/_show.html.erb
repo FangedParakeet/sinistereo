@@ -20,12 +20,12 @@
     <td><%= @user.email  %></td>
     <% if @user.user_type == "Band" %>
       <% if @user.bands.first.name.nil? %>
-      <td><%= link_to "Unnamed!", artist_url(@user.bands.first.id) %></td>
+      <td><%= link_to "Unnamed!", artist_url(@user.bands.first.id), target: "_blank" %></td>
       <% else %>
-      <td><%= link_to "#{@user.bands.first.name}", artist_url(@user.bands.first.id) %></td>
+      <td><%= link_to "#{@user.bands.first.name}", artist_url(@user.bands.first.id), target: "_blank" %></td>
       <% end %>
     <% end %>
-    <td><%= link_to 'Edit User Info', edit_user_path(@user) %></td>
+    <td><%= link_to 'Edit User Info', edit_user_path(@user), target: "_blank" %></td>
   </tr>
 </table>
 
@@ -39,8 +39,8 @@
 
   <% @playlists.each do |playlist| %>
     <tr>
-     <td><%= link_to playlist.name, playlist_path(playlist.id)  %></td>
-     <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
+     <td><%= link_to playlist.name, playlist_path(playlist.id), target: "_blank"  %></td>
+     <td><%= link_to 'Edit', edit_playlist_path(playlist), target: "_blank" %></td>
      <td><%= link_to 'Delete', playlist_path(playlist.id), :method => :delete %></td>
     </tr>
   <% end %>
