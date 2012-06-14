@@ -9,7 +9,8 @@
 
 #zen .player {
 	/* With display: none; it doesn't work on iOS, below an alternative */
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	margin: 10px 10px 10px 10px auto;
 	width: 0;
 	height: 0;
@@ -18,7 +19,8 @@
 
 #zen:before {
 	content: "";
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	display: inline-block;
 	z-index: -1;
 	border-radius: 100px;
@@ -36,7 +38,8 @@
 }
 #zen {
 	display: inline-block;
-	position: relative;
+	position: fixed;
+	bottom: 2%;
 	padding: 2px;
 	border-radius: 100px;
 	width: 100px;
@@ -52,6 +55,9 @@
 	cursor: 	-ms-grab;
 	cursor: 	 -o-grab;
 	cursor: 		grab;
+	position: fixed;
+	bottom: 2%;
+	
 }
 #zen.play:active {
 	cursor: -webkit-grabbing;
@@ -59,6 +65,8 @@
 	cursor: 	-ms-grabbing;
 	cursor: 	 -o-grabbing;
 	cursor: 		grabbing;
+	position: fixed;
+	bottom: 2%;
 }
 
 
@@ -67,7 +75,8 @@
 /* button */
 
 #zen .button {	
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	display: inline-block;
 	border: none;
 	border-radius: 50px;
@@ -109,6 +118,9 @@
 	background: #000     -ms-radial-gradient(50% 0 180deg, circle farthest-side, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, .28) 100%);
 	background: #000      -o-radial-gradient(50% 0 180deg, circle farthest-side, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, .28) 100%);
 	background: #000 	     radial-gradient(50% 0 180deg, circle farthest-side, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, .28) 100%);
+	position: fixed;
+	bottom: 2%;
+	
 
 	-webkit-box-shadow: inset rgba(0,0,0,0.5) 0 -4px 4px 1px, inset rgba(252,255,255,0.2) 0 6px 4px -2px, rgba(0,0,0,.6) 0 4px 4px 1px;	
 			box-shadow: inset rgba(0,0,0,0.5) 0 -4px 4px 1px, inset rgba(252,255,255,0.2) 0 6px 4px -2px, rgba(0,0,0,.6) 0 4px 4px 1px;	
@@ -118,6 +130,7 @@
 		-ms-transition: 	-ms-transform .2s cubic-bezier(0,.5,0,1), 	  -ms-border-radius 1s cubic-bezier(0,.5,0,1);
 		 -o-transition: 	 -o-transform .2s cubic-bezier(0,.5,0,1), 	   -o-border-radius 1s cubic-bezier(0,.5,0,1);
 			transition: 		transform .2s cubic-bezier(0,.5,0,1), 		  border-radius 1s cubic-bezier(0,.5,0,1);
+			
 }
 
 
@@ -127,6 +140,9 @@
 		-ms-transform:  scale(.5);	
 		 -o-transform:  scale(.5);	
 			transform:  scale(.5);	
+			position: fixed;
+			bottom: 2%;
+			
 }
 #zen.play .button {
 	border-radius: 30px;
@@ -135,6 +151,9 @@
 	    -ms-transform:  scale(.54);
 		 -o-transform:  scale(.54);
 			transform:  scale(.54);	
+			position: fixed;
+			bottom: 2%;
+			
 }
 
 
@@ -147,9 +166,9 @@
 /* icon */
 
 #zen .button .icon {
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	display: inline-block;
-	top: 0;
 	width: 100px;
 	height: 100px;
 }
@@ -161,6 +180,9 @@
 		-ms-transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
 		 -o-transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
 			transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
+			position: fixed;
+			bottom: 2%;
+			
 }
 #zen.play .button .play {
 	opacity: 0;
@@ -169,11 +191,17 @@
 		-ms-transition: none;
 		 -o-transition: none;
 			transition: none;
+			position: fixed;
+			bottom: 2%;
+			
 }
 
 #zen .button .icon.pause {
 	opacity: 0;	
 	background: url(../img/pause.png) no-repeat;
+	position: fixed;
+	bottom: 2%;
+	
 }
 #zen.play .button .pause {
 	opacity: 1;
@@ -182,6 +210,9 @@
 		-ms-transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
 		 -o-transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
 			transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
+			position: fixed;
+			bottom: 2%;
+			
 }
 
 
@@ -190,9 +221,11 @@
 
 #zen .drag {
 	display: block;
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	width: 100px;
 	height: 100px;
+	
 }
 
 
@@ -201,13 +234,18 @@
 
 #zen .buffer {
 	display: block;
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	width: 100px;
 	height: 100px;
 	background: url(../img/buffer.png) no-repeat;
+	
 }
 #zen .buffer.loaded {
 	opacity: 0;
+	position: fixed;
+	bottom: 2%;
+	
 	-webkit-transition: opacity .5s;
 	   -moz-transition: opacity .5s;	
 		-ms-transition: opacity .5s;	
@@ -219,7 +257,8 @@
 
 #zen .progress {
 	display: block;
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	width: 100px;
 	height: 100px;
 	background: url(../img/progress.png) no-repeat;
@@ -235,7 +274,8 @@
 
 #zen .circle {
 	display: block;
-	position: absolute;
+	position: fixed;
+	bottom: 2%;
 	width: 98px;
 	height: 98px;
 	margin: 1px;
@@ -269,6 +309,9 @@
 
 #zen.play .circle {
 	background-color: hsl(200,100%,60%);	
+	position: fixed;
+	bottom: 2%;
+	
 	
 	-webkit-transform: scale(1) rotate(0deg);
 	   -moz-transform: scale(1) rotate(0deg);
@@ -291,6 +334,9 @@
 
 
 #zen.play .circle.rotate {
+	position: fixed;
+	bottom: 2%;
+	
 	-webkit-animation: rotate 20s linear infinite;
 	   -moz-animation: rotate 20s linear infinite;
 	    -ms-animation: rotate 20s linear infinite;
