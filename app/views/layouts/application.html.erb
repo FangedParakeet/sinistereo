@@ -13,7 +13,9 @@
     <script type="text/javascript" src="zen/js/jquery.grab.js"></script> 
     <script type="text/javascript" src="zen/js/jquery.jplayer.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){    
+    
+        
+        $(document).ready(function(){    
 
         	var status = "stop";
       	var dragging = false;
@@ -37,13 +39,15 @@
       			ready: function () {
       				$(this).jPlayer("setMedia", {
       					mp3: "" + songUrl
-      				});
+      				}).jPlayer("play");
       			},
 
       		});
+      		status = "play";
+    			$("#zen").addClass( "play" );
       	};
 
-      	playSong("<%= j(@premium_songs.shuffle.first.audio.url.to_s) %>");
+      	playSong("<%= j(@current_song.audio.url.to_s) %>");
 
 
 
@@ -83,6 +87,8 @@
       		$("#zen").removeClass( "play" );
       		$('#zen .progress').css({rotate: '0deg'});
       		status = "stop";
+      		var sURL = unescape(window.location.pathname);
+      		window.location.href = sURL;
       	});
 
 
@@ -179,19 +185,12 @@
 
       		return pc;
       	}
-
-
-
-
-      });
-    </script>	
+    	});
+    	
+      </script>
   </head>
 
   <body>
-    <script type="text/javascript">
-    setSong();
-    </script>
-
     <div id="container">
       <header>
       <h1><%= link_to "SINISTEREO", root_url %> </h1>
@@ -266,6 +265,21 @@
             
           </section>
         </aside>
+        
+        <div class="main">
+          Welcome
+          <% if @user.name.nil? || @user.name.empty? %>
+            ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
+          <% else %> 
+             <%= @user.name %>
+          <% end %>
+          <h2>Now Playing</h2>
+          <ul>
+            <li><%= @current_song.name %></li>
+              <li><%= @current_song.album.artist.name %></li>
+              <li><%= @current_song.album.name %></li>
+          </ul>
+        </div>
 
      <article>
 

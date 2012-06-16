@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :find_user, :setup_playlists,  :find_band
+  before_filter :find_user, :setup_playlists, :find_band, :now_playing
   
   def find_user
     @user = User.find_by_id(session[:uid]) if session[:uid]
@@ -25,5 +25,9 @@ class ApplicationController < ActionController::Base
       @playlists = Playlist.find_all_by_user_id(@user.id)
     end
   end
+  
+  def now_playing
+    @current_song = @premium_songs.shuffle.first
+  end 
   
 end

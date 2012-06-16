@@ -77,7 +77,7 @@ class UsersController < ApplicationController
             if @user.user_type == "Listener"
               @user.bands.first.destroy
             end
-            format.html { redirect_to @user, notice: 'User was successfully updated.' }
+            format.html { redirect_to root_url, notice: 'User was successfully updated.' }
             format.json { head :no_content }
           else
             format.html { render action: "edit" }
