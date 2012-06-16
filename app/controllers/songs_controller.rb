@@ -80,4 +80,16 @@ class SongsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def upvote
+    
+  end
+  
+  def downvote
+    
+  end
+  
+  def favourite
+    
+  end
 end

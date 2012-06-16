@@ -278,6 +278,15 @@
             <li><%= @current_song.name %></li>
               <li><%= @current_song.album.artist.name %></li>
               <li><%= @current_song.album.name %></li>
+              <li><ul class="song_pref">
+                <li><%= link_to "Upvote", "#" %></li>
+                <li><%= link_to "Downvote", "#" %></li>
+                <li><%= link_to "Favourite", "#" %></li>
+                <% if !@playlists.empty? %>
+                  <% @playlists.each do |playlist| %>
+                    <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song %>
+                  <% end %>
+                <% end %>              
           </ul>
         </div>
 
