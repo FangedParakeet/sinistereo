@@ -223,7 +223,7 @@
       
 
     <div class="span4">
-        <div class="well sidebar-nav">
+        <div class="well sidebar-nav", id="bar">
           Welcome
           <% if @user %>
             <% if @user.name.nil? || @user.name.empty? %>
@@ -242,8 +242,8 @@
             <li><%= @current_song.album.name %></li>
               <% if @user %>
                 <ul class="nav nav-list" id="song_pref">
-                  <li class="upvote"><%= link_to "Upvote", upvote_url(@current_song.id), remote: true %></li>
-                  <li class="downvote"><%= link_to "Downvote", downvote_url(@current_song.id), remote: true %></li>
+                  <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.id), remote: true %></li>
+                  <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.id), remote: true %></li>
                   <% if !@playlists.empty? %>
                     <% @playlists.each do |playlist| %>
                       <% if !playlist.songs.include?(@current_song) %>
@@ -256,7 +256,7 @@
             </ul>         
       </div>
       
-      <div class="well sidebar-nav">
+      <div class="well sidebar-nav", id="bar">
           <h3> Top Songs </h3>
           <ul class="nav nav-list">
           <% @premium_songs.each do |song| %>
@@ -282,6 +282,7 @@
               
             <% end %>
       </div>
+      </div>
     </div>
     
     <div class="span4">
@@ -297,25 +298,29 @@
     		</div>
     	</div>
     	<div id="skip">
-    	  <button>
-    	<%= link_to "Next", root_url %>
+    	  <a href="<%= root_url %>">
+    	  <button class="btn-large btn-inverse">
+    	    <i class="icon-step-forward"></i>
     	</button>
+    	</a>
       </div>
     </div>
 
 
             
-      <div class="span4">
+      <div class="span4 offset4">
           <div class="well sidebar-nav" id="window">
+            <div class="content">
             <div class="new_playlist"></div>
             <div class="edit_playlist"></div>
             <div class="dashboard"></div>
             <div class="account"></div>
             <div class="signin"></div>
             <div class="signup"></div>
+            </div>
           </div>
         
-        <div class="well sidebar-nav">
+        <div class="well sidebar-nav", id="bar">
           <ul class="nav nav-list">
             <li><h2><%= @artist.name %></h2></li>
             <li><%= @artist.city %></li>
@@ -335,4 +340,4 @@
       </div>
     </body>
 
-  </html
+</html>

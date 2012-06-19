@@ -6,7 +6,7 @@
         <% else %>
           <%= @artist.name  %>
         <% end %></li>
-      <li><%= link_to 'Edit Artist Info', edit_artist_path(@artist), remote: true %></li>
+      <li><%= link_to image_tag('spanner.png', size: '15x20'), edit_artist_path(@artist), remote: true %></li>
   </ul><br />
   
   <ul class="nav nav-list">
@@ -14,14 +14,14 @@
     <ul class="nav nav-list">
     <% @artist.albums.each do |album| %>
       <li class="album_<%= album.id %>"><%= album.name %> |
-      <%= link_to 'Edit Album', edit_album_path(album.id), remote: true %> |
-      <%= link_to 'Delete Album', album_path(album.id), :method => :delete, remote: true %></li>
+      <%= link_to image_tag('spanner.png', size: '15x20'), edit_album_path(album.id), remote: true %> |
+      <%= link_to image_tag('axe.png', size:'15x20'), album_path(album.id), :method => :delete, remote: true %></li>
       <ul class="nav nav-list", id="album_<%= album.id %>">
         <% i = 1 %>
       <% album.songs.each do |song| %>
         <li class="song_<%= song.id %>"><%= i.to_s %>. <%= song.name %> |
-          <%= link_to "Edit Song", edit_song_path(song.id), remote: true %> |
-          <%= link_to "Delete Song", song_path(song.id), :method => :delete, remote: true %></li>
+          <%= link_to image_tag('spanner.png', size: '15x20'), edit_song_path(song.id), remote: true %> |
+          <%= link_to image_tag('axe.png', size:'15x20'), song_path(song.id), :method => :delete, remote: true %></li>
           <% i += 1 %>
       <% end %>
         <li><%= link_to "Add Song To Album", new_song_path, remote: true %></li>
@@ -39,8 +39,8 @@
           <li><%= show.venue %></li>
           <li><%= show.city %></li>
           <li><%= show.country %></li>
-          <li><%= link_to "Edit Show", edit_show_path(show.id), remote: true %></li>
-          <li><%= link_to "Delete Show", show_path(show.id), :method => :delete, remote: true %></li>
+          <li><%= link_to image_tag('spanner.png', size: '15x20'), edit_show_path(show.id), remote: true %></li>
+          <li><%= link_to image_tag('axe.png', size:'15x20'), show_path(show.id), :method => :delete, remote: true %></li>
       </ul><br />
     <% end %>
     </ul>

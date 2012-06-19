@@ -152,6 +152,7 @@
 	width: 100px;
 	height: 100px;
 }
+
 #zen .button .icon.play {
 	background: url(../img/play.png) no-repeat;
 
@@ -161,6 +162,7 @@
 		 -o-transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
 			transition: opacity 1s cubic-bezier(.5,.5,.5,1);	
 }
+
 #zen.play .button .play {
 	opacity: 0;
 	-webkit-transition: none;

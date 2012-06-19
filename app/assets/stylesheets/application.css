@@ -79,8 +79,20 @@ input, select {
 }
 */
 
+nav a {
+	color: #fff !important;
+	
+}
+
+nav a:hover {
+	background: #000 !important;
+	color: #960909 !important;
+}
+
 body {
 	background: url('wallpaper.jpg') no-repeat center center fixed;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	background-image: url('wallpaper.jpg');
 	background-repeat: no-repeat;
 	-webkit-background-size: cover;
@@ -88,6 +100,11 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 	
+}
+
+#bar {
+	background: rgba(255,255,255,0.4);
+	color: #000;
 }
 
 .head-container {
@@ -101,10 +118,24 @@ body {
 }
 
 
+#bar a {
+	color: #000 !important;
+	text-decoration: none;
+}
+
+
+
 #window {
 	overflow-y: scroll;
 	overflow-x: scroll;
 	display: none;
+	background: rgba(255,255,255,0.4);
+	color: #000;
+}
+
+#window a {
+	color: #000 !important;
+	text-decoration: none;
 }
 
 .new_playlist {
@@ -221,6 +252,12 @@ playlists h2 {
 .sidebar-nav {
     padding: 9px 0;
     position:center;,fpp
+}
+
+.span4 #skip {
+	position: fixed;
+	top: 65%;
+	left: 48%;
 }
 
 /* css for timepicker */
