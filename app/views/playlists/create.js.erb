@@ -1,3 +1,4 @@
-$(".window").slideToggle();
+$("#window").slideToggle();
 $(".new_playlist").toggle();
-$(".playlists").append("<%= j(render 'playlist_bar', :playlist => @playlist) %>");
+$(".playlists").append("<%= j(render 'playlist_bar', :playlist => @playlist, :song => @song) %>");
+$("#song_pref").append(("<%= j(render 'add_playlist_to_song', :song => @song, :playlist => @playlist) %>"))

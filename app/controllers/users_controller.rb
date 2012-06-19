@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  before_filter :require_login, :only => [:index, :show, :edit, :update, :destroy]
+  
   def index
     @users = User.all
 
@@ -31,6 +34,16 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
+    respond_to do |format|
+      if @user
+        format.js
+        format.html {redirect_to root_url}
+        format.json {render json: @user}
+      else
+        format.html {render action: "edit"}
+        format.json {render json: @user.errors}
+      end
+    end
   end
 
   def create
@@ -77,9 +90,11 @@ class UsersController < ApplicationController
             if @user.user_type == "Listener"
               @user.bands.first.destroy
             end
-            format.html { redirect_to root_url, notice: 'User was successfully updated.' }
+            format.js
+            format.html { redirect_to root_url }
             format.json { head :no_content }
           else
+            format.js
             format.html { render action: "edit" }
             format.json { render json: @user.errors, status: :unprocessable_entity }
           end
@@ -92,7 +107,8 @@ class UsersController < ApplicationController
               @artist.user_id = @user.id
               if @artist.save
                 session[:uid] = @user.id
-                format.html { redirect_to @user, notice: 'User was successfully created.' }
+                format.js
+                format.html { redirect_to @user }
                 format.json { render json: @user, status: :created, location: @user }
               else
                 format.html { render action: "new" }
@@ -102,6 +118,7 @@ class UsersController < ApplicationController
             format.html { redirect_to @user, notice: 'User was successfully updated.' }
             format.json { head :no_content }
           else
+            format.js
             format.html { render action: "edit" }
             format.json { render json: @user.errors, status: :unprocessable_entity }
           end

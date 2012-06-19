@@ -2,6 +2,9 @@ class StationsController < ApplicationController
   
   include ApplicationHelper
   
+  before_filter :require_login
+  
+  
   def new
   end
 

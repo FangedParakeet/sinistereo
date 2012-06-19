@@ -4,6 +4,10 @@
       <%= playlist.label :name %><br />
       <%= playlist.text_field :name %>
   </div>
+  
+  <div class="field">
+    <%= hidden_field_tag 'song', song %>
+  </div>
 
    <div class="actions">
     <%= playlist.submit %>

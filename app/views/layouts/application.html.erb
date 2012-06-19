@@ -7,12 +7,16 @@
     <%= javascript_include_tag "application" %>
     <!--BND added 6/13, trying to do Zen player -->
     <link rel="stylesheet" href="zen/style.css">
-	<link rel="stylesheet" href="zen/css/zen.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>   
+  	<link rel="stylesheet" href="zen/css/zen.css">
+  	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/swanky-purse/jquery-ui.css">
     <script type="text/javascript" src="zen/js/jquery.rotate.js"></script>
+    <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="zen/js/jquery.grab.js"></script> 
     <script type="text/javascript" src="zen/js/jquery.jplayer.min.js"></script>
+    
+  	
     <script type="text/javascript">
+    
     
         
         $(document).ready(function(){    
@@ -191,14 +195,10 @@
   </head>
 
   <body>
-    <div id="container">
-      <header>
-      <h1><%= link_to "SINISTEREO", root_url %> </h1>
-
-      </header>
-      
+    <div class="head-container">
+      <%= image_tag("sinistereo_logo.png", :size => "250x125") %>      
       <nav>
-      <ul>
+      <ul class="nav nav-pills">
         <% if @user %>
           <% if @user.user_type == "Band" %>
             <li><%= link_to "Dashboard", artist_url(@user.bands.first), remote: true %></li>
@@ -211,108 +211,128 @@
         <% end %>
       </ul>
       </nav>
-    </div>
-    <div class="clear"></div>
-    
-    <body>
-      
-
-    <div id="content">
-      <div class="window">
-        <div class="new_playlist"></div>
-        <div class="edit_playlist"></div>
-        <div class="dashboard"></div>
-        <div class="account"></div>
-        <div class="signin"></div>
-        <div class="signup"></div>
-      </div>
-      
-
       <% if flash[:notice].present? %>
         <p id="notice"><%= notice %></p>
       <% end %>
+      
+    </div>
+    <div class="clear"></div>
+    
+      
 
-      <aside>
-      <section>
-      <div id='premium_blend'>
-        <div>
-          <h3> Premium Blend </p>
-          </div>
-          <% @premium_songs.each do |song| %>
-            <ul>
-              <div>
-                <li><%= song.name %></li>
-              </div>
-            </ul>
+      
+
+    <div class="span4">
+        <div class="well sidebar-nav">
+          Welcome
+          <% if @user %>
+            <% if @user.name.nil? || @user.name.empty? %>
+              ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
+            <% else %> 
+               <%= @user.name %>
+            <% end %>
+          <% end %>!
+          <h2>Now Playing</h2>
+          <% if session[:playlist] %>
+            <h3>Playlist: <%= @current_playlist.name %></h3>
           <% end %>
-        </div>
-        </section>
+          <ul class="nav nav-list">
+            <li>"<%= @current_song.name %>"</li>
+            <li><strong><%= @current_song.artist.name %></strong></li>
+            <li><%= @current_song.album.name %></li>
+              <% if @user %>
+                <ul class="nav nav-list" id="song_pref">
+                  <li class="upvote"><%= link_to "Upvote", upvote_url(@current_song.id), remote: true %></li>
+                  <li class="downvote"><%= link_to "Downvote", downvote_url(@current_song.id), remote: true %></li>
+                  <% if !@playlists.empty? %>
+                    <% @playlists.each do |playlist| %>
+                      <% if !playlist.songs.include?(@current_song) %>
+                        <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song %>
+                      <% end %>
+                    <% end %>
+                  <% end %>  
+                </ul>
+              <% end %>   
+            </ul>         
+      </div>
+      
+      <div class="well sidebar-nav">
+          <h3> Top Songs </h3>
+          <ul class="nav nav-list">
+          <% @premium_songs.each do |song| %>
+                <li><%= link_to "#{song.name}", root_url(id: song.id, top: "Yes!") %></li>
+          <% end %>
+          </ul>
+        
 
-          <section>
             <% if @user %>
-            <%= link_to "Add New Playlist", new_playlist_path, remote: true %>
               <div class="playlists">
               <% if @user.playlists.any? %>
                 <% unless @playlists.empty? %>
                   <h2>Playlists</h2>
                     <% @playlists.each do |playlist| %>
-                    <%= render 'playlist_bar', playlist: playlist %>
+                    <%= render 'playlist_bar', playlist: playlist, song: @current_song %>
                     <% end %>
                     </div>
                 <% end %>
               <% end %>
+              <strong>
+              <%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %>
+              </strong>
+              
             <% end %>
+      </div>
+    </div>
+    
+    <div class="span4">
+    	<div id="zen">
+    		<span class="player"></span>
+    		<span class="circle"></span>
+    		<span class="progress"></span>
+    		<span class="buffer"></span>
+    		<span class="drag"></span>
+    		<div class="button">
+    			<span class="icon play"></span>
+    			<span class="icon pause"></span>
+    		</div>
+    	</div>
+    	<div id="skip">
+    	  <button>
+    	<%= link_to "Next", root_url %>
+    	</button>
+      </div>
+    </div>
+
+
             
-          </section>
-        </aside>
+      <div class="span4">
+          <div class="well sidebar-nav" id="window">
+            <div class="new_playlist"></div>
+            <div class="edit_playlist"></div>
+            <div class="dashboard"></div>
+            <div class="account"></div>
+            <div class="signin"></div>
+            <div class="signup"></div>
+          </div>
         
-        <div class="main">
-          Welcome
-          <% if @user.name.nil? || @user.name.empty? %>
-            ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
-          <% else %> 
-             <%= @user.name %>
-          <% end %>
-          <h2>Now Playing</h2>
-          <ul>
-            <li><%= @current_song.name %></li>
-              <li><%= @current_song.album.artist.name %></li>
-              <li><%= @current_song.album.name %></li>
-              <li><ul class="song_pref">
-                <li><%= link_to "Upvote", "#" %></li>
-                <li><%= link_to "Downvote", "#" %></li>
-                <li><%= link_to "Favourite", "#" %></li>
-                <% if !@playlists.empty? %>
-                  <% @playlists.each do |playlist| %>
-                    <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song %>
-                  <% end %>
-                <% end %>              
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li><h2><%= @artist.name %></h2></li>
+            <li><%= @artist.city %></li>
+            <li><%= @artist.state %></li>
+            <li><%= @artist.bio %></li>
+            <li><%= link_to @artist.website, "http://#{@artist.website}" %></li>
+            <li><h3>Shows</h3></li>
+            <ul class="nav nav-list">
+              <% @artist.shows.each do |show| %>
+              <li><strong><%= show.venue %></strong></li>
+              <li><%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
+              <li><%= show.city %></li><br />
+              <% end %>
+            </ul>
           </ul>
         </div>
-
-     <article>
-
-	<div id="zen">
-		<span class="player"></span>
-		<span class="circle"></span>
-		<span class="progress"></span>
-		<span class="buffer"></span>
-		<span class="drag"></span>
-		<div class="button">
-			<span class="icon play"></span>
-			<span class="icon pause"></span>
-		</div>
-	</div>
-
-
-
-      </article>
-
-        </div>
-        <%= yield %>
       </div>
-      
-      
     </body>
 
   </html

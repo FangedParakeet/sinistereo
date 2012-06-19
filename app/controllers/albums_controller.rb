@@ -37,6 +37,7 @@ class AlbumsController < ApplicationController
     @album = Album.new
 
     respond_to do |format|
+      format.js
       format.html # new.html.erb
       format.json { render json: @album }
     end
@@ -45,6 +46,11 @@ class AlbumsController < ApplicationController
   # GET /albums/1/edit
   def edit
     @album = Album.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html
+      format.json { render json: @album }
+    end
   end
 
   # POST /albums
@@ -55,9 +61,11 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to artist_path(@band.id), notice: 'Album was successfully created.' }
+        format.js
+        format.html { redirect_to root_url }
         format.json { render json: @album, status: :created, location: @album }
       else
+        format.js
         format.html { render action: "new" }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
@@ -71,9 +79,11 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.update_attributes(params[:album])
-        format.html { redirect_to artist_path(@band.id), notice: 'Album was successfully updated.' }
+        format.js
+        format.html { redirect_to artist_path(@band.id) }
         format.json { head :no_content }
       else
+        format.js
         format.html { render action: "edit" }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
@@ -84,12 +94,14 @@ class AlbumsController < ApplicationController
   # DELETE /albums/1.json
   def destroy
     @album = Album.find(params[:id])
+    @album_id = params[:id]
     @album.songs.each do |song|
       song.destroy
     end
     @album.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to artist_path(@band.id) }
       format.json { head :no_content }
     end

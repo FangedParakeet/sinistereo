@@ -1,0 +1,6 @@
+if(<%= @album.errors.messages.empty? %>) {
+	$("#window").slideToggle();
+}
+else {
+	$(".dashboard").append("<%= j(@album.errors.full_messages.first) %>");
+}

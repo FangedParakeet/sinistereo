@@ -1,0 +1,6 @@
+if(<%= @song.errors.messages.empty? %>) {
+	$("#window").slideToggle();
+}
+else {
+	$(".dashboard").append("<%= j(@song.errors.full_messages.first) %>");
+}

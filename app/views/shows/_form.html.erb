@@ -1,4 +1,10 @@
-<%= form_for(@show) do |f| %>
+<script>
+	$(function() {
+		$( "#datepicker" ).datetimepicker({altField: '#real_date', altFormat: 'yy-mm-dd', ampm: true});
+	});
+	</script>
+
+<%= form_for(@show, remote: true) do |f| %>
   <% if @show.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@show.errors.count, "error") %> prohibited this show from being saved:</h2>
@@ -25,7 +31,8 @@
   </div>
   <div class="field">
     <%= f.label :date %>
-    <%= f.datetime_select :date %>
+    <%= f.text_field :date, id: :datepicker %>
+    <%= hidden_field_tag :real_date  %>
   </div>
 
   <div class="actions">

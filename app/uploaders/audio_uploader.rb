@@ -8,9 +8,6 @@ class AudioUploader < CarrierWave::Uploader::Base
 
   process :set_content_type
 
-  def extension_white_list
-    %w(mp3 m4a)
-  end
   
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick

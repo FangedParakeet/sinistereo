@@ -1,0 +1,6 @@
+if(<%= @user.errors.messages.empty? %>) {
+	$("#window").slideToggle();
+}
+else {
+	$(".dashboard").append("<%= j(@artist.errors.full_messages.first) %>");
+}

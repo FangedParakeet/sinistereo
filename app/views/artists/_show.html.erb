@@ -1,78 +1,49 @@
 <div class="dashboard">
-  <table>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-
-    <tr>
-      <% if @artist.name.nil? %>
-      <td>Unnamed!</td>
-      <% end %>
-      <td><%= @artist.name  %></td>
-      <td><%= link_to 'Edit Artist Info', edit_artist_path(@artist), target: "_blank" %></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </table>
-  <table>
-    <thead>
-    <tr>
-      <th>Albums</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
+  <ul class="nav nav-list">
+      <li>Band name: 
+        <% if @artist.name.nil? %>
+          Unnamed!
+        <% else %>
+          <%= @artist.name  %>
+        <% end %></li>
+      <li><%= link_to 'Edit Artist Info', edit_artist_path(@artist), remote: true %></li>
+  </ul><br />
+  
+  <ul class="nav nav-list">
+    <li>Albums</li>
+    <ul class="nav nav-list">
     <% @artist.albums.each do |album| %>
-      <tr>
-        <td> <%= album.name %></td>
-        <td><%= link_to 'Edit Album', edit_album_path(album.id), target: "_blank" %></td>
-        <td><%= link_to 'Delete Album', album_path(album.id), :method => :delete %></td>
-        <td></td>
-      </tr>
-        <% album.songs.each do |song, i| %>
-          <tr>
-            <td><%= i %></td>
-            <td><%= song.name %></td>
-            <td><%= link_to "Edit Song", edit_song_path(song.id), target: "_blank" %></td>
-            <td><%= link_to "Delete Song", song_path(song.id), :method => :delete %></td>
-          </tr>
-        <% end %>
-        <tr>
-          <td></td>
-          <td><%= link_to "Add Song To Album", new_song_path, target: "_blank" %></td>
-          <td></td>
-          <td></td>
-        </tr>
+      <li class="album_<%= album.id %>"><%= album.name %> |
+      <%= link_to 'Edit Album', edit_album_path(album.id), remote: true %> |
+      <%= link_to 'Delete Album', album_path(album.id), :method => :delete, remote: true %></li>
+      <ul class="nav nav-list", id="album_<%= album.id %>">
+        <% i = 1 %>
+      <% album.songs.each do |song| %>
+        <li class="song_<%= song.id %>"><%= i.to_s %>. <%= song.name %> |
+          <%= link_to "Edit Song", edit_song_path(song.id), remote: true %> |
+          <%= link_to "Delete Song", song_path(song.id), :method => :delete, remote: true %></li>
+          <% i += 1 %>
+      <% end %>
+        <li><%= link_to "Add Song To Album", new_song_path, remote: true %></li>
+      </ul>
     <% end %>
-  </table>
-  <%= link_to 'Add New Album', new_album_path, target: "_blank" %>
-  <table>
-    <thead>
-    <tr>
-      <th>Shows</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <% @artist.shows.each do |show| %>
-      <tr>
-        <td> <%= show.date.strftime("%e/%m/%y %l:%M%p") %></td>
-        <td><%= show.venue %></td>
-        <td><%= show.city %></td>
-        <td><%= show.country %></td>
-      </tr>
-      <tr>
-        <td><%= link_to "Edit Show", edit_show_path(show.id), target: "_blank" %></td>
-        <td><%= link_to "Delete Show", show_path(show.id), :method => :delete %></td>
-      </tr>
+    </ul>
+    <li><%= link_to 'Add New Album', new_album_path, remote: true %></li>
+  </ul><br />
+  <ul class="nav nav-list">
+      <li>Shows</li>
+      <ul class="nav nav-list">
+      <% @artist.shows.each do |show| %>
+        <ul class="nav nav-list", id="show_<%= show.id %>">
+          <li> <%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
+          <li><%= show.venue %></li>
+          <li><%= show.city %></li>
+          <li><%= show.country %></li>
+          <li><%= link_to "Edit Show", edit_show_path(show.id), remote: true %></li>
+          <li><%= link_to "Delete Show", show_path(show.id), :method => :delete, remote: true %></li>
+      </ul><br />
     <% end %>
-  </table>
-  <%= link_to 'Add New Show', new_show_path, target: "_blank" %>
+    </ul>
+    <li><%= link_to 'Add New Show', new_show_path, remote: true %></li>
+  </ul>
 </div>

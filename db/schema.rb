@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120607040424) do
+ActiveRecord::Schema.define(:version => 20120617224641) do
 
   create_table "album_genres", :force => true do |t|
     t.integer  "album_id"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20120607040424) do
     t.integer  "album_id"
     t.integer  "votes",      :default => 0
     t.string   "audio"
+    t.integer  "user_id"
   end
 
   create_table "sounds_like_stations", :force => true do |t|

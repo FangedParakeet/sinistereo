@@ -1,6 +1,9 @@
 class ArtistsController < ApplicationController
   # GET /artists
   # GET /artists.json
+  
+  before_filter :require_login
+  
   def index
     @artists = Artist.all
 
@@ -36,6 +39,12 @@ class ArtistsController < ApplicationController
   # GET /artists/1/edit
   def edit
     @artist = Artist.find(params[:id])
+    
+    respond_to do |format|
+      format.js
+      format.html
+      format.json {render json: @artist}
+    end
   end
 
   # POST /artists
@@ -58,12 +67,15 @@ class ArtistsController < ApplicationController
   # PUT /artists/1.json
   def update
     @artist = Artist.find(params[:id])
+    flash[:notice] = "Updated!"
 
     respond_to do |format|
       if @artist.update_attributes(params[:artist])
-        format.html { redirect_to root_url, notice: 'Artist was successfully updated.' }
+        format.js
+        format.html { redirect_to root_url }
         format.json { head :no_content }
       else
+        format.js
         format.html { render action: "edit" }
         format.json { render json: @artist.errors, status: :unprocessable_entity }
       end

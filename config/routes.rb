@@ -13,12 +13,14 @@ SinistereoApp::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :artists
 
+  get "upvote/:id" => "songs#upvote", :as => :upvote
+  get "downvote/:id" => "songs#downvote", :as => :downvote
   get "signin" => "sessions#new", :as => :signin
   post "signin" => "sessions#create" 
   get "signup" => "users#new", :as => :signup
   post "signup" => "users#new"
   get "logout" => "sessions#destroy", :as => :signout
-  
+  get "play/:id" => "pages#index", :as => :play 
   
   resources :pages
   #get "listen" => "pages#show", :as => :listen
@@ -45,7 +47,7 @@ SinistereoApp::Application.routes.draw do
   # 
   
   root :to => "pages#index"
-
+  
   
   match ':controller(/:action(/:id(.:format)))'
 end

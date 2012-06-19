@@ -1,4 +1,6 @@
 class PlaylistsController < ApplicationController
+  
+  before_filter :require_login
 
   def index #should only be used by admins
     @playlists = Playlist.all
@@ -19,6 +21,7 @@ class PlaylistsController < ApplicationController
 
   def new
     @playlist = Playlist.new
+    @song = params[:song]
 
     respond_to do |format|
       format.js
@@ -34,6 +37,7 @@ class PlaylistsController < ApplicationController
   def create
     @playlist = Playlist.new(params[:playlist])
     @playlist.user_id = @user.id
+    @song = Song.find_by_id(params[:song])
     respond_to do |format|
       if @playlist.save
         format.js
@@ -63,6 +67,7 @@ class PlaylistsController < ApplicationController
   def destroy
     @playlist = Playlist.find(params[:id])
     @playlist.destroy
+    @song = Song.find_by_id(params[:song])
     respond_to do |format|
       format.js
       format.html { redirect_to root_url }

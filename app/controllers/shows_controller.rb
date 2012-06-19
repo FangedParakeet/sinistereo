@@ -1,6 +1,9 @@
 class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
+  
+  before_filter :require_login
+  
   def index
     @shows = Show.all
 
@@ -27,6 +30,7 @@ class ShowsController < ApplicationController
     @show = Show.new
 
     respond_to do |format|
+      format.js
       format.html # new.html.erb
       format.json { render json: @show }
     end
@@ -35,19 +39,29 @@ class ShowsController < ApplicationController
   # GET /shows/1/edit
   def edit
     @show = Show.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html
+      format.json {render json: @show}
+    end
   end
 
   # POST /shows
   # POST /shows.json
   def create
-    @show = Show.new(params[:show])
+    @show = Show.new(venue: params[:show][:venue], 
+                    city: params[:show][:city], 
+                    country: params[:show][:country], 
+                    date: params[:real_date])
     @show.artist_id = @band.id
 
     respond_to do |format|
       if @show.save
-        format.html { redirect_to artist_path(@band.id), notice: 'Show was successfully created.' }
+        format.js
+        format.html { redirect_to root_url }
         format.json { render json: @show, status: :created, location: @show }
       else
+        format.js
         format.html { render action: "new" }
         format.json { render json: @show.errors, status: :unprocessable_entity }
       end
@@ -58,12 +72,18 @@ class ShowsController < ApplicationController
   # PUT /shows/1.json
   def update
     @show = Show.find(params[:id])
+    @show.venue = params[:show][:venue]
+    @show.city = params[:show][:city]
+    @show.country = params[:show][:country]
+    @show.date = params[:real_date]
 
     respond_to do |format|
-      if @show.update_attributes(params[:show])
-        format.html { redirect_to artist_path(@band.id), notice: 'Show was successfully updated.' }
+      if @show.save
+        format.js
+        format.html { redirect_to root_url }
         format.json { head :no_content }
       else
+        format.js
         format.html { render action: "edit" }
         format.json { render json: @show.errors, status: :unprocessable_entity }
       end
@@ -74,10 +94,12 @@ class ShowsController < ApplicationController
   # DELETE /shows/1.json
   def destroy
     @show = Show.find(params[:id])
+    @show_id = params[:id]
     @show.destroy
 
     respond_to do |format|
-      format.html { redirect_to artist_path(@band.id) }
+      format.js
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

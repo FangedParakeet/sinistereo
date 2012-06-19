@@ -1,9 +1,23 @@
 class PagesController < ApplicationController
 
-  before_filter :require_login, :only => [:home, :data]
+  before_filter :require_login, :only => [:home, :data, :create, :update, :destroy]
 
   def index
     @songs = Song.premium_blend
+    if params[:id]
+      @current_song = Song.find_by_id(params[:id])
+    end
+    if params[:top]
+      session[:playlist] = nil
+    end
+    if params[:playlist]
+      session[:playlist] = params[:playlist]
+    end
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+      @current_song = @current_playlist.songs.shuffle.first
+    end
+    @artist = @current_song.artist
   end
   
   def home
@@ -12,17 +26,6 @@ class PagesController < ApplicationController
     @playlist = Playlist.new
   end
   
-  def data
-    artists = Artist.order(:name).where("name like ?", "%#{params[:term]}%")
-    albums = Album.order(:name).where("name like ?", "%#{params[:term]}%")
-    genres = Genre.order(:name).where("name like ?", "%#{params[:term]}%")
-    @data = []
-    @data << artists
-    @data << albums
-    @data << genres
-    @data.flatten!
-    render json: @data.map(&:name)
-  end
   
   def create
     @playlist_song = PlaylistSong.new(params[:playlist_song])
@@ -58,6 +61,7 @@ class PagesController < ApplicationController
     @playlist_song = PlaylistSong.find_by_id(params[:id])
     @playlist = @playlist_song.playlist
     @song = @playlist_song.song
+    @this_song = Song.find_by_id(params[:song])
     @playlist_song.destroy
     respond_to do |format|
       format.js
