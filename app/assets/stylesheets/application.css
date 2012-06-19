@@ -88,10 +88,21 @@ nav a:hover {
 	background: #000 !important;
 	color: #960909 !important;
 }
+.td a {
+	color: #fff !important;
+	
+}
+
+.td a:hover {
+	background: #000 !important;
+	color: #960909 !important;
+}
+
+
+
+
 
 body {
-	background: url('wallpaper.jpg') no-repeat center center fixed;
-	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-image: url('wallpaper.jpg');
 	background-repeat: no-repeat;
@@ -119,6 +130,16 @@ body {
 
 
 #bar a {
+	color: #000 !important;
+	text-decoration: none;
+}
+
+.upvote a {
+	color: #000 !important;
+	text-decoration: none;
+}
+
+.downvote a {
 	color: #000 !important;
 	text-decoration: none;
 }
@@ -198,26 +219,11 @@ nav li {
 
 .clear {
 	clear: both;
+	height: 0;
 }
 /***Aside***/
 
-aside {
-  float: left;
-  margin: 20px 0 0 20px;
-  width: 300px;
-}
 
-
-#audio {
-  border: 1px solid #ccc;
-     -moz-border-radius: 5px;
-       -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
-  float: left;
-  margin: 20px 20px 0 0;
-  width: 260px;
-}
 
 #songs {
 	border: 1px solid #ccc;

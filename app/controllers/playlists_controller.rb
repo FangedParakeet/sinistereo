@@ -65,7 +65,8 @@ class PlaylistsController < ApplicationController
   end
 
   def destroy
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.find_by_id(params[:id])
+    @playlist_id = @playlist.id
     @playlist.destroy
     @song = Song.find_by_id(params[:song])
     respond_to do |format|
