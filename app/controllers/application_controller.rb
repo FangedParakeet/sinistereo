@@ -27,7 +27,11 @@ class ApplicationController < ActionController::Base
   end
   
   def now_playing
-    @current_song = @premium_songs.shuffle.first
+    if !@premium_songs.empty?
+      @current_song = @premium_songs.shuffle.first
+    else
+      @current_song = nil
+    end
   end 
   
 end
