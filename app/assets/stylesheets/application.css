@@ -88,15 +88,6 @@ nav a:hover {
 	background: #000 !important;
 	color: #960909 !important;
 }
-.td a {
-	color: #fff !important;
-	
-}
-
-.td a:hover {
-	background: #000 !important;
-	color: #960909 !important;
-}
 
 
 
@@ -106,6 +97,8 @@ body {
 	background-attachment: fixed;
 	background-image: url('wallpaper.jpg');
 	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -128,20 +121,35 @@ body {
    
 }
 
+.playlists strong a:hover {
+	background: #fff;
+	
+}
+
 
 #bar a {
 	color: #000 !important;
 	text-decoration: none;
 }
 
-.upvote a {
+li .upvote a {
 	color: #000 !important;
 	text-decoration: none;
+	text-align: center;
 }
 
-.downvote a {
+li .downvote a {
 	color: #000 !important;
 	text-decoration: none;
+	text-align: center;
+}
+
+table td a:hover {
+	background: #960909;
+}
+
+table th a:hover {
+	background: #960909;
 }
 
 
@@ -163,49 +171,10 @@ body {
 	display: none;
 }
 
-.sidebar {
-	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	padding: 20px;
-	margin: 10px 10px 10px 60px;
-	float: left;
-	 -moz-border-radius: 5px;
-       -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-	width: 160px;
-	height: 500px;
-	overflow-y: scroll;
 
-
-}
-
-.main {
-	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	padding: 20px;
-	margin: 10px 60px 10px 10px;
-	float: right;
-	 -moz-border-radius: 5px;
-       -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-	width: 800px;
-	height: 500px;
-	overflow-y: scroll;
-
-}
-
-.main li {
-	margin: 10px auto;
-	width: 200px;
-}
 
 /***HEADER***/
 
-header h1 {
-	float: left;
-}
 
 nav ul {
 	float: right;
@@ -225,29 +194,8 @@ nav li {
 
 
 
-#songs {
-	border: 1px solid #ccc;
-     -moz-border-radius: 5px;
-       -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
-  float: right;
-  margin: 20px 20px 0 0;
-  width: 260px;
-  
-}
 
-premium_blend {
 
-}
-
-playlists {
-
-}
-
-playlists h2 {
-  float: right;
-}
 /***acticle***/
 
 .sidebar-nav-player {

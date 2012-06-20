@@ -1,13 +1,13 @@
 <div class="account">
   <ul class="nav nav-list">
-      <li>Name: <% if @user.name.nil? %> 
+      <li><strong>Name: </strong><% if @user.name.nil? %> 
             Unnamed!
           <% else %>
             <%= @user.name %>
           <% end %></li>
-      <li>Email: <%= @user.email  %></li>
+      <li><strong>Email: </strong><%= @user.email  %></li>
       <% if @user.user_type == "Band" %>
-        <li>Band:  <% if @user.bands.first.name.nil? %>
+        <li><strong>Band:  </strong><% if @user.bands.first.name.nil? %>
         "Unnamed!"
         <% else %>
         <%= @user.bands.first.name %>

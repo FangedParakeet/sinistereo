@@ -273,13 +273,14 @@
                     <% @playlists.each do |playlist| %>
                     <%= render 'playlist_bar', playlist: playlist, song: @current_song %>
                     <% end %>
-                    </div>
-                    <div class="clear"></div>
                 <% end %>
               <% end %>
-              <strong>
-              <%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %>
-              </strong>
+              <ul class="nav nav-list">
+                <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
+              </ul>
+              </div>
+              <div class="clear"></div>
+              
               
             <% end %>
       </div>
@@ -342,7 +343,6 @@
             </ul>
           </ul>
         </div>
-        <div class="clear"></div>
         
       </div>
       
