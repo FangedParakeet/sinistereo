@@ -11,12 +11,13 @@ gem "fog", "~> 1.3.1"
 gem "mime-types"
 
 
-group :development do
-  gem 'faker'
-end  
+group :production, :staging do
+  gem "pg"
+end
 
-group :production do
-  gem 'sqlite3'
+group :development, :test do
+  gem "sqlite3"
+  gem "faker"
 end
 # Gems used only for assets and not required
 # in production environments by default.
