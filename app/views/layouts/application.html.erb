@@ -38,8 +38,9 @@
       		status = "play";
     			$("#zen").addClass( "play" );
       	};
-
-      	playSong("<%= j(@current_song.audio.url.to_s) %>");
+        <% if @current_song  %>
+        	playSong("<%= j(@current_song.audio.url.to_s) %>");
+      	<% end %>
 
       	// preload, update, end
 
@@ -208,10 +209,12 @@
           <h3>Playlist: <%= @current_playlist.name %></h3>
         <% end %>
         <ul class="nav nav-list">
-          <li>"<%= @current_song.name %>"</li>
-          <li><strong><%= @current_song.artist.name %></strong></li>
-          <li><%= @current_song.album.name %></li>
-          <% if @user %>
+          <% if @current_song %>
+            <li>"<%= @current_song.name %>"</li>
+            <li><strong><%= @current_song.artist.name %></strong></li>
+            <li><%= @current_song.album.name %></li>
+          <% end %>
+          <% if @user && @current_song %>
             <ul class="nav nav-list" id="song_pref">
               <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.id), remote: true %></li>
               <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.id), remote: true %></li>
@@ -232,12 +235,14 @@
       <div class="well sidebar-nav", id="bar">
         <h3> Top Songs </h3>
         <ul class="nav nav-list">
-        <% @premium_songs.each do |song| %>
-          <li><%= link_to "#{song.name}", root_url(id: song.id, top: "Yes!") %></li>
+        <% if @top_songs %>
+          <% @top_songs.each do |song| %>
+            <li><%= link_to "#{song.name}", root_url(id: song.id, top: "Yes!") %></li>
+          <% end %>
         <% end %>
         </ul>
         
-      <% if @user %>
+      <% if @user && @current_song %>
         <div class="playlists">
           <% if @user.playlists.any? %>
             <% unless @playlists.empty? %>
@@ -301,21 +306,23 @@
         <!-- End sliding utility window-->
         
         <div class="well sidebar-nav", id="bar">
-          <ul class="nav nav-list">
-            <li><h2><%= @artist.name %></h2></li>
-            <li><%= @artist.city %></li>
-            <li><%= @artist.state %></li>
-            <li><%= @artist.bio %></li>
-            <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
-            <li><h3>Shows</h3></li>
+          <% if @current_song %>
             <ul class="nav nav-list">
-              <% @artist.shows.each do |show| %>
-              <li><strong><%= show.venue %></strong></li>
-              <li><%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
-              <li><%= show.city %></li><br />
-              <% end %>
+              <li><h2><%= @artist.name %></h2></li>
+              <li><%= @artist.city %></li>
+              <li><%= @artist.state %></li>
+              <li><%= @artist.bio %></li>
+              <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
+              <li><h3>Shows</h3></li>
+              <ul class="nav nav-list">
+                <% @artist.shows.each do |show| %>
+                <li><strong><%= show.venue %></strong></li>
+                <li><%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
+                <li><%= show.city %></li><br />
+                <% end %>
+              </ul>
             </ul>
-          </ul>
+          <% end %>
         </div>
         <!-- End Band info/Shows window -->
         
