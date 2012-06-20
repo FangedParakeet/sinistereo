@@ -79,6 +79,7 @@ input, select {
 }
 */
 
+
 nav a {
 	color: #fff !important;
 	
@@ -89,9 +90,10 @@ nav a:hover {
 	color: #960909 !important;
 }
 
-
-
-
+html {
+	height: 100%;
+	overflow: auto;
+}
 
 body {
 	background-attachment: fixed;
@@ -103,6 +105,7 @@ body {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	overflow: auto;
 	
 }
 
@@ -119,11 +122,6 @@ body {
 	width: 960px;
 
    
-}
-
-.playlists strong a:hover {
-	background: #fff;
-	
 }
 
 
@@ -173,8 +171,6 @@ table th a:hover {
 
 
 
-/***HEADER***/
-
 
 nav ul {
 	float: right;
@@ -190,13 +186,6 @@ nav li {
 	clear: both;
 	height: 0;
 }
-/***Aside***/
-
-
-
-
-
-/***acticle***/
 
 .sidebar-nav-player {
     padding: 9px 0;

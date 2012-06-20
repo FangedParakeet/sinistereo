@@ -8,35 +8,23 @@
     <!--BND added 6/13, trying to do Zen player -->
     <link rel="stylesheet" href="zen/style.css">
   	<link rel="stylesheet" href="zen/css/zen.css">
+  	<link rel="shortcut icon" href="images/sinistereo_icon.ico" >
   	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/swanky-purse/jquery-ui.css">
     <script type="text/javascript" src="zen/js/jquery.rotate.js"></script>
     <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="zen/js/jquery.grab.js"></script> 
     <script type="text/javascript" src="zen/js/jquery.jplayer.min.js"></script>
     
-  	
+    <!-- Player javascript starts -->
     <script type="text/javascript">
-    
-    
-        
         $(document).ready(function(){    
 
         	var status = "stop";
       	var dragging = false;
 
-
-
       	// init
 
       	var player = $("#zen .player");
-
-      	// player.jPlayer({
-      	// 		ready: function () {
-      	//       		$(this).jPlayer("setMedia", {
-      	// 			mp3: "https://sinistereo.s3.amazonaws.com/uploads/song/audio/328/No_Time_For_Revenge_12.4.mp3" //#"audio/song.mp3",
-      	//       		});
-      	//     	},
-      	//   	});  
 
       	function playSong(songUrl) {
       		player.jPlayer({
@@ -52,9 +40,6 @@
       	};
 
       	playSong("<%= j(@current_song.audio.url.to_s) %>");
-
-
-
 
       	// preload, update, end
 
@@ -95,10 +80,6 @@
       		window.location.href = sURL;
       	});
 
-
-
-
-
       	// play/pause
 
       	$("#zen .button").bind('mousedown', function() {
@@ -116,7 +97,6 @@
       		onClick();
       	});
 
-
       	function onClick() {  		
 
               if(status != "play") {
@@ -130,9 +110,6 @@
       			player.jPlayer("pause");
       		}
       	};
-
-
-
 
       	// draggin
 
@@ -155,11 +132,6 @@
       			$('#zen .button').css( "pointer-events", "auto" );
       		}
       	});	
-
-
-
-
-
 
       	// functions
 
@@ -192,102 +164,102 @@
     	});
     	
       </script>
+      <!-- Player javascript ends -->
   </head>
 
   <body>
+  <div class="everything">
+    <!-- Begin top nav bar -->
     <div class="head-container">
       <%= image_tag("sinistereo_logo.png", :size => "250x125") %>      
       <nav>
-      <ul class="nav nav-pills">
-        <% if @user %>
-          <% if @user.user_type == "Band" %>
-            <li><%= link_to "Dashboard", artist_url(@user.bands.first), remote: true %></li>
+        <ul class="nav nav-pills">
+          <% if @user %>
+            <% if @user.user_type == "Band" %>
+              <li><%= link_to "Dashboard", artist_url(@user.bands.first), remote: true %></li>
+            <% end %>
+            <li><%= link_to "Account", user_url(@user.id), remote: true %></li>
+            <li><%= link_to "Sign Out", signout_url %></li>
+          <% else %>
+            <li><%= link_to "Sign In", signin_url, remote: true %></li>
+            <li><%= link_to "Sign Up", new_user_url, remote: true %></li>
           <% end %>
-          <li><%= link_to "Account", user_url(@user.id), remote: true %></li>
-          <li><%= link_to "Sign Out", signout_url %></li>
-        <% else %>
-          <li><%= link_to "Sign In", signin_url, remote: true %></li>
-          <li><%= link_to "Sign Up", new_user_url, remote: true %></li>
-        <% end %>
-      </ul>
+        </ul>
       </nav>
       <% if flash[:notice].present? %>
         <p id="notice"><%= notice %></p>
       <% end %>
-      
     </div>
+    <!-- End top nav bar -->
     
-      
-
-      
-
+    <!-- Begin left sidebar -->
     <div class="span4">
-        <div class="well sidebar-nav", id="bar">
-          Welcome
-          <% if @user %>
-            <% if @user.name.nil? || @user.name.empty? %>
-              ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
-            <% else %> 
-               <%= @user.name %>
-            <% end %>
-          <% end %>!
-          <h2>Now Playing</h2>
-          <% if session[:playlist] %>
-            <h3>Playlist: <%= @current_playlist.name %></h3>
+      <div class="well sidebar-nav", id="bar">
+        Welcome
+        <% if @user %>
+          <% if @user.name.nil? || @user.name.empty? %>
+            ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
+          <% else %> 
+             <%= @user.name %>
           <% end %>
-          <ul class="nav nav-list">
-            <li>"<%= @current_song.name %>"</li>
-            <li><strong><%= @current_song.artist.name %></strong></li>
-            <li><%= @current_song.album.name %></li>
-              <% if @user %>
-                <ul class="nav nav-list" id="song_pref">
-                  <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.id), remote: true %></li>
-                  <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.id), remote: true %></li>
-                  <% if !@playlists.empty? %>
-                    <% @playlists.each do |playlist| %>
-                      <% if !playlist.songs.include?(@current_song) %>
-                        <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song %>
-                      <% end %>
-                    <% end %>
-                  <% end %>  
-                </ul>
-              <% end %>   
-            </ul>         
+        <% end %>!
+        <h2>Now Playing</h2>
+        <% if session[:playlist] %>
+          <h3>Playlist: <%= @current_playlist.name %></h3>
+        <% end %>
+        <ul class="nav nav-list">
+          <li>"<%= @current_song.name %>"</li>
+          <li><strong><%= @current_song.artist.name %></strong></li>
+          <li><%= @current_song.album.name %></li>
+          <% if @user %>
+            <ul class="nav nav-list" id="song_pref">
+              <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.id), remote: true %></li>
+              <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.id), remote: true %></li>
+            <% if !@playlists.empty? %>
+                <% @playlists.each do |playlist| %>
+                  <% if !playlist.songs.include?(@current_song) %>
+                    <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song %>
+                  <% end %>
+                <% end %>
+            <% end %>  
+            </ul>
+          <% end %>   
+        </ul>         
       </div>
+      <!-- End Now Playing sidebar -->
       
       
       <div class="well sidebar-nav", id="bar">
-          <h3> Top Songs </h3>
-          <ul class="nav nav-list">
-          <% @premium_songs.each do |song| %>
-                <li><%= link_to "#{song.name}", root_url(id: song.id, top: "Yes!") %></li>
-          <% end %>
-          </ul>
+        <h3> Top Songs </h3>
+        <ul class="nav nav-list">
+        <% @premium_songs.each do |song| %>
+          <li><%= link_to "#{song.name}", root_url(id: song.id, top: "Yes!") %></li>
+        <% end %>
+        </ul>
         
-
-            <% if @user %>
-              <div class="playlists">
-              <% if @user.playlists.any? %>
-                <% unless @playlists.empty? %>
-                  <h2>Playlists</h2>
-                    <% @playlists.each do |playlist| %>
-                    <%= render 'playlist_bar', playlist: playlist, song: @current_song %>
-                    <% end %>
-                <% end %>
+      <% if @user %>
+        <div class="playlists">
+          <% if @user.playlists.any? %>
+            <% unless @playlists.empty? %>
+              <h2>Playlists</h2>
+              <% @playlists.each do |playlist| %>
+                <%= render 'playlist_bar', playlist: playlist, song: @current_song %>
               <% end %>
-              <ul class="nav nav-list">
-                <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
-              </ul>
-              </div>
-              <div class="clear"></div>
-              
-              
             <% end %>
+          <% end %>
+          <ul class="nav nav-list">
+            <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
+          </ul>
+        </div>
+        <div class="clear"></div>
+      <% end %>
       </div>
+      <!-- End Songs/Playlists sidebar -->
+
+    </div>
+    <!-- End left sidebar -->
       
-      </div>
-      
-    
+    <!-- Begin player -->
     <div class="span4">
     	<div id="zen">
     		<span class="player"></span>
@@ -302,29 +274,31 @@
     	</div>
     	<div id="skip">
     	  <a href="<%= root_url %>">
-    	  <button class="btn-large btn-inverse">
-    	    <i class="icon-step-forward"></i>
-    	</button>
-    	</a>
+      	  <button class="btn-large btn-inverse">
+      	    <i class="icon-step-forward"></i>
+        	</button>
+      	</a>
       </div>
     </div>
+    <!-- End Player/Skip object -->
     
 
 
-            
+    <!-- Begin right sidebar -->
       <div class="span4 offset4">
-          <div class="well sidebar-nav" id="window">
-            <div class="content">
+        
+        <div class="well sidebar-nav" id="window">
+          <div class="content">
             <div class="new_playlist"></div>
             <div class="edit_playlist"></div>
             <div class="dashboard"></div>
             <div class="account"></div>
             <div class="signin"></div>
             <div class="signup"></div>
-            </div>
-            <div class="clear"></div>
-            
           </div>
+          <div class="clear"></div>
+        </div>
+        <!-- End sliding utility window-->
         
         <div class="well sidebar-nav", id="bar">
           <ul class="nav nav-list">
@@ -332,7 +306,7 @@
             <li><%= @artist.city %></li>
             <li><%= @artist.state %></li>
             <li><%= @artist.bio %></li>
-            <li><%= link_to @artist.website, "http://#{@artist.website}" %></li>
+            <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
             <li><h3>Shows</h3></li>
             <ul class="nav nav-list">
               <% @artist.shows.each do |show| %>
@@ -343,9 +317,12 @@
             </ul>
           </ul>
         </div>
+        <!-- End Band info/Shows window -->
         
       </div>
-      
-    </body>
+      <!-- End right sidebar       -->
+    </div>
+    <div class="clear"></div>
+  </body>
 
 </html>
