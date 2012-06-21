@@ -88,16 +88,6 @@ ActiveRecord::Schema.define(:version => 20120617224641) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "old_users", :force => true do |t|
-    t.string   "username"
-    t.string   "password_digest"
-    t.text     "bio"
-    t.string   "city"
-    t.string   "country"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "playlist_songs", :force => true do |t|
     t.integer  "song_id"
     t.integer  "playlist_id"
@@ -138,7 +128,6 @@ ActiveRecord::Schema.define(:version => 20120617224641) do
   end
 
   create_table "songs", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.integer  "favourites"
