@@ -52,7 +52,7 @@ class ShowsController < ApplicationController
     @show = Show.new(venue: params[:show][:venue], 
                     city: params[:show][:city], 
                     country: params[:show][:country], 
-                    date: params[:real_date])
+                    date: DateTime.parse(params[:show][:date]))
     @show.artist_id = @band.id
 
     respond_to do |format|
@@ -75,7 +75,7 @@ class ShowsController < ApplicationController
     @show.venue = params[:show][:venue]
     @show.city = params[:show][:city]
     @show.country = params[:show][:country]
-    @show.date = params[:real_date]
+    @show.date = DateTime.parse(params[:show][:date])
 
     respond_to do |format|
       if @show.save

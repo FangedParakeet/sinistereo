@@ -1,6 +1,6 @@
 <script>
 	$(function() {
-		$( "#datepicker" ).datetimepicker({altField: '#real_date', altFormat: 'yy-mm-dd', ampm: true});
+		$( "#datepicker" ).datetimepicker({dateFormat: 'dd/mm/yy', timeFormat: 'h:mm tt', ampm: true});
 	});
 	</script>
 
@@ -32,7 +32,6 @@
   <div class="field">
     <%= f.label :date %>
     <%= f.text_field :date, id: :datepicker %>
-    <%= hidden_field_tag :real_date  %>
   </div>
 
   <div class="actions">
