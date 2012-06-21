@@ -196,8 +196,8 @@
     <!-- Begin left sidebar -->
     <div class="span4">
       <div class="well sidebar-nav", id="bar">
-        Welcome
         <% if @user %>
+          Welcome
           <% if @user.name.nil? || @user.name.empty? %>
             ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
           <% else %> 
