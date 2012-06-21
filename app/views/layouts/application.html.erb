@@ -310,8 +310,7 @@
           <% if @current_song %>
             <ul class="nav nav-list">
               <li><h2><%= @artist.name %></h2></li>
-              <li><%= @artist.city %></li>
-              <li><%= @artist.state %></li>
+              <li><strong><%= @artist.city %>, <%= @artist.state %></strong></li>
               <li><%= @artist.bio %></li>
               <% if @artist.website %>
                 <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
