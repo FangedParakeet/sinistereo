@@ -313,7 +313,9 @@
               <li><%= @artist.city %></li>
               <li><%= @artist.state %></li>
               <li><%= @artist.bio %></li>
-              <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
+              <% if @artist.website %>
+                <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
+              <% end %>
               <li><h3>Shows</h3></li>
               <ul class="nav nav-list">
                 <% @artist.shows.each do |show| %>
