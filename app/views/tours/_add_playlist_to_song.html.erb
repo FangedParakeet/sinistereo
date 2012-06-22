@@ -1,0 +1,14 @@
+<li class="add_song<%= song.id %>_playlist<%= playlist.id %>">
+  <table>
+    <tr>
+      <td>
+  <%= link_to image_tag('cassette.png', size: '40x40'), pages_url(playlist_song: {song_id: song.id, playlist_id:playlist.id}), 
+  :method => :post,
+  :remote => true %></td>
+  <td><%= link_to "Add to #{playlist.name}", 
+  pages_url(playlist_song: {song_id: song.id, playlist_id:playlist.id}), 
+  :method => :post,
+  :remote => true %></td>
+  </tr>
+  </table>
+</li>

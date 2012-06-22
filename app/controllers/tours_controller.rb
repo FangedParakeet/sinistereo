@@ -3,18 +3,26 @@ class ToursController < ApplicationController
   before_filter :require_login
 
   def band
-    @songs = Song.premium_blend
-    @top_songs = Song.premium_blend.limit(10)  
-    if @current_song
-      @artist = @current_song.artist
-    end  
+    if @user.user_type == "Band"
+      @songs = Song.premium_blend
+      @top_songs = Song.premium_blend.limit(10)  
+      if @current_song
+        @artist = @current_song.artist
+      end
+    else  
+      redirect_to root_url, notice: "You shouldn't be there!"
+    end
   end
   
   def listener
-    @songs = Song.premium_blend
-    @top_songs = Song.premium_blend.limit(10)
-    if @current_song
-      @artist = @current_song.artist
+    if @user.user_type == "Listener"
+      @songs = Song.premium_blend
+      @top_songs = Song.premium_blend.limit(10)
+      if @current_song
+        @artist = @current_song.artist
+      end
+    else
+      redirect_to root_url, notice: "You shouldn't be there!"
     end
   end
   

@@ -1,0 +1,5 @@
+<tr class="song<%= song.id %>_in_list<%= playlist.id %>">
+  <td></td>
+  <td><%= song.name %></td>
+  <td><%= link_to image_tag('axe.png', size: '15x20'), page_url(PlaylistSong.find_by_song_id_and_playlist_id(song.id, playlist.id).id), method: :delete, remote: true %></td>
+</tr>
