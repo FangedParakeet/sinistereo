@@ -212,7 +212,7 @@
         <ul class="nav nav-list">
           <% if @current_song %>
             <li>"<%= @current_song.name %>"</li>
-            <li><strong><%= @current_song.artist.name %></strong></li>
+            <li><strong><%= link_to "#{@current_song.artist.name}", root_url(artist: @current_song.artist.id) %></strong></li>
             <li><%= @current_song.album.name %></li>
           <% end %>
           <% if @user && @current_song %>
@@ -238,7 +238,11 @@
         <ul class="nav nav-list">
         <% if @top_songs %>
           <% @top_songs.each do |song| %>
-            <li><%= link_to "#{song.name}", root_url(id: song.id, top: "Yes!") %></li>
+            <li><%= link_to "\"#{song.name}\"", root_url(id: song.id, top: "Yes!") %>
+              <ul class="nav nav-list">
+                <li><%= link_to "--#{song.artist.name}", root_url(artist: song.artist.id) %></li>
+              </ul>
+            </li>
           <% end %>
         <% end %>
         </ul>
@@ -309,7 +313,7 @@
         <div class="well sidebar-nav", id="bar">
           <% if @current_song %>
             <ul class="nav nav-list">
-              <li><h2><%= @artist.name %></h2></li>
+              <li><h2><%= link_to "#{@artist.name}", root_url(artist: @artist.id) %></h2></li>
               <li><strong><%= @artist.city %>, <%= @artist.state %></strong></li>
               <li><%= @artist.bio %></li>
               <% if @artist.website %>

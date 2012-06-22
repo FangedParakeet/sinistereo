@@ -14,6 +14,11 @@ class PagesController < ApplicationController
     if params[:playlist]
       session[:playlist] = params[:playlist]
     end
+    if params[:artist]
+      @current_playlist = Playlist.create(name: Artist.find_by_id(params[:artist]).name)
+      @current_playlist.artist_playlist(params[:artist])
+      session[:playlist] = @current_playlist.id
+    end
     if session[:playlist]
       @current_playlist = Playlist.find_by_id(session[:playlist])
       @current_song = @current_playlist.songs.shuffle.first

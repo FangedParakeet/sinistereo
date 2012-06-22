@@ -133,6 +133,14 @@ body {
 	text-decoration: none;
 }
 
+li strong a:hover {
+	background: #960909;
+}
+
+li h2 a:hover {
+	background: #960909;
+}
+
 li .upvote a {
 	color: #000 !important;
 	text-decoration: none;
