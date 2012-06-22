@@ -1,2 +1,4 @@
 $(".downvote").replaceWith("<%= j(image_tag('broken_heart.png', size: '40x40')) %>");
 $(".upvote").hide();
+var sURL = unescape(window.location.pathname);
+window.location.href = sURL;
