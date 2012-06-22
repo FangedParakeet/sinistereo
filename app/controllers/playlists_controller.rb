@@ -32,6 +32,12 @@ class PlaylistsController < ApplicationController
 
   def edit
     @playlist = Playlist.find(params[:id])
+    
+    respond_to do |format|
+      format.js
+      format.html
+      format.json { render json: @playlist }
+    end
   end
 
   def create
@@ -55,9 +61,11 @@ class PlaylistsController < ApplicationController
     @songs = @playlist.songs
     respond_to do |format|
       if @playlist.update_attributes(params[:playlist])
+        format.js
         format.html { redirect_to root_url, notice: 'Playlist was successfully updated.' }
         format.json { head :no_content }
       else
+        format.js
         format.html { render action: "edit" }
         format.json { render json: @playlist.errors, status: :unprocessable_entity }
       end

@@ -256,10 +256,10 @@
               <% end %>
             <% end %>
           <% end %>
-          <ul class="nav nav-list">
-            <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
-          </ul>
         </div>
+        <ul class="nav nav-list">
+          <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
+        </ul>
         <div class="clear"></div>
       <% end %>
       </div>

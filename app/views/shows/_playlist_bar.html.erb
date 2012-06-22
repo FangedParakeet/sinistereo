@@ -2,8 +2,8 @@
   <thead>
   <tr>
     <th><%= playlist.name %></th>
-    <th><%= link_to "Edit", edit_playlist_path(playlist.id), target: "_blank" %></th>
-    <th><%= link_to "Delete", playlist_path(playlist.id, song: @current_song), :method => :delete, remote: true %></th>
+    <th><%= link_to image_tag('spanner.png', size: '15x20'), edit_playlist_path(playlist.id), remote: true %></th>
+    <th><%= link_to image_tag('axe.png', size: '15x20'), playlist_path(playlist.id, song: song.id), :method => :delete, remote: true %></th>
   </tr>
   </thead>
   <tbody class="playlist_<%= playlist.id %>">

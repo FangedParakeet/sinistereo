@@ -1,0 +1,7 @@
+if(<%= @playlist.errors.messages.empty? %>) {
+	$("#window").slideToggle();
+	$(".playlist_dis<%= j(@playlist.id.to_s) %>").replaceWith("<%= j(render 'playlist_bar', :playlist => @playlist, :song => @current_song) %>");
+}
+else {
+	$(".new_playlist").append("<%= j(@playlist.errors.full_messages.first) %>");
+}

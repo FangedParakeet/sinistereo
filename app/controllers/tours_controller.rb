@@ -1,6 +1,6 @@
 class ToursController < ApplicationController 
   
-  # before_filter :require_login
+  before_filter :require_login
 
   def band
     @songs = Song.premium_blend
