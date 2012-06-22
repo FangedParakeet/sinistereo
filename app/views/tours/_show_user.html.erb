@@ -1,0 +1,19 @@
+<div class="account">
+  <ul class="nav nav-list">
+      <li><strong>Name: </strong><% if @user.name.nil? %> 
+            Unnamed!
+          <% else %>
+            <%= @user.name %>
+          <% end %></li>
+      <li><strong>Email: </strong><%= @user.email  %></li>
+      <% if @user.user_type == "Band" %>
+        <li><strong>Band:  </strong><% if @user.bands.first.name.nil? %>
+        "Unnamed!"
+        <% else %>
+        <%= @user.bands.first.name %>
+        <% end %>
+      <% end %>
+      </li>
+    <li><%= link_to image_tag('spanner.png', size: '15x20'), edit_user_path(@user), remote: true %></li>
+  </ul>
+</div>

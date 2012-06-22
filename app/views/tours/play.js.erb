@@ -1,0 +1,11 @@
+$(".four").hide("fade");
+$(".dashboard").hide();
+$(".signin").hide();
+$(".account").hide();
+$(".signup").hide();
+
+$("#window").slideToggle();
+$(".new_playlist").replaceWith("<%= j(render 'playlist_form', :song => @current_song.id) %>");
+$(".new_playlist").toggle();
+
+$(".five").show("fade");

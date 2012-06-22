@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   before_filter :require_login, :only => [:home, :data, :create, :update, :destroy]
-
+  
   def index
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(10)

@@ -1,0 +1,67 @@
+<div class="dashboard">
+  <ul class="nav nav-list">
+      <li><strong>Band name: </strong>
+        <% if @artist.name.nil? %>
+          Unnamed!
+        <% else %>
+          <%= @artist.name  %>
+        <% end %></li>
+      <li><%= link_to image_tag('spanner.png', size: '15x20'), edit_artist_path(@artist), remote: true %></li>
+  </ul><br />
+  
+  <ul class="nav nav-list">
+    <li><strong>Albums</strong></li>
+    <ul class="nav nav-list">
+    <% @artist.albums.each do |album| %>
+      <li>
+        <table class="album_<%= album.id %>">
+        <tr>
+        <td><%= album.name %></td>
+        <td><%= link_to image_tag('spanner.png', size: '15x20'), edit_album_path(album.id), remote: true %></td>
+        <td><%= link_to image_tag('axe.png', size:'15x20'), album_path(album.id), :method => :delete, remote: true %></td>
+        </tr>
+        </table>
+      </li>
+      <ul class="nav nav-list", id="album_<%= album.id %>">
+        <% i = 1 %>
+      <% album.songs.each do |song| %>
+        <li>
+          <table class="song_<%= song.id %>">
+          <tr>
+          <td><%= i.to_s %>. <%= song.name %></td>
+          <td><%= link_to image_tag('spanner.png', size: '15x20'), edit_song_path(song.id), remote: true %></td>
+          <td><%= link_to image_tag('axe.png', size:'15x20'), song_path(song.id), :method => :delete, remote: true %></td>
+          </tr>
+          </table>
+            <% i += 1 %>
+        </li>
+      <% end %>
+        <li><%= link_to "Add Song To Album", new_song_path, remote: true %></li>
+      </ul>
+    <% end %>
+    </ul>
+    <li><%= link_to 'Add New Album', new_album_path, remote: true %></li>
+  </ul><br />
+  <ul class="nav nav-list">
+      <li><strong>Shows</strong></li>
+      <ul class="nav nav-list">
+      <% @artist.shows.each do |show| %>
+        <ul class="nav nav-list", id="show_<%= show.id %>">
+          <li> <%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
+          <li><%= show.venue %></li>
+          <li><%= show.city %></li>
+          <li><%= show.country %></li>
+          <li>
+            <table>
+            <tr>
+            <td><%= link_to image_tag('spanner.png', size: '15x20'), edit_show_path(show.id), remote: true %></td>
+            <td><%= link_to image_tag('axe.png', size:'15x20'), show_path(show.id), :method => :delete, remote: true %></td>
+            </tr>
+            </table>
+          </li>
+      </ul><br />
+    <% end %>
+    </ul>
+    <li><%= link_to 'Add New Show', new_show_path, remote: true %></li>
+  </ul>
+</div>

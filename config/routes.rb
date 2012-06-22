@@ -21,6 +21,14 @@ SinistereoApp::Application.routes.draw do
   post "signup" => "users#new"
   get "logout" => "sessions#destroy", :as => :signout
   get "play/:id" => "pages#index", :as => :play 
+
+  get "tour/listener" => "tours#listener", :as => :listener_tour
+  get "tour/band" => "tours#band", :as => :band_tour
+  get "tour/account" => "tours#account", :as => :account
+  get "tour/dashboard" => "tours#dash", :as => :dash
+  get "tour/votes" => "tours#vote", :as => :vote
+  get "tour/playlists" => "tours#play", :as => :play
+  
   
   resources :pages
   #get "listen" => "pages#show", :as => :listen

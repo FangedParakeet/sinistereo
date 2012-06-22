@@ -60,7 +60,7 @@ class UsersController < ApplicationController
           @artist.user_id = @user.id
           if @artist.save
             session[:uid] = @user.id
-            format.html { redirect_to root_url, notice: 'User was successfully created.' }
+            format.html { redirect_to band_tour_url, notice: 'User was successfully created.' }
             format.json { render json: @user, status: :created, location: @user }
           else
             format.html { render action: "new" }
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       else
         if @user.save
           session[:uid] = @user.id
-          format.html { redirect_to root_url, notice: 'User was successfully created.' }
+          format.html { redirect_to listener_tour_url, notice: 'User was successfully created.' }
           format.json { render json: @user, status: :created, location: @user }
         else
           format.html { render action: "new" }

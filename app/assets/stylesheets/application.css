@@ -222,3 +222,25 @@ nav li {
 .ui-timepicker-div td { font-size: 90%; }
 .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
 
+/* tour pages */
+
+#tour {
+	position: fixed;
+	top: 13%;
+	left: 34%;
+	background: rgba(255,255,255,0.7);
+	
+}
+
+#tour a:hover {
+	text-decoration: none;
+	background: #960909;
+	color: #000;
+}
+
+.two, .three, .four, .five {
+	display: none;
+}
+
+
+

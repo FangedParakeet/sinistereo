@@ -5,15 +5,14 @@
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
-    <!--BND added 6/13, trying to do Zen player -->
-    <link rel="stylesheet" href="zen/style.css">
-  	<link rel="stylesheet" href="zen/css/zen.css">
-  	<link rel="shortcut icon" href="images/sinistereo_icon.ico" >
+    <link rel="stylesheet" href="../zen/style.css">
+  	<link rel="stylesheet" href="../zen/css/zen.css">
+  	<link rel="shortcut icon" href="../images/sinistereo_icon.ico" >
   	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/swanky-purse/jquery-ui.css">
-    <script type="text/javascript" src="zen/js/jquery.rotate.js"></script>
+    <script type="text/javascript" src="../public/zen/js/jquery.rotate.js"></script>
     <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
-    <script type="text/javascript" src="zen/js/jquery.grab.js"></script> 
-    <script type="text/javascript" src="zen/js/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="../zen/js/jquery.grab.js"></script> 
+    <script type="text/javascript" src="../zen/js/jquery.jplayer.min.js"></script>
     
     <!-- Player javascript starts -->
     <script type="text/javascript">
@@ -268,6 +267,9 @@
 
     </div>
     <!-- End left sidebar -->
+      <div class="span4", id="tour">
+        <%= yield %>
+      </div>
       
     <!-- Begin player -->
     <div class="span4">
@@ -308,6 +310,7 @@
           </div>
           <div class="clear"></div>
         </div>
+        
         <!-- End sliding utility window-->
         
         <div class="well sidebar-nav", id="bar">
@@ -335,7 +338,6 @@
       </div>
       <!-- End right sidebar       -->
     </div>
-    <div class="clear"></div>
   </body>
 
 </html>

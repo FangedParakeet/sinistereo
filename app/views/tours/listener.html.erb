@@ -1,0 +1,18 @@
+<div class="well" id="tour">
+  <div class="one">
+    Care to go on a quick tour of Sinistereo's features?<br />
+    <%= link_to "Sure", account_url, remote: true %> | <%= link_to "Nah, I'll work it out", root_url %>
+  </div>
+  <div class="two">
+    Select "Account" to edit your user information.<br />
+    <%= link_to "Continue", vote_url, remote: true %> | <%= link_to "Skip tour", root_url %>
+  </div>
+  <div class="four">
+    Listen to other bands: upvote what you dig, downvote what you despise.<br />
+    <%= link_to "Continue", play_url, remote: true %> | <%= link_to "Skip tour", root_url %>
+  </div>
+  <div class="five">
+    Create and build playlists of songs you want to remember. That's it! Wasn't so painful, was it?<br />
+    <%= link_to "One more click to get going...", root_url %>
+  </div>
+</div>
