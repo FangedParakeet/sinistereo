@@ -49,11 +49,15 @@ class ShowsController < ApplicationController
   # POST /shows
   # POST /shows.json
   def create
-    @show = Show.new(venue: params[:show][:venue], 
-                    city: params[:show][:city], 
-                    country: params[:show][:country], 
-                    date: DateTime.parse(params[:show][:date]))
-    @show.artist_id = @band.id
+    if !params[:show][:date].empty?
+      @show = Show.new(venue: params[:show][:venue], 
+                      city: params[:show][:city], 
+                      country: params[:show][:country], 
+                      date: DateTime.parse(params[:show][:date]))
+      @show.artist_id = @band.id
+  else
+    @show = Show.new
+  end
 
     respond_to do |format|
       if @show.save
@@ -75,7 +79,11 @@ class ShowsController < ApplicationController
     @show.venue = params[:show][:venue]
     @show.city = params[:show][:city]
     @show.country = params[:show][:country]
-    @show.date = DateTime.parse(params[:show][:date])
+    if !params[:show][:date].empty?
+      @show.date = DateTime.parse(params[:show][:date])
+    else
+      @show.date = nil
+    end
 
     respond_to do |format|
       if @show.save
