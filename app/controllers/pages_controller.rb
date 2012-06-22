@@ -15,9 +15,15 @@ class PagesController < ApplicationController
       session[:playlist] = params[:playlist]
     end
     if params[:artist]
-      @current_playlist = Playlist.create(name: Artist.find_by_id(params[:artist]).name)
-      @current_playlist.artist_playlist(params[:artist])
-      session[:playlist] = @current_playlist.id
+      artist = Artist.find_by_id(params[:artist])
+      if Playlist.find_by_name(artist.name)
+        session[:playlist] = Playlist.find_by_name(artist.name).id
+        @current_playlist = Playlist.find_by_name(artist.name)
+      else
+        @current_playlist = Playlist.create(name: artist.name)
+        @current_playlist.artist_playlist(params[:artist])
+        session[:playlist] = @current_playlist.id
+      end
     end
     if session[:playlist]
       @current_playlist = Playlist.find_by_id(session[:playlist])
