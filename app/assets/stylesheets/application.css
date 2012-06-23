@@ -78,7 +78,13 @@ input, select {
   );
 }
 */
+.logo {
+	float: left;
+}
 
+nav {
+	float: right;
+}
 
 nav a {
 	color: #fff !important;
@@ -122,8 +128,6 @@ body {
 
 .head-container {
 	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	padding: 10px;
-	margin: 10px auto;
    
 }
 
@@ -160,8 +164,6 @@ table td a:hover {
 table th a:hover {
 	background: #42BDFF;
 }
-
-
 
 #window {
 	overflow-y: scroll;
@@ -245,9 +247,7 @@ nav li {
 
 #slideshow_images {
 	display: block;
-	height: 100%;
+	height: 230px;
 }
 
-#other {
-	display: block	;
-}
+

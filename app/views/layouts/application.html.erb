@@ -171,10 +171,11 @@
         $(document).ready(function(){
           $("#slideshow_images").cycle({
             fx: 'fade',
-            speed: 1500,
+            speed: 2000,
           });
         });
       </script>
+      <!-- Slideshow javascript ends -->
       
   </head>
 
@@ -182,7 +183,10 @@
   <div class="everything">
     <!-- Begin top nav bar -->
     <div class="head-container">
-      <%= image_tag("sinistereo_logo.png", :size => "250x125") %>      
+      <div class="logo">
+        <%= image_tag("sinistereo_logo.png", :size => "250x125") %>      
+      </div>
+      <div class="clear"></div>
       <nav>
         <ul class="nav nav-pills">
           <% if @user %>
@@ -197,6 +201,7 @@
           <% end %>
         </ul>
       </nav>
+      <div class="clear"></div>
       <% if flash[:notice].present? %>
         <p id="notice"><%= notice %></p>
       <% end %>
@@ -308,7 +313,7 @@
 
 
     <!-- Begin right sidebar -->
-      <div class="span4 offset4">
+      <div class="span4 offset4" id="right">
         
         <div class="well sidebar-nav" id="window">
           <div class="content">
@@ -329,16 +334,16 @@
             <ul class="nav nav-list">
 
                 <li><h2><%= link_to "#{@artist.name}", root_url(artist: @artist.id) %></h2></li>
-                <li><strong><%= @artist.city %>, <%= @artist.state %></strong></li>
+                <li><strong><%= @artist.city %>, <%= @artist.state %></strong></li><br />
 
               <!-- Artwork slideshow -->
               <% if @album.image.present? || @artist.image.present? %>
                 <div id="slideshow_images">
                   <% if @album.image.present?  %>
-                    <%= image_tag @album.image_url.to_s %>
+                    <%= image_tag @album.image_url(:thumb).to_s %>
                   <% end %>
                   <% if @artist.image.present? %>
-                    <%= image_tag @artist.image_url.to_s %>
+                    <%= image_tag @artist.image_url(:thumb).to_s %>
                   <% end %>
                 </div>
                 <!-- Slideshow end -->
