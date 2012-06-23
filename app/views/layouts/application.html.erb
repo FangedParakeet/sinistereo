@@ -165,6 +165,17 @@
     	
       </script>
       <!-- Player javascript ends -->
+      
+      <!-- Slideshow javascript begins -->
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $("#slideshow_images").cycle({
+            fx: 'fade',
+            speed: 1500,
+          });
+        });
+      </script>
+      
   </head>
 
   <body>
@@ -318,6 +329,17 @@
             <ul class="nav nav-list">
               <li><h2><%= link_to "#{@artist.name}", root_url(artist: @artist.id) %></h2></li>
               <li><strong><%= @artist.city %>, <%= @artist.state %></strong></li>
+              <!-- Artwork slideshow -->
+              <% if @album.image.present? || @artist.image.present? %>
+                <div id="slideshow_images">
+                  <% if @album.image.present?  %>
+                    <%= image_tag @album.image_url.to_s %>
+                  <% end %>
+                  <% if @artist.image.present? %>
+                    <%= image_tag @artist.image_url.to_s %>
+                  <% end %>
+                </div>
+              <% end %>
               <li><%= @artist.bio %></li>
               <% if @artist.website %>
                 <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
@@ -326,8 +348,9 @@
               <ul class="nav nav-list">
                 <% @artist.shows.each do |show| %>
                 <li><strong><%= show.venue %></strong></li>
-                <li><%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
-                <li><%= show.city %></li><br />
+                <li><%= show.date.strftime("%e/%m/%y %l:%M %P") %></li>
+                <li><%= show.city %></li>
+                <li><%= show.state %></li><br />
                 <% end %>
               </ul>
             </ul>

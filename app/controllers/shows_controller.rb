@@ -52,7 +52,7 @@ class ShowsController < ApplicationController
     if !params[:show][:date].empty?
       @show = Show.new(venue: params[:show][:venue], 
                       city: params[:show][:city], 
-                      country: params[:show][:country], 
+                      state: params[:show][:state], 
                       date: DateTime.parse(params[:show][:date]))
       @show.artist_id = @band.id
   else
@@ -78,7 +78,7 @@ class ShowsController < ApplicationController
     @show = Show.find(params[:id])
     @show.venue = params[:show][:venue]
     @show.city = params[:show][:city]
-    @show.country = params[:show][:country]
+    @show.state = params[:show][:state]
     if !params[:show][:date].empty?
       @show.date = DateTime.parse(params[:show][:date])
     else

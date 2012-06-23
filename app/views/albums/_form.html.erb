@@ -1,4 +1,4 @@
-<%= form_for(@album, remote: true) do |f| %>
+<%= form_for(@album, html: {multipart: true}, remote: true) do |f| %>
   <% if @album.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
@@ -19,6 +19,11 @@
     <%= f.label :year %>
     <%= f.select :year, (1980..2012).to_a.reverse! %>
   </div>
+  <div class="field">
+    <%= f.label :image, "Upload an album cover" %>
+    <%= f.file_field :image %>
+  </div>
+  
 
   <div class="actions">
     <%= f.submit %>

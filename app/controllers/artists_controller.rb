@@ -54,7 +54,7 @@ class ArtistsController < ApplicationController
 
     respond_to do |format|
       if @artist.save
-        format.html { redirect_to @artist, notice: 'Artist was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Artist was successfully created.' }
         format.json { render json: @artist, status: :created, location: @artist }
       else
         format.html { render action: "new" }
@@ -89,7 +89,7 @@ class ArtistsController < ApplicationController
     @artist.destroy
 
     respond_to do |format|
-      format.html { redirect_to artists_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

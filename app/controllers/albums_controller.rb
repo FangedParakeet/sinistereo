@@ -80,7 +80,7 @@ class AlbumsController < ApplicationController
     respond_to do |format|
       if @album.update_attributes(params[:album])
         format.js
-        format.html { redirect_to artist_path(@band.id) }
+        format.html { redirect_to root_url }
         format.json { head :no_content }
       else
         format.js
@@ -102,7 +102,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html { redirect_to artist_path(@band.id) }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

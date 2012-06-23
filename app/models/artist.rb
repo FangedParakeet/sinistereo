@@ -1,5 +1,5 @@
 class Artist < ActiveRecord::Base
-  attr_accessible :name, :bio, :city, :country, :user_id, :state, :website
+  attr_accessible :name, :bio, :city, :country, :user_id, :state, :website, :image
   
   has_many :songs
   has_many :albums
@@ -24,5 +24,7 @@ class Artist < ActiveRecord::Base
       artist.user_id = user.id
     end
   end
+  
+  mount_uploader :image, ImageUploader
   
 end

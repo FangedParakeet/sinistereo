@@ -90,6 +90,7 @@ nav a:hover {
 	color: #960909 !important;
 }
 
+
 html {
 	height: 100%;
 	overflow: auto;
@@ -121,9 +122,6 @@ body {
 	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding: 10px;
 	margin: 10px auto;
-
-	width: 960px;
-
    
 }
 
@@ -134,11 +132,11 @@ body {
 }
 
 li strong a:hover {
-	background: #960909;
+	background: #42BDFF;
 }
 
 li h2 a:hover {
-	background: #960909;
+	background: #42BDFF;
 }
 
 li .upvote a {
@@ -154,11 +152,11 @@ li .downvote a {
 }
 
 table td a:hover {
-	background: #960909;
+	background: #42BDFF;
 }
 
 table th a:hover {
-	background: #960909;
+	background: #42BDFF;
 }
 
 
@@ -234,13 +232,12 @@ nav li {
 
 #tour a:hover {
 	text-decoration: none;
-	background: #960909;
+	background: #42BDFF;
 	color: #000;
 }
 
 .two, .three, .four, .five {
 	display: none;
 }
-
 
 

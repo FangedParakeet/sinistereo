@@ -31,6 +31,7 @@ class PagesController < ApplicationController
     end
     if @current_song
       @artist = @current_song.artist
+      @album = @current_song.album
     end
   end
   

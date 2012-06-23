@@ -1,5 +1,5 @@
 class Album < ActiveRecord::Base
-  attr_accessible :name, :year, :artist_id
+  attr_accessible :name, :year, :artist_id, :image
   
   has_many :songs
   
@@ -10,4 +10,6 @@ class Album < ActiveRecord::Base
   has_many :stations, :through => :album_stations
   
   belongs_to :artist
+  
+  mount_uploader :image, ImageUploader
 end
