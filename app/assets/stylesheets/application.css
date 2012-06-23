@@ -241,3 +241,6 @@ nav li {
 }
 
 
+#slideshow_images {
+	display: block-inline;
+}
