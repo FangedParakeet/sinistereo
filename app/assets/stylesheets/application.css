@@ -93,7 +93,7 @@ nav a:hover {
 
 html {
 	height: 100%;
-	overflow: auto;
+	overflow-y: hidden;
 }
 
 body {
@@ -105,7 +105,9 @@ body {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	overflow: auto;
+	overflow-y: auto;
+	margin: 0;
+	padding: 0;
 	
 }
 
@@ -242,5 +244,10 @@ nav li {
 
 
 #slideshow_images {
-	display: block-inline;
+	display: block;
+	height: 100%;
+}
+
+#other {
+	display: block	;
 }
