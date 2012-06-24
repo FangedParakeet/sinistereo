@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   
   def index
     @songs = Song.premium_blend
-    @top_songs = Song.premium_blend.limit(10)
+    @top_songs = Song.premium_blend.limit(5)
     if params[:id]
       @current_song = Song.find_by_id(params[:id])
     end
