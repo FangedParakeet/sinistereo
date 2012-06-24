@@ -12,7 +12,7 @@
     <meta property="og:type" content="song"/>
     <% if params[:id] %>
       <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
-      <meta property="og:image" content="<%= @current_song.album.image_url(:thumb).to_s.rstrip %>"/>
+      <meta property="og:image" content="../images/sinistereo_new.png"/>
     <% else %>
       <meta property="og:url" content="http://www.sinistereo.fm"></meta>
       <meta property="og:image" content="<%= @current_song.artist.image_url(:thumb).to_s.rstrip %>"/>
