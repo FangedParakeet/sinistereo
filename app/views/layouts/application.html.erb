@@ -9,8 +9,12 @@
     <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
     <meta property="og:image" content="<%= @current_song.album.image_url(:thumb).to_s.rstrip %>"/>
     <meta property="og:site_name" content="Sinistereo"/>
-    <meta property="og:description" content="<%= @artist.bio.to_s.rstrip %>"/>
-    <meta name="description" content="Sinistereo: share music; discover new bands."></meta>
+    <% if params[:id] %>
+      <meta property="og:description" content="<%= @artist.bio.to_s.rstrip %>"/>
+    <% else %>
+      <meta property="og:description" content="Sinistereo: share music; discover bands."/>
+    <% end %>
+    <meta name="description" content="Sinistereo: share music; discover bands."></meta>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
