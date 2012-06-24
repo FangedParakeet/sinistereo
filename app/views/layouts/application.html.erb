@@ -4,7 +4,11 @@
       xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
     <title>Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %></title>
+    <% if params[:id] %>
     <meta property="og:title" content="Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %>"/>
+    <% else %>
+    <meta property="og:title" content="Sinistereo"/>
+    <% end %>
     <meta property="og:type" content="song"/>
     <% if params[:id] %>
       <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
