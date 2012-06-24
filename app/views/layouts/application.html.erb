@@ -254,12 +254,15 @@
             <ul class="nav nav-list" id="song_pref">
               <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.id), remote: true %></li>
               <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.id), remote: true %></li>
+              
               <!-- Facebook Like Button -->
               <li><div class="fb-like" data-href="http://www.sinistereo.fm/?id=<%= @current_song.id %>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div></li>
               <!-- End Like Button -->
+              
               <!-- Twitter tweet button -->
               <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://sinistereo.fm/?id=<%= @current_song.id %>" data-text="I just listened to <%= @current_song.name %> by <%= @artist.name %> on Sinistereo!">Tweet</a></div></li>
               <!-- End Twitter tweet button -->
+              
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             <% if !@playlists.empty? %>
                 <% @playlists.each do |playlist| %>

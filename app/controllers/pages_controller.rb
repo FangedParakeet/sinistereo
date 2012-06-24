@@ -5,9 +5,6 @@ class PagesController < ApplicationController
   def index
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(5)
-    if params[:id]
-      @current_song = Song.find_by_id(params[:id])
-    end
     if params[:top]
       session[:playlist] = nil
     end
@@ -28,6 +25,9 @@ class PagesController < ApplicationController
     if session[:playlist]
       @current_playlist = Playlist.find_by_id(session[:playlist])
       @current_song = @current_playlist.songs.shuffle.first
+    end
+    if params[:id]
+      @current_song = Song.find_by_id(params[:id])
     end
     if @current_song
       @artist = @current_song.artist
