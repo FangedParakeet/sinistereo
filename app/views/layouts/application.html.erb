@@ -3,14 +3,13 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
-    <title>Sinistereo - <%= @current_song.name %> - <%= @artist.name %></title>
-    <meta property="og:title" content="Sinistereo - <%= @current_song.name %> - <%= @artist.name %>"/>
+    <title>Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %></title>
+    <meta property="og:title" content="Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %>"/>
     <meta property="og:type" content="song"/>
     <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
     <meta property="og:image" content="<%= @current_song.album.image_url(:thumb).to_s %>"/>
     <meta property="og:site_name" content="Sinistereo"/>
-    <meta property="og:description"
-          content="<%= @artist.bio %>"/>
+    <meta property="og:description" content="<%= @artist.bio.to_s %>"/>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
