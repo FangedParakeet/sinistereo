@@ -6,8 +6,13 @@
     <title>Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %></title>
     <meta property="og:title" content="Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %>"/>
     <meta property="og:type" content="song"/>
-    <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
-    <meta property="og:image" content="<%= @current_song.album.image_url(:thumb).to_s.rstrip %>"/>
+    <% if params[:id] %>
+      <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
+      <meta property="og:image" content="<%= @current_song.album.image_url(:thumb).to_s.rstrip %>"/>
+    <% else %>
+      <meta property="og:url" content="http://www.sinistereo.fm"></meta>
+      <meta property="og:image" content="<%= @current_song.artist.image_url(:thumb).to_s.rstrip %>"/>
+    <% end %>
     <meta property="og:site_name" content="Sinistereo"/>
     <% if params[:id] %>
       <meta property="og:description" content="<%= @artist.bio.to_s.rstrip %>"/>
