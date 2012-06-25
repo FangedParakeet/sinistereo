@@ -8,6 +8,7 @@ class ToursController < ApplicationController
       @top_songs = Song.premium_blend.limit(10)  
       if @current_song
         @artist = @current_song.artist
+        @album = @current_song.album
       end
     else  
       redirect_to root_url, notice: "You shouldn't be there!"
@@ -20,6 +21,7 @@ class ToursController < ApplicationController
       @top_songs = Song.premium_blend.limit(10)
       if @current_song
         @artist = @current_song.artist
+        @album = @current_song.album
       end
     else
       redirect_to root_url, notice: "You shouldn't be there!"
@@ -31,6 +33,7 @@ class ToursController < ApplicationController
     @top_songs = Song.premium_blend.limit(10)
     if @current_song
       @artist = @current_song.artist
+      @album = @current_song.album
     end
     respond_to do |format|
       format.js
@@ -42,6 +45,7 @@ class ToursController < ApplicationController
     @top_songs = Song.premium_blend.limit(10)
     if @current_song
       @artist = @current_song.artist
+      @album = @current_song.album
     end
     respond_to do |format|
       format.js
@@ -54,6 +58,7 @@ class ToursController < ApplicationController
     @top_songs = Song.premium_blend.limit(10)
     if @current_song
       @artist = @current_song.artist
+      @album = @current_song.album
     end
     respond_to do |format|
       format.js
@@ -66,6 +71,7 @@ class ToursController < ApplicationController
     @top_songs = Song.premium_blend.limit(10)
     if @current_song
       @artist = @current_song.artist
+      @album = @current_song.album
     end
     @playlist = Playlist.new
     respond_to do |format|
