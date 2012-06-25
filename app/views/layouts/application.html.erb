@@ -248,7 +248,7 @@
         <% if @user %>
           Welcome
           <% if @user.name.nil? || @user.name.empty? %>
-            ...sorry, <%= link_to "what was your name again?",  user_path(@user.id) %>
+            ...sorry, <%= link_to "what was your name again?",  user_path(@user.id), remote: true %>
           <% else %> 
              <%= @user.name %>
           <% end %>

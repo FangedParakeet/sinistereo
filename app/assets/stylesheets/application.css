@@ -137,6 +137,10 @@ body {
 	text-decoration: none;
 }
 
+#bar a:hover {
+	background: #42BDFF;
+}
+
 li strong a:hover {
 	background: #42BDFF;
 }
