@@ -1,18 +1,18 @@
 <div class="dashboard">
   <ul class="nav nav-list">
       <li><strong>Band name: </strong>
-        <% if @artist.name.nil? %>
+        <% if @band.name.nil? %>
           Unnamed!
         <% else %>
-          <%= @artist.name  %>
+          <%= @band.name  %>
         <% end %></li>
-      <li><%= link_to image_tag('spanner.png', size: '15x20'), edit_artist_path(@artist), remote: true %></li>
+      <li><%= link_to image_tag('spanner.png', size: '15x20'), edit_artist_path(@band), remote: true %></li>
   </ul><br />
   
   <ul class="nav nav-list">
     <li><strong>Albums</strong></li>
     <ul class="nav nav-list">
-    <% @artist.albums.each do |album| %>
+    <% @band.albums.each do |album| %>
       <li>
         <table class="album_<%= album.id %>">
         <tr>
@@ -45,7 +45,7 @@
   <ul class="nav nav-list">
       <li><strong>Shows</strong></li>
       <ul class="nav nav-list">
-      <% @artist.shows.each do |show| %>
+      <% @band.shows.each do |show| %>
         <ul class="nav nav-list", id="show_<%= show.id %>">
           <li> <%= show.date.strftime("%e/%m/%y %l:%M%p") %></li>
           <li><%= show.venue %></li>
