@@ -8,7 +8,6 @@ class ToursController < ApplicationController
       @top_songs = Song.premium_blend.limit(10)  
       if session[:playlist]
         @current_playlist = Playlist.find_by_id(session[:playlist])
-        @current_song = @current_playlist.songs.shuffle.first
       end
       if @current_song
         @artist = @current_song.artist
@@ -23,6 +22,10 @@ class ToursController < ApplicationController
     if @user.user_type == "Listener"
       @songs = Song.premium_blend
       @top_songs = Song.premium_blend.limit(10)
+      if session[:playlist]
+        @current_playlist = Playlist.find_by_id(session[:playlist])
+      end
+      
       if @current_song
         @artist = @current_song.artist
         @album = @current_song.album
@@ -35,6 +38,9 @@ class ToursController < ApplicationController
   def account
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(10)
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+    end
     if @current_song
       @artist = @current_song.artist
       @album = @current_song.album
@@ -47,6 +53,9 @@ class ToursController < ApplicationController
   def dash
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(10)
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+    end
     if @current_song
       @artist = @current_song.artist
       @album = @current_song.album
@@ -60,6 +69,9 @@ class ToursController < ApplicationController
   def vote
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(10)
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+    end
     if @current_song
       @artist = @current_song.artist
       @album = @current_song.album
@@ -73,6 +85,9 @@ class ToursController < ApplicationController
   def play
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(10)
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+    end
     if @current_song
       @artist = @current_song.artist
       @album = @current_song.album
