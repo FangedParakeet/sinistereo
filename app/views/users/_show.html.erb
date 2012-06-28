@@ -7,10 +7,10 @@
           <% end %></li>
       <li><strong>Email: </strong><%= @user.email  %></li>
       <% if @user.user_type == "Band" %>
-        <li><strong>Band:  </strong><% if @user.bands.first.name.nil? %>
+        <li><strong>Band:  </strong><% if @band.name.nil? %>
         "Unnamed!"
         <% else %>
-        <%= @user.bands.first.name %>
+        <%= @band.name %>
         <% end %>
       <% end %>
       </li>
