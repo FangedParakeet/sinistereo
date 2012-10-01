@@ -2,10 +2,11 @@
 <h1>Sign in</h2>
 
 <%= form_tag signin_url do %>
-  <%= label_tag "Email:" %>
-  <%= text_field_tag "email" %>
-  <%= label_tag "Password:" %>
-  <%= password_field_tag "password" %>
+  <%= label_tag "email", "Email:" %>
+  <%= text_field_tag "email" %><br />
+  <%= label_tag "password", "Password:" %>
+  <%= password_field_tag "password" %><br />
   <%= submit_tag "Enter" %>
 <% end %>
 </div>
+

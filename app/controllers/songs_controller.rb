@@ -8,7 +8,6 @@ class SongsController < ApplicationController
     @songs = Song.all
 
     respond_to do |format|
-      format.html # index.html.erb
       format.json { render json: @songs }
     end
   end
@@ -19,7 +18,6 @@ class SongsController < ApplicationController
     @song = Song.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
       format.json { render json: @song }
     end
   end
@@ -31,7 +29,6 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html # new.html.erb
       format.json { render json: @song }
     end
   end
@@ -42,7 +39,6 @@ class SongsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.html
       format.json { render json: @song }
     end 
   end
@@ -93,7 +89,6 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html { redirect_to artist_path(@band.id) }
       format.json { head :no_content }
     end
   end
@@ -104,10 +99,10 @@ class SongsController < ApplicationController
     respond_to do |format|
       if @song.save
         format.js
-        format.html { redirect_to root_url, notice: 'Song was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Upvoted!' }
         format.json { render json: @song, status: :created, location: @song }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to root_url, notice: "Something went wrong." }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
@@ -119,7 +114,7 @@ class SongsController < ApplicationController
     respond_to do |format|
       if @song.save
         format.js
-        format.html { redirect_to root_url, notice: 'Upvoted!' }
+        format.html { redirect_to root_url, notice: 'Downvoted!' }
         format.json { render json: @song, status: :created, location: @song }
       else
         format.html { redirect_to root_url, notice: "Something went wrong." }

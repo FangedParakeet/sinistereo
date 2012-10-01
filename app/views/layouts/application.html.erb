@@ -3,19 +3,27 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
-    <title>Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %></title>
+	<% if @current_song %>
+	    <title>Sinistereo - <%= @current_song.first.name.to_s %> - <%= @artist.name.to_s %></title>
+	<% else %>
+		<title>Sinistereo</title>
+	<% end %>
     <% if params[:id] %>
-    <meta property="og:title" content="Sinistereo - <%= @current_song.name.to_s %> - <%= @artist.name.to_s %>"/>
+    <meta property="og:title" content="Sinistereo - <%= @current_song.first.name.to_s %> - <%= @artist.name.to_s %>"/>
     <% else %>
     <meta property="og:title" content="Sinistereo"/>
     <% end %>
     <meta property="og:type" content="song"/>
     <% if params[:id] %>
-      <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.id %>"/>
-      <meta property="og:image" content="<%= @current_song.album.image_url(:thumb).to_s.rstrip %>"/>
+      <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.first.id %>"/>
+      <meta property="og:image" content="<%= @current_song.first.album.image_url(:thumb).to_s.rstrip %>"/>
     <% else %>
       <meta property="og:url" content="http://www.sinistereo.fm"></meta>
-      <meta property="og:image" content="<%= @current_song.artist.image_url(:thumb).to_s.rstrip %>"/>
+		<% if @current_song %>
+	      <meta property="og:image" content="<%= @current_song.first.artist.image_url(:thumb).to_s.rstrip %>"/>
+		<% else %>
+			<meta property="og:image" content="sinistereo_logo.png"/>
+		<% end %>
     <% end %>
     <meta property="og:site_name" content="Sinistereo"/>
     <% if params[:id] %>
@@ -29,7 +37,7 @@
     <%= javascript_include_tag "application" %>
     <link rel="stylesheet" href="../zen/style.css">
   	<link rel="stylesheet" href="../zen/css/zen.css">
-  	<link rel="shortcut icon" href="../images/sinistereo_icon.ico" >
+  	<link rel="shortcut icon" href="sinistereo_icon.ico" >
   	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/swanky-purse/jquery-ui.css">
     <script type="text/javascript" src="../zen/js/jquery.rotate.js"></script>
     <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
@@ -40,7 +48,7 @@
     <script type="text/javascript">
         $(document).ready(function(){    
 
-        	var status = "stop";
+       	var status = "stop";
       	var dragging = false;
 
       	// init
@@ -48,6 +56,7 @@
       	var player = $("#zen .player");
 
       	function playSong(songUrl) {
+	      	var player = $("#zen .player");
       		player.jPlayer({
       			ready: function () {
       				$(this).jPlayer("setMedia", {
@@ -59,8 +68,9 @@
       		status = "play";
     			$("#zen").addClass( "play" );
       	};
+
         <% if @current_song  %>
-        	playSong("<%= j(@current_song.audio.url.to_s) %>");
+        	playSong("<%= j(@current_song.first.audio.url.to_s) %>");
       	<% end %>
 
       	// preload, update, end
@@ -98,8 +108,11 @@
       		$("#zen").removeClass( "play" );
       		$('#zen .progress').css({rotate: '0deg'});
       		status = "stop";
-      		var sURL = unescape(window.location.pathname);
-      		window.location.href = sURL;
+      			      	var dragging = false;
+      			      	var player = $("#zen .player");
+
+      		playSong("<%= j(@current_song.last.audio.url.to_s) %>");
+
       	});
 
       	// play/pause
@@ -262,28 +275,28 @@
         <% end %>
         <ul class="nav nav-list">
           <% if @current_song %>
-            <li>"<%= @current_song.name %>"</li>
-            <li><strong><%= link_to "#{@current_song.artist.name}", root_url(artist: @current_song.artist.id) %></strong></li>
-            <li><%= @current_song.album.name %></li>
+            <li>"<%= @current_song.first.name %>"</li>
+            <li><strong><%= link_to "#{@current_song.first.artist.name}", root_url(artist: @current_song.first.artist.id) %></strong></li>
+            <li><%= @current_song.first.album.name %></li>
           <% end %>
-          <% if @user && @current_song %>
+          <% if @user && @current_song.first %>
             <ul class="nav nav-list" id="song_pref">
-              <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.id), remote: true %></li>
-              <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.id), remote: true %></li>
+              <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.first.id), remote: true %></li>
+              <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.first.id), remote: true %></li>
               
               <!-- Facebook Like Button -->
-              <li><div class="fb-like" data-href="http://www.sinistereo.fm/?id=<%= @current_song.id %>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div></li>
+              <li><div class="fb-like" data-href="http://www.sinistereo.fm/?id=<%= @current_song.first.id %>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div></li>
               <!-- End Like Button -->
               
               <!-- Twitter tweet button -->
-              <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://sinistereo.fm/?id=<%= @current_song.id %>" data-text="I just listened to <%= @current_song.name %> by <%= @artist.name %> on Sinistereo!">Tweet</a></div></li>
+              <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://sinistereo.fm/?id=<%= @current_song.first.id %>" data-text="I just listened to <%= @current_song.first.name %> by <%= @artist.name %> on Sinistereo!">Tweet</a></div></li>
               <!-- End Twitter tweet button -->
               
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             <% if !@playlists.empty? %>
                 <% @playlists.each do |playlist| %>
-                  <% if !playlist.songs.include?(@current_song) %>
-                    <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song %>
+                  <% if !playlist.songs.include?(@current_song.first) %>
+                    <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song.first %>
                   <% end %>
                 <% end %>
             <% end %>  
@@ -314,13 +327,13 @@
             <% unless @playlists.empty? %>
               <h2>Playlists</h2>
               <% @playlists.each do |playlist| %>
-                <%= render 'playlist_bar', playlist: playlist, song: @current_song %>
+                <%= render 'playlist_bar', playlist: playlist, song: @current_song.first %>
               <% end %>
             <% end %>
           <% end %>
         </div>
         <ul class="nav nav-list">
-          <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
+          <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.first.id), remote: true %></li>
         </ul>
         <div class="clear"></div>
       <% end %>

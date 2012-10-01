@@ -1,6 +1,9 @@
-if(<%= @user.errors.messages.empty? %>) {
+if(<%= @user.errors.messages.empty? %> && <%= @artist.errors.messages.empty? %>) {
 	$("#window").slideToggle();
 }
-else {
+else if(<%= @artist.errors.messages.empty? %>) {
 	$(".account").append("<%= j(@user.errors.full_messages.first) %>");
+}
+else {
+	$(".account").append("<%= j(@artist.errors.full_messages.first) %>");
 }

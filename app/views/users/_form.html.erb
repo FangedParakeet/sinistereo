@@ -1,23 +1,24 @@
-  <div class="field">
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-  </div>
-  <div class="field">
-  <%= f.label :email %><br />
-  <%= f.text_field :email %>
-  </div>
-  <div class="field">
-  <%= f.label :password %><br />
-  <%= f.password_field :password %>
-  </div>
-  <div class="field">
-  <%= f.label :password_confirmation, "Repeat password" %><br />
-  <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-  <%= f.label :user_type, "Account type?"%><br />
-  <%= f.select :user_type, ["Listener", "Band"] %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="field">
+	<%= f.label :name %><br />
+	<%= f.text_field :name %>
+</div>
+<div class="field">
+	<%= f.label :email %><br />
+	<%= f.text_field :email %>
+</div>
+<div class="field">
+	<%= f.label :password %><br />
+	<%= f.password_field :password %>
+</div>
+<div class="field">
+	<%= f.label :password_confirmation, "Repeat password" %><br />
+	<%= f.password_field :password_confirmation %>
+</div>
+<div class="field">
+	<%= f.label :user_type, "Account type?"%>
+	<%= f.radio_button :user_type, "Listener" %> <%= f.label :user_type, "Listener", value: "Listener" %>
+	<%= f.radio_button :user_type, "Band" %> <%= f.label :user_type, "Band", value: "Band" %>
+</div>
+<div class="actions">
+	<%= f.submit %>
+</div>

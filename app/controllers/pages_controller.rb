@@ -5,13 +5,12 @@ class PagesController < ApplicationController
   def index
     @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(5)
+    # START NEW PLAYLIST ---
     if params[:top]
       session[:playlist] = nil
-    end
-    if params[:playlist]
+    elsif params[:playlist]
       session[:playlist] = params[:playlist]
-    end
-    if params[:artist]
+    elsif params[:artist]
       artist = Artist.find_by_id(params[:artist])
       if Playlist.find_by_name(artist.name)
         session[:playlist] = Playlist.find_by_name(artist.name).id
@@ -22,16 +21,23 @@ class PagesController < ApplicationController
         session[:playlist] = @current_playlist.id
       end
     end
+    
+    # PLAY CURRENT SONG --
     if session[:playlist]
       @current_playlist = Playlist.find_by_id(session[:playlist])
-      @current_song = @current_playlist.songs.shuffle.first
+      # @current_song = @current_playlist.songs.shuffle.first
+      @current_song = @current_playlist.songs.shuffle
     end
     if params[:id]
-      @current_song = Song.find_by_id(params[:id])
+      # @current_song = Song.find_by_id(params[:id])
+      @current_song = Song.all.shuffle
+      song = Song.find_by_id(params[:id])
+      @current_song.delete(song)
+      @current_song.insert(0, song)
     end
     if @current_song
-      @artist = @current_song.artist
-      @album = @current_song.album
+      @artist = @current_song.first.artist
+      @album = @current_song.first.album
     end
   end
   
@@ -49,11 +55,8 @@ class PagesController < ApplicationController
     respond_to do |format|
       if @playlist_song.save
         format.js
-        format.html { redirect_to root_url, notice: 'PlaylistSong was successfully created.' }
-        format.json { render json: @playlist_song, status: :created, location: @playlist_song }
       else
         format.html { render action: "new" }
-        format.json { render json: @playlist_song.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,11 +66,8 @@ class PagesController < ApplicationController
     respond_to do |format|
       if @playlist_song.update_attributes(params[:playlist_song])
         format.js
-        format.html { redirect_to root_url, notice: 'Playlist was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @playlist_song.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -80,8 +80,6 @@ class PagesController < ApplicationController
     @playlist_song.destroy
     respond_to do |format|
       format.js
-      format.html { redirect_to root_url }
-      format.json { head :no_content }
     end
   end
   

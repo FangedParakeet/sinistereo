@@ -1,22 +1,12 @@
 class UsersController < ApplicationController
   
-  before_filter :require_login, :only => [:index, :show, :edit, :update, :destroy]
+  before_filter :require_login, :only => [:show, :edit, :update, :destroy]
   
-  def index
-    @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
-  end
-
   def show
     @user = User.find(params[:id])
     @playlists = Playlist.find_all_by_user_id(params[:id])
     respond_to do |format|
       format.js
-      format.html # show.html.erb
       format.json { render json: @user }
     end
   end
@@ -27,8 +17,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html # new.html.erb
-      format.json { render json: @user }
     end
   end
   
@@ -37,8 +25,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user
         format.js
-        format.html {redirect_to root_url}
-        format.json {render json: @user}
       else
         format.html {render action: "edit"}
         format.json {render json: @user.errors}
@@ -61,7 +47,6 @@ class UsersController < ApplicationController
           if @artist.save
             session[:uid] = @user.id
             format.html { redirect_to band_tour_url, notice: 'User was successfully created.' }
-            format.json { render json: @user, status: :created, location: @user }
           else
             format.html { render action: "new" }
             format.json { render json: @artist.errors, status: :unprocessable_entity }
@@ -91,12 +76,8 @@ class UsersController < ApplicationController
               @user.bands.first.destroy
             end
             format.js
-            format.html { redirect_to root_url }
-            format.json { head :no_content }
           else
             format.js
-            format.html { render action: "edit" }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
           end
         end
       else
@@ -108,19 +89,14 @@ class UsersController < ApplicationController
               if @artist.save
                 session[:uid] = @user.id
                 format.js
-                format.html { redirect_to @user }
-                format.json { render json: @user, status: :created, location: @user }
               else
-                format.html { render action: "new" }
-                format.json { render json: @artist.errors, status: :unprocessable_entity }
+                format.js
               end 
+            else
+            format.js
             end
-            format.html { redirect_to @user, notice: 'User was successfully updated.' }
-            format.json { head :no_content }
           else
             format.js
-            format.html { render action: "edit" }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
           end
         end
       end
