@@ -46,157 +46,161 @@
     
     <!-- Player javascript starts -->
     <script type="text/javascript">
-        $(document).ready(function(){    
+		function primePlayer(first, second) {
+			var status = "stop";
+	      	var dragging = false;
 
-       	var status = "stop";
-      	var dragging = false;
+	      	// init
 
-      	// init
-
-      	var player = $("#zen .player");
-
-      	function playSong(songUrl) {
 	      	var player = $("#zen .player");
-      		player.jPlayer({
-      			ready: function () {
-      				$(this).jPlayer("setMedia", {
-      					mp3: "" + songUrl
-      				}).jPlayer("play");
-      			},
 
-      		});
-      		status = "play";
-    			$("#zen").addClass( "play" );
-      	};
+	      	function playSong(songUrl) {
+		      	var player = $("#zen .player");
+	      		player.jPlayer({
+	      			ready: function () {
+	      				$(this).jPlayer("setMedia", {
+	      					mp3: "" + songUrl
+	      				}).jPlayer("play");
+	      			},
 
-        <% if @current_song  %>
-        	playSong("<%= j(@current_song.first.audio.url.to_s) %>");
-      	<% end %>
+	      		});
+	      		status = "play";
+	    			$("#zen").addClass( "play" );
+	      	};
 
-      	// preload, update, end
+	        <% if @current_song  %>
+	        	playSong(first);
+	      	<% end %>
 
-      	player.bind($.jPlayer.event.progress, function(event) {    
+	      	// preload, update, end
 
-      		var audio = $('#zen audio').get(0);
-      		var pc = 0;    
+	      	player.bind($.jPlayer.event.progress, function(event) {    
 
-      		if ((audio.buffered != undefined) && (audio.buffered.length != 0)) {
-      		 	pc = parseInt(((audio.buffered.end(0) / audio.duration) * 100), 10); 
-      		  	displayBuffered(pc);
-      		  	//console.log(pc);
-      		  	if(pc >= 99) {
-      		  		//console.log("loaded");
-      		  		$('#zen .buffer').addClass("loaded");
-      		  	}  
-      		}        
+	      		var audio = $('#zen audio').get(0);
+	      		var pc = 0;    
 
-      	});
+	      		if ((audio.buffered != undefined) && (audio.buffered.length != 0)) {
+	      		 	pc = parseInt(((audio.buffered.end(0) / audio.duration) * 100), 10); 
+	      		  	displayBuffered(pc);
+	      		  	//console.log(pc);
+	      		  	if(pc >= 99) {
+	      		  		//console.log("loaded");
+	      		  		$('#zen .buffer').addClass("loaded");
+	      		  	}  
+	      		}        
 
-      	//player.bind($.jPlayer.event.loadeddata, function(event) {    
-      		//$('#zen .buffer').addClass("loaded");    
-      	//});
+	      	});
 
-      	player.bind($.jPlayer.event.timeupdate, function(event) { 
-      		var pc = event.jPlayer.status.currentPercentAbsolute;
-      		if (!dragging) { 
-      	    	displayProgress(pc);
-      		}
-      	});
-      // BND: we have to change this so when event.ended occurs, it loads the new one.
-      	player.bind($.jPlayer.event.ended, function(event) {   
-      		$('#zen .circle').removeClass( "rotate" );
-      		$("#zen").removeClass( "play" );
-      		$('#zen .progress').css({rotate: '0deg'});
-      		status = "stop";
-      			      	var dragging = false;
-      			      	var player = $("#zen .player");
+	      	//player.bind($.jPlayer.event.loadeddata, function(event) {    
+	      		//$('#zen .buffer').addClass("loaded");    
+	      	//});
 
-      		playSong("<%= j(@current_song.last.audio.url.to_s) %>");
+	      	player.bind($.jPlayer.event.timeupdate, function(event) { 
+	      		var pc = event.jPlayer.status.currentPercentAbsolute;
+	      		if (!dragging) { 
+	      	    	displayProgress(pc);
+	      		}
+	      	});
+	      // BND: we have to change this so when event.ended occurs, it loads the new one.
+	      	player.bind($.jPlayer.event.ended, function(event) {   
+	      		$('#zen .circle').removeClass( "rotate" );
+	      		$("#zen").removeClass( "play" );
+	      		$('#zen .progress').css({rotate: '0deg'});
+	      		status = "stop";
+	      			      	var dragging = false;
+	      			      	var player = $("#zen .player");
+				$(".player").replaceWith("<%= j(render 'player') %>");
 
-      	});
+	      		primePlayer(second, first);
 
-      	// play/pause
+	      	});
 
-      	$("#zen .button").bind('mousedown', function() {
-      		// not sure if this can be done in a simpler way.
-      		// when you click on the edge of the play button, but button scales down and doesn't drigger the click,
-      		// so mouseleave is added to still catch it.
-      		$(this).bind('mouseleave', function() {
-      			$(this).unbind('mouseleave');
-      			onClick();
-      		});
-      	});
+	      	// play/pause
 
-      	$("#zen .button").bind('mouseup', function() {
-      		$(this).unbind('mouseleave');
-      		onClick();
-      	});
+	      	$("#zen .button").bind('mousedown', function() {
+	      		// not sure if this can be done in a simpler way.
+	      		// when you click on the edge of the play button, but button scales down and doesn't drigger the click,
+	      		// so mouseleave is added to still catch it.
+	      		$(this).bind('mouseleave', function() {
+	      			$(this).unbind('mouseleave');
+	      			onClick();
+	      		});
+	      	});
 
-      	function onClick() {  		
+	      	$("#zen .button").bind('mouseup', function() {
+	      		$(this).unbind('mouseleave');
+	      		onClick();
+	      	});
 
-              if(status != "play") {
-      			status = "play";
-      			$("#zen").addClass( "play" );
-      			player.jPlayer("play");
-      		} else {
-      			$('#zen .circle').removeClass( "rotate" );
-      			$("#zen").removeClass( "play" );
-      			status = "pause";
-      			player.jPlayer("pause");
-      		}
-      	};
+	      	function onClick() {  		
 
-      	// draggin
+	              if(status != "play") {
+	      			status = "play";
+	      			$("#zen").addClass( "play" );
+	      			player.jPlayer("play");
+	      		} else {
+	      			$('#zen .circle').removeClass( "rotate" );
+	      			$("#zen").removeClass( "play" );
+	      			status = "pause";
+	      			player.jPlayer("pause");
+	      		}
+	      	};
 
-      	var clickControl = $('#zen .drag');
+	      	// draggin
 
-      	clickControl.grab({
-      		onstart: function(){
-      			dragging = true;
-      			$('#zen .button').css( "pointer-events", "none" );
+	      	var clickControl = $('#zen .drag');
 
-      		}, onmove: function(event){
-      			var pc = getArcPc(event.position.x, event.position.y);
-      			player.jPlayer("playHead", pc).jPlayer("play");
-      			displayProgress(pc);
+	      	clickControl.grab({
+	      		onstart: function(){
+	      			dragging = true;
+	      			$('#zen .button').css( "pointer-events", "none" );
 
-      		}, onfinish: function(event){
-      			dragging = false;
-      			var pc = getArcPc(event.position.x, event.position.y);
-      			player.jPlayer("playHead", pc).jPlayer("play");
-      			$('#zen .button').css( "pointer-events", "auto" );
-      		}
-      	});	
+	      		}, onmove: function(event){
+	      			var pc = getArcPc(event.position.x, event.position.y);
+	      			player.jPlayer("playHead", pc).jPlayer("play");
+	      			displayProgress(pc);
 
-      	// functions
+	      		}, onfinish: function(event){
+	      			dragging = false;
+	      			var pc = getArcPc(event.position.x, event.position.y);
+	      			player.jPlayer("playHead", pc).jPlayer("play");
+	      			$('#zen .button').css( "pointer-events", "auto" );
+	      		}
+	      	});	
 
-      	function displayProgress(pc) {
-      		var degs = pc * 3.6+"deg"; 
-      		$('#zen .progress').css({rotate: degs}); 		
-      	}
-      	function displayBuffered(pc) {
-      		var degs = pc * 3.6+"deg"; 
-      		$('#zen .buffer').css({rotate: degs}); 		
-      	}
+	      	// functions
 
-      	function getArcPc(pageX, pageY) { 
-      		var	self	= clickControl,
-      			offset	= self.offset(),
-      			x	= pageX - offset.left - self.width()/2,
-      			y	= pageY - offset.top - self.height()/2,
-      			a	= Math.atan2(y,x);  
+	      	function displayProgress(pc) {
+	      		var degs = pc * 3.6+"deg"; 
+	      		$('#zen .progress').css({rotate: degs}); 		
+	      	}
+	      	function displayBuffered(pc) {
+	      		var degs = pc * 3.6+"deg"; 
+	      		$('#zen .buffer').css({rotate: degs}); 		
+	      	}
 
-      			if (a > -1*Math.PI && a < -0.5*Math.PI) {
-      		   a = 2*Math.PI+a; 
-      		} 
+	      	function getArcPc(pageX, pageY) { 
+	      		var	self	= clickControl,
+	      			offset	= self.offset(),
+	      			x	= pageX - offset.left - self.width()/2,
+	      			y	= pageY - offset.top - self.height()/2,
+	      			a	= Math.atan2(y,x);  
 
-      		// a is now value between -0.5PI and 1.5PI 
-      		// ready to be normalized and applied   			
-      		var pc = (a + Math.PI/2) / 2*Math.PI * 10;   
+	      			if (a > -1*Math.PI && a < -0.5*Math.PI) {
+	      		   a = 2*Math.PI+a; 
+	      		} 
 
-      		return pc;
-      	}
-    	});
+	      		// a is now value between -0.5PI and 1.5PI 
+	      		// ready to be normalized and applied   			
+	      		var pc = (a + Math.PI/2) / 2*Math.PI * 10;   
+
+	      		return pc;
+	      	}
+	       	
+		};
+        $(document).ready(function() {
+			primePlayer("<%= j(@current_song.first.audio.url.to_s) %>", "<%= j(@current_song.last.audio.url.to_s) %>");
+		});
     	
       </script>
       <!-- Player javascript ends -->
@@ -347,25 +351,8 @@
       </div>
       
     <!-- Begin player -->
-    <div class="span4">
-    	<div id="zen">
-    		<span class="player"></span>
-    		<span class="circle"></span>
-    		<span class="progress"></span>
-    		<span class="buffer"></span>
-    		<span class="drag"></span>
-    		<div class="button">
-    			<span class="icon play"></span>
-    			<span class="icon pause"></span>
-    		</div>
-    	</div>
-    	<div id="skip">
-    	  <a href="<%= root_url %>">
-      	  <button class="btn-large btn-inverse">
-      	    <i class="icon-step-forward"></i>
-        	</button>
-      	</a>
-      </div>
+	<div class="span4">
+		<%= render 'player' %>
     </div>
     <!-- End Player/Skip object -->
     
