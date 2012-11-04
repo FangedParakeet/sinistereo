@@ -114,6 +114,7 @@
 					while (newSongs[0] == allSongs[(songIndex-1)]) {
 						newSongs = fisherYatesShuffle(allSongs);
 					}
+					songs = newSongs;
 					songIndex = 0;
 					primePlayer(JSON.parse(newSongs[songIndex]).audio.url, newSongs);
 					$.get('next', {song: JSON.parse(newSongs[songIndex]).id});
@@ -225,6 +226,26 @@
             fx: 'fade',
             speed: 2000,
           });
+			$(".skip").on('click', function() {
+				$(".player").replaceWith("<%= j(render 'player') %>");
+				songIndex = songIndex + 1;
+				if (songs[songIndex]) {
+					primePlayer(JSON.parse(songs[songIndex]).audio.url, songs);
+					$.get('next', {song: JSON.parse(songs[songIndex]).id});
+				
+				}
+				else {
+					newSongs = fisherYatesShuffle(songs);
+					while (newSongs[0] == songs[(songIndex-1)]) {
+						newSongs = fisherYatesShuffle(allSongs);
+					}
+					songs = newSongs;
+					songIndex = 0;
+					primePlayer(JSON.parse(newSongs[songIndex]).audio.url, newSongs);
+					$.get('next', {song: JSON.parse(newSongs[songIndex]).id});	
+				}	
+			});
+			
         });
       </script>
       <!-- Slideshow javascript ends -->
@@ -329,10 +350,18 @@
       <div class="span4", id="tour">
         <%= yield %>
       </div>
-      
+      <script type="text/javascript">
+	</script>
+	
     <!-- Begin player -->
 	<div class="span4">
 		<%= render 'player' %>
+		<div class="skip">
+			<button class="btn-large btn-inverse" id="skip">
+				<i class="icon-step-forward"></i>
+			</button>
+		</div>
+		
     </div>
     <!-- End Player/Skip object -->
     
