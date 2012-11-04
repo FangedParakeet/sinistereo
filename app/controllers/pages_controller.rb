@@ -1,9 +1,10 @@
+require 'json'
+
 class PagesController < ApplicationController
 
   before_filter :require_login, :only => [:home, :data, :create, :update, :destroy]
   
   def index
-    @songs = Song.premium_blend
     @top_songs = Song.premium_blend.limit(5)
     # START NEW PLAYLIST ---
     if params[:top]
@@ -26,18 +27,36 @@ class PagesController < ApplicationController
     if session[:playlist]
       @current_playlist = Playlist.find_by_id(session[:playlist])
       # @current_song = @current_playlist.songs.shuffle.first
-      @current_song = @current_playlist.songs.shuffle
+      @current_songs = @current_playlist.songs.shuffle
     end
     if params[:id]
-      # @current_song = Song.find_by_id(params[:id])
-      @current_song = Song.all.shuffle
       song = Song.find_by_id(params[:id])
-      @current_song.delete(song)
-      @current_song.insert(0, song)
+      @current_songs.delete(song)
+      @current_songs.insert(0, song)
     end
-    if @current_song
-      @artist = @current_song.first.artist
-      @album = @current_song.first.album
+    if @current_songs
+      @current_song = @current_songs.first
+      @artist = @current_song.artist
+      @album = @current_song.album
+      @song_index = 1
+      @these_songs = Array.new
+      @current_songs.each do |song|
+        @these_songs << song.to_json
+      end
+    end
+  end
+  
+  def next
+    if params[:playlist]
+      @playlist = Playlist.find_by_id(params[:playlist].to_i)
+    end
+    if params[:song]
+      @song = Song.find_by_id(params[:song].to_i)
+    end
+    @playlists = @user.playlists
+    
+    respond_to do |format|
+      format.js
     end
   end
   
@@ -45,6 +64,14 @@ class PagesController < ApplicationController
     @playlists = @user.playlists
     @songs = Song.premium_blend
     @playlist = Playlist.new
+  end
+  
+  def test
+    @word = params[:thing]
+    
+    respond_to do |format|
+      format.js
+    end
   end
   
   

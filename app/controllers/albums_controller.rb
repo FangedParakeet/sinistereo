@@ -61,9 +61,13 @@ class AlbumsController < ApplicationController
   # PUT /albums/1.json
   def update
     @album = Album.find(params[:id])
-
+    @album.name = params[:album][:name]
+    @album.year = params[:album][:year]
+    if params[:album][:image]
+      @album.image = params[:album][:image]
+    end
     respond_to do |format|
-      if @album.update_attributes(params[:album])
+      if @album.save
         format.js
         format.html { redirect_to root_url }
         format.json { head :no_content }

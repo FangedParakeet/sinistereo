@@ -3,34 +3,13 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="http://www.facebook.com/2008/fbml">
   <head>
-	<% if @current_song %>
-	    <title>Sinistereo - <%= @current_song.first.name.to_s %> - <%= @artist.name.to_s %></title>
-	<% else %>
-		<title>Sinistereo</title>
-	<% end %>
-    <% if params[:id] %>
-    <meta property="og:title" content="Sinistereo - <%= @current_song.first.name.to_s %> - <%= @artist.name.to_s %>"/>
-    <% else %>
+	<title>Sinistereo</title>
     <meta property="og:title" content="Sinistereo"/>
-    <% end %>
     <meta property="og:type" content="song"/>
-    <% if params[:id] %>
-      <meta property="og:url" content="http://www.sinistereo.fm/?id=<%= @current_song.first.id %>"/>
-      <meta property="og:image" content="<%= @current_song.first.album.image_url(:thumb).to_s.rstrip %>"/>
-    <% else %>
-      <meta property="og:url" content="http://www.sinistereo.fm"></meta>
-		<% if @current_song %>
-	      <meta property="og:image" content="<%= @current_song.first.artist.image_url(:thumb).to_s.rstrip %>"/>
-		<% else %>
-			<meta property="og:image" content="sinistereo_logo.png"/>
-		<% end %>
-    <% end %>
+    <meta property="og:url" content="http://www.sinistereo.fm"></meta>
+	<meta property="og:image" content="sinistereo_new.png"/>
     <meta property="og:site_name" content="Sinistereo"/>
-    <% if params[:id] %>
-      <meta property="og:description" content="<%= @artist.bio.to_s.rstrip %>"/>
-    <% else %>
-      <meta property="og:description" content="Sinistereo: share music; discover bands."/>
-    <% end %>
+    <meta property="og:description" content="Sinistereo: share music; discover bands."/>
     <meta name="description" content="Sinistereo: share music; discover bands."></meta>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -46,7 +25,21 @@
     
     <!-- Player javascript starts -->
     <script type="text/javascript">
-		function primePlayer(first, second) {
+
+	function fisherYatesShuffle (myArray) {
+		another = myArray;
+		var i = another.length;
+		while ( --i ) {
+			var j = Math.floor( Math.random() * ( i + 1 ) );
+			var tempi = another[i];
+			var tempj = another[j];
+			another[i] = tempj;
+			another[j] = tempi;
+		}
+		return another;
+	}
+		
+		function primePlayer(song, allSongs) {
 			var status = "stop";
 	      	var dragging = false;
 
@@ -69,9 +62,9 @@
 	      	};
 
 	        <% if @current_song  %>
-	        	playSong(first);
+	        	playSong(song);
 	      	<% end %>
-
+	
 	      	// preload, update, end
 
 	      	player.bind($.jPlayer.event.progress, function(event) {    
@@ -101,7 +94,7 @@
 	      	    	displayProgress(pc);
 	      		}
 	      	});
-	      // BND: we have to change this so when event.ended occurs, it loads the new one.
+	      // BND: we have to change this so when event.ended occurs, it loads the new one. => DONE.
 	      	player.bind($.jPlayer.event.ended, function(event) {   
 	      		$('#zen .circle').removeClass( "rotate" );
 	      		$("#zen").removeClass( "play" );
@@ -110,16 +103,30 @@
 	      			      	var dragging = false;
 	      			      	var player = $("#zen .player");
 				$(".player").replaceWith("<%= j(render 'player') %>");
-
-	      		primePlayer(second, first);
-
+				songIndex = songIndex + 1;
+				if (allSongs[songIndex]) {
+					primePlayer(JSON.parse(allSongs[songIndex]).audio.url, allSongs);
+					$.get('next', {song: JSON.parse(allSongs[songIndex]).id});
+					
+				}
+				else {
+					newSongs = fisherYatesShuffle(allSongs);
+					while (newSongs[0] == allSongs[(songIndex-1)]) {
+						newSongs = fisherYatesShuffle(allSongs);
+					}
+					songIndex = 0;
+					primePlayer(JSON.parse(newSongs[songIndex]).audio.url, newSongs);
+					$.get('next', {song: JSON.parse(newSongs[songIndex]).id});
+					
+				}
+				
 	      	});
 
 	      	// play/pause
 
 	      	$("#zen .button").bind('mousedown', function() {
 	      		// not sure if this can be done in a simpler way.
-	      		// when you click on the edge of the play button, but button scales down and doesn't drigger the click,
+	      		// when you click on the edge of the play button, but button scales down and doesn't trigger the click,
 	      		// so mouseleave is added to still catch it.
 	      		$(this).bind('mouseleave', function() {
 	      			$(this).unbind('mouseleave');
@@ -198,8 +205,14 @@
 	      	}
 	       	
 		};
+				
         $(document).ready(function() {
-			primePlayer("<%= j(@current_song.first.audio.url.to_s) %>", "<%= j(@current_song.last.audio.url.to_s) %>");
+			window.songs = <%= raw @these_songs.to_json %>;
+			<% if @current_playlist %>
+				window.playlist = <%= raw @current_playlist.to_json %>;
+			<% end %>
+			window.songIndex = 0;
+			primePlayer(JSON.parse(songs[songIndex]).audio.url, songs);	
 		});
     	
       </script>
@@ -273,40 +286,7 @@
             !
         <% end %>
         </div>
-        <h2>Now Playing</h2>
-        <% if session[:playlist] %>
-          <h3>Playlist: <%= @current_playlist.name %></h3>
-        <% end %>
-        <ul class="nav nav-list">
-          <% if @current_song %>
-            <li>"<%= @current_song.first.name %>"</li>
-            <li><strong><%= link_to "#{@current_song.first.artist.name}", root_url(artist: @current_song.first.artist.id) %></strong></li>
-            <li><%= @current_song.first.album.name %></li>
-          <% end %>
-          <% if @user && @current_song.first %>
-            <ul class="nav nav-list" id="song_pref">
-              <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(@current_song.first.id), remote: true %></li>
-              <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(@current_song.first.id), remote: true %></li>
-              
-              <!-- Facebook Like Button -->
-              <li><div class="fb-like" data-href="http://www.sinistereo.fm/?id=<%= @current_song.first.id %>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div></li>
-              <!-- End Like Button -->
-              
-              <!-- Twitter tweet button -->
-              <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://sinistereo.fm/?id=<%= @current_song.first.id %>" data-text="I just listened to <%= @current_song.first.name %> by <%= @artist.name %> on Sinistereo!">Tweet</a></div></li>
-              <!-- End Twitter tweet button -->
-              
-              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            <% if !@playlists.empty? %>
-                <% @playlists.each do |playlist| %>
-                  <% if !playlist.songs.include?(@current_song.first) %>
-                    <%= render 'add_playlist_to_song', :playlist => playlist, :song => @current_song.first %>
-                  <% end %>
-                <% end %>
-            <% end %>  
-            </ul>
-          <% end %>   
-        </ul>         
+		<%= render 'now_playing', current_song: @current_song, current_playlist: @current_playlist, playlists: @playlists, artist: @artist %>
       </div>
       <!-- End Now Playing sidebar -->
       
@@ -331,13 +311,13 @@
             <% unless @playlists.empty? %>
               <h2>Playlists</h2>
               <% @playlists.each do |playlist| %>
-                <%= render 'playlist_bar', playlist: playlist, song: @current_song.first %>
+                <%= render 'playlist_bar', playlist: playlist, song: @current_song %>
               <% end %>
             <% end %>
           <% end %>
         </div>
         <ul class="nav nav-list">
-          <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.first.id), remote: true %></li>
+          <li><%= link_to "Add New Playlist", new_playlist_path(song: @current_song.id), remote: true %></li>
         </ul>
         <div class="clear"></div>
       <% end %>
@@ -376,41 +356,7 @@
         <!-- End sliding utility window-->
         
         <div class="well sidebar-nav", id="bar">
-          <% if @current_song %>
-            <ul class="nav nav-list">
-
-                <li><h2><%= link_to "#{@artist.name}", root_url(artist: @artist.id) %></h2></li>
-                <li><strong><%= @artist.city %>, <%= @artist.state %></strong></li><br />
-
-              <!-- Artwork slideshow -->
-              <% if @album.image.present? || @artist.image.present? %>
-                <div id="slideshow_images">
-                  <% if @album.image.present?  %>
-                    <%= image_tag @album.image_url(:thumb).to_s %>
-                  <% end %>
-                  <% if @artist.image.present? %>
-                    <%= image_tag @artist.image_url(:thumb).to_s %>
-                  <% end %>
-                </div>
-                <!-- Slideshow end -->
-              <% end %>
-
-                <li><%= @artist.bio %></li>
-                <% if @artist.website %>
-                  <li><%= link_to @artist.website, "http://#{@artist.website}", target: "_blank" %></li>
-                <% end %>
-                <li><h3>Shows</h3></li>
-                <ul class="nav nav-list">
-                  <% @artist.shows.each do |show| %>
-                  <li><strong><%= show.venue %></strong></li>
-                  <li><%= show.date.strftime("%e/%m/%y %l:%M %P") %></li>
-                  <li><%= show.city %></li>
-                  <li><%= show.state %></li><br />
-                  <% end %>
-                </ul>
-              </ul>
-            <% end %>
-
+			<%= render 'band_info', current_song: @current_song, artist: @artist, album: @album %>
         </div>
         <!-- End Band info/Shows window -->
         

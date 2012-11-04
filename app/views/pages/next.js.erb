@@ -1,0 +1,3 @@
+$(".now_playing").replaceWith("<%= j(render 'now_playing', current_song: @song, current_playlist: @playlist, playlists: @playlists, artist: @song.artist) %>");
+$(".band_info").replaceWith("<%= j(render 'band_info', current_song: @song, artist: @song.artist, album: @song.album) %>");
+$("#slideshow_images").cycle({fx: 'fade',speed: 2000,});

@@ -29,6 +29,9 @@ SinistereoApp::Application.routes.draw do
   get "tour/votes" => "tours#vote", :as => :vote
   get "tour/playlists" => "tours#play", :as => :play
   
+  get "test" => "pages#test", :as => :test
+  get "next" => "pages#next", :as => :next
+  
   
   resources :pages
   #get "listen" => "pages#show", :as => :listen

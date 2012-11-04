@@ -1,0 +1,36 @@
+<div class="band_info">
+  <% if current_song %>
+    <ul class="nav nav-list">
+
+        <li><h2><%= link_to "#{artist.name}", root_url(artist: artist.id) %></h2></li>
+        <li><strong><%= artist.city %>, <%= artist.state %></strong></li><br />
+
+      <!-- Artwork slideshow -->
+      <% if album.image.present? || artist.image.present? %>
+        <div id="slideshow_images">
+          <% if album.image.present?  %>
+            <%= image_tag album.image_url(:thumb).to_s %>
+          <% end %>
+          <% if artist.image.present? %>
+            <%= image_tag artist.image_url(:thumb).to_s %>
+          <% end %>
+        </div>
+        <!-- Slideshow end -->
+      <% end %>
+
+        <li><%= artist.bio %></li>
+        <% if artist.website %>
+          <li><%= link_to artist.website, "http://#{artist.website}", target: "_blank" %></li>
+        <% end %>
+        <li><h3>Shows</h3></li>
+        <ul class="nav nav-list">
+          <% artist.shows.each do |show| %>
+          <li><strong><%= show.venue %></strong></li>
+          <li><%= show.date.strftime("%e/%m/%y %l:%M %P") %></li>
+          <li><%= show.city %></li>
+          <li><%= show.state %></li><br />
+          <% end %>
+        </ul>
+      </ul>
+    <% end %>
+</div>

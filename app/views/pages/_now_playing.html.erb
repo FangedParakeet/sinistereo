@@ -1,0 +1,35 @@
+<div class="now_playing">
+    <h2>Now Playing</h2>
+    <% if session[:playlist] %>
+      <h3>Playlist: <%= current_playlist.name %></h3>
+    <% end %>
+    <ul class="nav nav-list">
+      <% if current_song %>
+        <li>"<%= current_song.name %>"</li>
+        <li><strong><%= link_to "#{current_song.artist.name}", root_url(artist: current_song.artist.id) %></strong></li>
+        <li><%= current_song.album.name %></li>
+      <% end %>
+      <% if @user && current_song %>
+        <ul class="nav nav-list" id="song_pref">
+          <li class="upvote"><%= link_to image_tag('heart.png', :size => '40x40'), upvote_url(current_song.id), remote: true %></li>
+          <li class="downvote"><%= link_to image_tag('broken_heart.png', :size => '40x40'), downvote_url(current_song.id), remote: true %></li>
+      
+          <!-- Facebook Like Button -->
+          <li><div class="fb-like" data-href="http://www.sinistereo.fm/?id=<%= current_song.id %>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div></li>
+          <!-- End Like Button -->
+      
+          <!-- Twitter tweet button -->
+          <li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://sinistereo.fm/?id=<%= current_song.id %>" data-text="I just listened to <%= current_song.name %> by <%= artist.name %> on Sinistereo!">Tweet</a></div></li>              
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		  <!-- End Twitter tweet button -->
+        <% if !playlists.empty? %>
+            <% playlists.each do |playlist| %>
+              <% if !playlist.songs.include?(current_song) %>
+                <%= render 'add_playlist_to_song', :playlist => playlist, :song => current_song %>
+              <% end %>
+            <% end %>
+        <% end %>  
+        </ul>
+      <% end %>   
+    </ul>   
+</div>

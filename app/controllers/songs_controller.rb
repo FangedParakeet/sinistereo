@@ -66,9 +66,12 @@ class SongsController < ApplicationController
   # PUT /songs/1.json
   def update
     @song = Song.find(params[:id])
-
+    @song.name = params[:song][:name]
+    if params[:song][:audio]
+      @song.audio = params[:song][:audio]
+    end
     respond_to do |format|
-      if @song.update_attributes(params[:song])
+      if @song.save
         format.js
         format.html { redirect_to root_url }
         format.json { head :no_content }

@@ -39,10 +39,18 @@ class ArtistsController < ApplicationController
   # PUT /artists/1.json
   def update
     @artist = Artist.find(params[:id])
+    @artist.name = params[:artist][:name]
+    @artist.city = params[:artist][:city]
+    @artist.state = params[:artist][:state]
+    @artist.bio = params[:artist][:bio]
+    @artist.website = params[:artist][:website]
+    if params[:artist][:image]
+      @artist.image = params[:artist][:image]
+    end
     flash[:notice] = "Updated!"
 
     respond_to do |format|
-      if @artist.update_attributes(params[:artist])
+      if @artist.save
         format.js
         format.html { redirect_to root_url }
       else
