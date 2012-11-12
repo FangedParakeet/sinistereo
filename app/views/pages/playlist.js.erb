@@ -1,0 +1,11 @@
+$(".player").replaceWith("<%= j(render 'player') %>");
+window.songs = <%= raw @these_songs.to_json %>;
+<% if @current_playlist %>
+	window.playlist = <%= raw @current_playlist.to_json %>;
+<% end %>
+window.songIndex = 0;
+primePlayer(JSON.parse(songs[songIndex]).audio.url, songs);	
+
+$(".now_playing").replaceWith("<%= j(render 'now_playing', current_song: @current_song, current_playlist: @current_playlist, playlists: @playlists, artist: @artist) %>");
+$(".band_info").replaceWith("<%= j(render 'band_info', current_song: @current_song, artist: @artist, album: @album) %>");
+$("#slideshow_images").cycle({fx: 'fade',speed: 2000,});

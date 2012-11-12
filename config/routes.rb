@@ -31,6 +31,7 @@ SinistereoApp::Application.routes.draw do
   
   get "test" => "pages#test", :as => :test
   get "next" => "pages#next", :as => :next
+  get "playlist" => "pages#playlist", :as => :playlist
   
   
   resources :pages

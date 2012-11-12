@@ -111,7 +111,7 @@
 				}
 				else {
 					newSongs = fisherYatesShuffle(allSongs);
-					while (newSongs[0] == allSongs[(songIndex-1)]) {
+					while (JSON.parse(newSongs[0]).id == JSON.parse(allSongs[(songIndex-1)]).id) {
 						newSongs = fisherYatesShuffle(allSongs);
 					}
 					songs = newSongs;
@@ -219,13 +219,14 @@
       </script>
       <!-- Player javascript ends -->
       
-      <!-- Slideshow javascript begins -->
+      <!-- Slideshow & next song javascript begins -->
       <script type="text/javascript">
         $(document).ready(function(){
           $("#slideshow_images").cycle({
             fx: 'fade',
             speed: 2000,
           });
+
 			$(".skip").on('click', function() {
 				$(".player").replaceWith("<%= j(render 'player') %>");
 				songIndex = songIndex + 1;
@@ -236,9 +237,9 @@
 				}
 				else {
 					newSongs = fisherYatesShuffle(songs);
-					while (newSongs[0] == songs[(songIndex-1)]) {
-						newSongs = fisherYatesShuffle(allSongs);
-					}
+					while (JSON.parse(newSongs[0]).id == JSON.parse(songs[(songIndex-1)]).id) {
+						newSongs = fisherYatesShuffle(songs);
+					};
 					songs = newSongs;
 					songIndex = 0;
 					primePlayer(JSON.parse(newSongs[songIndex]).audio.url, newSongs);
@@ -317,9 +318,9 @@
         <ul class="nav nav-list">
         <% if @top_songs %>
           <% @top_songs.each do |song| %>
-            <li><%= link_to "\"#{song.name}\"", root_url(id: song.id, top: "Yes!") %>
+            <li><%= link_to "\"#{song.name}\"", playlist_url(song: song.id, top: "Yes!"), remote: true %>
               <ul class="nav nav-list">
-                <li><%= link_to "--#{song.artist.name}", root_url(artist: song.artist.id) %></li>
+                <li><%= link_to "--#{song.artist.name}", playlist_url(artist: song.artist.id), remote: true %></li>
               </ul>
             </li>
           <% end %>

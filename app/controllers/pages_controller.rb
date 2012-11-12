@@ -47,8 +47,26 @@ class PagesController < ApplicationController
   end
   
   def next
-    if params[:playlist]
-      @playlist = Playlist.find_by_id(params[:playlist].to_i)
+    if params[:top]
+      session[:playlist] = nil
+    elsif params[:playlist]
+      session[:playlist] = params[:playlist]
+    elsif params[:artist]
+      artist = Artist.find_by_id(params[:artist])
+      if Playlist.find_by_name(artist.name)
+        session[:playlist] = Playlist.find_by_name(artist.name).id
+        @current_playlist = Playlist.find_by_name(artist.name)
+      else
+        @current_playlist = Playlist.create(name: artist.name)
+        @current_playlist.artist_playlist(params[:artist])
+        session[:playlist] = @current_playlist.id
+      end
+    end
+    
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+      # @current_song = @current_playlist.songs.shuffle.first
+      @current_songs = @current_playlist.songs.shuffle
     end
     if params[:song]
       @song = Song.find_by_id(params[:song].to_i)
@@ -60,21 +78,48 @@ class PagesController < ApplicationController
     end
   end
   
-  def home
-    @playlists = @user.playlists
-    @songs = Song.premium_blend
-    @playlist = Playlist.new
-  end
-  
-  def test
-    @word = params[:thing]
-    
-    respond_to do |format|
-      format.js
+  def playlist
+    if params[:top]
+      session[:playlist] = nil
+    elsif params[:playlist]
+      session[:playlist] = params[:playlist]
+    elsif params[:artist]
+      artist = Artist.find_by_id(params[:artist])
+      if Playlist.find_by_name(artist.name)
+        session[:playlist] = Playlist.find_by_name(artist.name).id
+        @current_playlist = Playlist.find_by_name(artist.name)
+      else
+        @current_playlist = Playlist.create(name: artist.name)
+        @current_playlist.artist_playlist(params[:artist])
+        session[:playlist] = @current_playlist.id
+      end
     end
+    
+    # PLAY CURRENT SONG --
+    if session[:playlist]
+      @current_playlist = Playlist.find_by_id(session[:playlist])
+      # @current_song = @current_playlist.songs.shuffle.first
+      @current_songs = @current_playlist.songs.shuffle
+    end
+    if params[:song]
+      song = Song.find_by_id(params[:song])
+      @current_songs.delete(song)
+      @current_songs.insert(0, song)
+    end
+    if @current_songs
+      @current_song = @current_songs.first
+      @artist = @current_song.artist
+      @album = @current_song.album
+      @song_index = 1
+      @these_songs = Array.new
+      @current_songs.each do |song|
+        @these_songs << song.to_json
+      end
+      @playlists = @user.playlists
+    end
+    
   end
-  
-  
+      
   def create
     @playlist_song = PlaylistSong.new(params[:playlist_song])
     @playlist = Playlist.find_by_id(params[:playlist_song][:playlist_id])
