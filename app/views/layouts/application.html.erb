@@ -111,8 +111,10 @@
 				}
 				else {
 					newSongs = fisherYatesShuffle(allSongs);
-					while (JSON.parse(newSongs[0]).id == JSON.parse(allSongs[(songIndex-1)]).id) {
-						newSongs = fisherYatesShuffle(allSongs);
+					if (allSongs.length != 1){
+						while (JSON.parse(newSongs[0]).id == JSON.parse(allSongs[(songIndex-1)]).id) {
+							newSongs = fisherYatesShuffle(allSongs);
+						}
 					}
 					songs = newSongs;
 					songIndex = 0;
@@ -237,9 +239,11 @@
 				}
 				else {
 					newSongs = fisherYatesShuffle(songs);
-					while (JSON.parse(newSongs[0]).id == JSON.parse(songs[(songIndex-1)]).id) {
-						newSongs = fisherYatesShuffle(songs);
-					};
+					if (songs.length != 1) {
+						while (JSON.parse(newSongs[0]).id == JSON.parse(songs[(songIndex-1)]).id) {
+							newSongs = fisherYatesShuffle(songs);
+						};
+					}
 					songs = newSongs;
 					songIndex = 0;
 					primePlayer(JSON.parse(newSongs[songIndex]).audio.url, newSongs);
@@ -318,9 +322,9 @@
         <ul class="nav nav-list">
         <% if @top_songs %>
           <% @top_songs.each do |song| %>
-            <li><%= link_to "\"#{song.name}\"", playlist_url(song: song.id, top: "Yes!"), remote: true %>
+            <li><%= link_to "\"#{song.name}\"", aplaylist_url(song: song.id, top: "Yes!"), remote: true %>
               <ul class="nav nav-list">
-                <li><%= link_to "--#{song.artist.name}", playlist_url(artist: song.artist.id), remote: true %></li>
+                <li><%= link_to "--#{song.artist.name}", aplaylist_url(artist: song.artist.id), remote: true %></li>
               </ul>
             </li>
           <% end %>

@@ -59,6 +59,7 @@ class PlaylistsController < ApplicationController
   def update
     @playlist = Playlist.find(params[:id])
     @songs = @playlist.songs
+    @song = @current_song
     respond_to do |format|
       if @playlist.update_attributes(params[:playlist])
         format.js
