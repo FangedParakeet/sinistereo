@@ -84,6 +84,7 @@ input, select {
 
 nav {
 	float: right;
+	padding-right: 200px;
 }
 
 nav a {
