@@ -71,8 +71,9 @@ class PagesController < ApplicationController
     if params[:song]
       @song = Song.find_by_id(params[:song].to_i)
     end
-    @playlists = @user.playlists
-    
+    if @user
+      @playlists = @user.playlists
+    end
     respond_to do |format|
       format.js
     end
