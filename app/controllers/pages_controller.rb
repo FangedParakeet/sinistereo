@@ -116,7 +116,9 @@ class PagesController < ApplicationController
       @current_songs.each do |song|
         @these_songs << song.to_json
       end
-      @playlists = @user.playlists
+      if @user
+        @playlists = @user.playlists
+      end
     end
     
   end
