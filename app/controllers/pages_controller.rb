@@ -2,7 +2,7 @@ require 'json'
 
 class PagesController < ApplicationController
 
-  before_filter :require_login, :only => [:home, :data, :create, :update, :destroy]
+  before_filter :require_login, :only => [:home, :create, :update, :destroy]
   
   def index
     @top_songs = Song.premium_blend.limit(5)
