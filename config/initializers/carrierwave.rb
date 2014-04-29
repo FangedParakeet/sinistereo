@@ -3,8 +3,8 @@ Excon.defaults[:ssl_verify_peer] = false  # wtf: Not sure why this works, but it
 CarrierWave.configure do |config|  
   config.fog_credentials = {
     :provider               => 'AWS',       # required
-    :aws_access_key_id      => 'AKIAJYZGIL7XQDK6MUUQ',       # required
-    :aws_secret_access_key  => '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',       # required
+    :aws_access_key_id      => ENV['AWS_ACCESS_KEY'],       # required
+    :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],       # required
     :region                 => 'us-east-1'  # optional, defaults to 'us-east-1'
   }
   config.fog_directory  = 'sinistereo'                     # required
